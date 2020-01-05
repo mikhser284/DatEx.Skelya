@@ -4,9 +4,100 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:DatEx.Skelya.GUI.UserControls"
-             mc:Ignorable="d" 
-             d:DesignHeight="450" d:DesignWidth="800">
-    <Grid>
+             mc:Ignorable="d" >
+    <UserControl.Resources>
+        <Style TargetType="Label" x:Key="PropsGroupTitle">
+            <Setter Property="Foreground" Value="DodgerBlue"/>
+            <Setter Property="FontWeight" Value="Bold"/>
+            <Setter Property="FontSize" Value="14"/>
+        </Style>
+
+        <Style x:Key="PropName" TargetType="{x:Type Label}">
+            <Setter Property="FontWeight" Value="Bold"/>
+            <Setter Property="Foreground" Value="#CCCCCC"/>
+            <Setter Property="Margin" Value="30,1,6,1"/>
+            <Setter Property="Padding" Value="0"/>
+            <Setter Property="Grid.Column" Value="0"/>
+        </Style>
+
+        <Style x:Key="PropValue" TargetType="{x:Type Label}">
+            <Setter Property="FontWeight" Value="Normal"/>
+            <Setter Property="Margin" Value="6,1,3,1"/>
+            <Setter Property="Padding" Value="0"/>
+            <Setter Property="Grid.Column" Value="1"/>
+        </Style>
+
+        <Style x:Key="PropMultilineValue" TargetType="{x:Type TextBlock}">
+            <Setter Property="FontWeight" Value="Bold"/>
+            <Setter Property="Margin" Value="6,1,3,1"/>
+            <Setter Property="Padding" Value="0"/>
+            <Setter Property="Grid.Column" Value="1"/>
+            <Setter Property="MaxWidth" Value="300"/>
+            <Setter Property="Height" Value="60"/>
+            <Setter Property="HorizontalAlignment" Value="Left"/>
+            <Setter Property="TextWrapping" Value="WrapWithOverflow"/>
+        </Style>
+
+        <Style x:Key="PropSeparator" TargetType="{x:Type Separator}">
+            <Setter Property="Margin" Value="40,3,10,3"/>
+            <Setter Property="Grid.ColumnSpan" Value="2"/>
+        </Style>
+
+    </UserControl.Resources>
+    <ScrollViewer HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto">
+        <StackPanel Grid.IsSharedSizeScope="True">
             
-    </Grid>
+            <Expander IsExpanded="True" Margin="3">
+                <Expander.Header>
+                    <Label Content="Событие" Style="{StaticResource PropsGroupTitle}"/>
+                </Expander.Header>
+                <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto" SharedSizeGroup="PropName"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                </Grid.RowDefinitions>
+
+                <Label Grid.Row="0" Style="{StaticResource PropName}"  Content="Критичность"/>
+                <Label Grid.Row="0" Style="{StaticResource PropValue}" x:Name="Part_EventStatusLbl" FontWeight="Bold"/>
+
+                <Label Grid.Row="1" Style="{StaticResource PropName}"  Content="Время"/>
+                <Label Grid.Row="1" Style="{StaticResource PropValue}" x:Name="Part_EventTimeLbl"/>
+
+                <Label Grid.Row="2" Style="{StaticResource PropName}"  Content="Место"/>
+                <Label Grid.Row="2" Style="{StaticResource PropValue}" x:Name="Part_EventPlaceLbl"/>
+
+                <Label Grid.Row="3" Style="{StaticResource PropName}"  Content="Устройство"/>
+                <Label Grid.Row="3" Style="{StaticResource PropValue}" x:Name="Part_EventDeviceLbl"/>
+
+                <Label Grid.Row="4" Style="{StaticResource PropName}"  Content="Описание"/>
+                <TextBlock Grid.Row="4" Style="{StaticResource PropMultilineValue}" x:Name="Part_EventDescriptionTxt"/>
+
+                <Label Grid.Row="6" Style="{StaticResource PropName}"  Content="Комментариев, шт."/>
+                <Label Grid.Row="6" Style="{StaticResource PropValue}" x:Name="Part_EventCommentsCountLbl"/>
+            </Grid>
+            </Expander>
+            
+            <Expander IsExpanded="True" Margin="3">
+                <Expander.Header>
+                    <Label Name="Part_ShapshotLbl" Content="Изображение" Style="{StaticResource PropsGroupTitle}"/>
+                </Expander.Header>
+                <Border Grid.Column="1" Grid.Row="1" BorderThickness="1" BorderBrush="SteelBlue" Background="AliceBlue" Height="200" CornerRadius="3" Margin="30,3,3,3">
+                    <Grid>
+                        <Label x:Name="Part_ImagePlaceholderLbl" Content="Изображение отсутствует" Foreground="SteelBlue" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                        <Image x:Name="Part_EventSnapshotImg"  Stretch="Uniform" VerticalAlignment="Top" />
+                    </Grid>
+                </Border>
+            </Expander>
+        </StackPanel>
+        
+    </ScrollViewer>
 </UserControl>

@@ -48,8 +48,7 @@
             <GridSplitter Grid.Column="0" Grid.Row="1" Background="Transparent" Height="6" HorizontalAlignment="Stretch"/>
             
             <TabControl Grid.Column="0" Grid.Row="2" >
-                <TabItem Header="Показатели весов">
-                    <uc:EventDetailsCtrl/>
+                <TabItem Header="Комментарии">
                 </TabItem>
             </TabControl>
 
@@ -62,21 +61,64 @@
         <uc:EventsTableCtrl Grid.Column="3" Grid.Row="2"/>
 
         <GridSplitter Grid.Column="4" Grid.Row="2" Width="6" Background="Transparent" HorizontalAlignment="Stretch"/>
-        
-        <TabControl Grid.Column="5" Grid.Row="2" >
-            
-            <TabItem Header="Дерево событий">
-                <uc:EventsTreeCtrl/>
-            </TabItem>
-            
-            <TabItem Header="Фильтры">
-                <uc:EventsFilterCtrl/>
-            </TabItem>
 
-            <TabItem Header="Триггеры">
-                <uc:TriggersCtrl/>
-            </TabItem>
-            
-        </TabControl>
+        <Grid Grid.Column="5" Grid.Row="2">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="4*" MinHeight="100"/>
+                <RowDefinition MinHeight="6" MaxHeight="6"/>
+                <RowDefinition Height="2*" MinHeight="100"/>
+            </Grid.RowDefinitions>
+
+            <TabControl Grid.Column="0" Grid.Row="0" >
+
+                <TabItem Header="Показатели весов">
+                    <ListBox>
+                        <ListBoxItem>
+                            <uc:ScalesCtrl/>
+                        </ListBoxItem>
+                        <ListBoxItem>
+                            <uc:ScalesCtrl/>
+                        </ListBoxItem>
+                        <ListBoxItem>
+                            <uc:ScalesCtrl/>
+                        </ListBoxItem>
+                        <ListBoxItem>
+                            <uc:ScalesCtrl/>
+                        </ListBoxItem>
+                        <ListBoxItem>
+                            <uc:ScalesCtrl/>
+                        </ListBoxItem>
+                        <ListBoxItem>
+                            <uc:ScalesCtrl/>
+                        </ListBoxItem>
+                    </ListBox>
+                </TabItem>
+
+                
+
+                <TabItem Header="Фильтры">
+                    <uc:EventsFilterCtrl/>
+                </TabItem>
+
+                <TabItem Header="Триггеры">
+                    <uc:TriggersCtrl/>
+                </TabItem>
+
+            </TabControl>
+
+            <GridSplitter Grid.Column="0" Grid.Row="1" Background="Transparent" Height="6" HorizontalAlignment="Stretch"/>
+
+            <TabControl Grid.Column="0" Grid.Row="2" >
+                <TabItem Header="Дерево событий">
+                    <uc:EventsTreeCtrl/>
+                </TabItem>
+            </TabControl>
+
+        </Grid>
+
+        
     </Grid>
 </Window>

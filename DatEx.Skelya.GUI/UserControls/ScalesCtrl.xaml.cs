@@ -14,11 +14,11 @@ using System.Windows.Shapes;
 namespace DatEx.Skelya.GUI.UserControls
 {
     /// <summary>
-    /// Interaction logic for FastFilterCtrl.xaml
+    /// Interaction logic for ScalesCtrl.xaml
     /// </summary>
-    public partial class FastFilterCtrl : UserControl
+    public partial class ScalesCtrl : UserControl
     {
-        public FastFilterCtrl()
+        public ScalesCtrl()
         {
             InitializeComponent();
         }
