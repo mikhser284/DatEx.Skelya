@@ -1,0 +1,25 @@
+﻿<UserControl x:Class="DatEx.Skelya.GUI.UserControls.EventsTreeCtrl"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:DatEx.Skelya.GUI.UserControls"
+             mc:Ignorable="d" 
+             d:DesignHeight="450" d:DesignWidth="800">
+    <TreeView>
+        <TreeViewItem Header="Все события">
+            <TreeViewItem Header="2019.01.01">
+                <TreeViewItem Header="ТОВ &quot;Ваговик&quot;">
+                    <TreeViewItem Header="Ваги автомобільні вїзд">
+                        <TreeViewItem Header="Заїзд на ваги"/>
+                        <TreeViewItem Header="Заїзд на ваги з мінусовим значенням"/>
+                    </TreeViewItem>
+                    <TreeViewItem Header="Ваги автомобільні виїзд">
+                        <TreeViewItem Header="Заїзд на ваги"/>
+                        <TreeViewItem Header="Заїзд на ваги з мінусовим значенням"/>
+                    </TreeViewItem>
+                </TreeViewItem>
+            </TreeViewItem>
+        </TreeViewItem>
+    </TreeView>
+</UserControl>

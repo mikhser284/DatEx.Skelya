@@ -1,0 +1,31 @@
+﻿<UserControl x:Class="DatEx.Skelya.GUI.UserControls.EventsTableCtrl"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:DatEx.Skelya.GUI.UserControls"
+             mc:Ignorable="d" 
+             d:DesignHeight="450" d:DesignWidth="800">
+    <DataGrid AutoGenerateColumns="False"
+                  GridLinesVisibility="Vertical"
+                  VerticalGridLinesBrush="#B8C6D8"
+                  HorizontalGridLinesBrush="#EFF4F7"
+                  AlternatingRowBackground="#F4F7F9"
+                  SelectionMode="Single" SelectionUnit="FullRow"
+                  CanUserResizeRows="False"
+                  CanUserAddRows="False"
+                  CanUserDeleteRows="False">
+        <DataGrid.Columns>
+            <DataGridCheckBoxColumn Header="💬" Binding="{Binding Path=EventHasComments, Mode=OneWay}"/>
+            <DataGridTextColumn Header="📷" Binding="{Binding Path=EventSnapshotId}"/>
+            <DataGridTextColumn Header="Критичность" Binding="{Binding Path=EventType}"/>
+            <DataGridTextColumn Header="Время события" Binding="{Binding Path=EventTime, StringFormat={}{0:yyyy.MM.dd-ddd   	HH:mm:ss}}"/>
+            <DataGridTextColumn Header="Место" Binding="{Binding Path=DataSectorName}"/>
+            <DataGridTextColumn Header="Устройство" Binding="{Binding Path=DeviceName}"/>
+            <DataGridTextColumn Header="Описание события" Binding="{Binding Path=EventDescription}"/>
+
+            <DataGridTextColumn Header="Тип события" Binding="{Binding Path=EventTypeName}"/>
+            <DataGridTextColumn Header="Id" Binding="{Binding Path=EventId}"/>
+        </DataGrid.Columns>
+    </DataGrid>
+</UserControl>

@@ -1,0 +1,42 @@
+﻿<UserControl x:Class="DatEx.Skelya.GUI.UserControls.AppMenuCtrl"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:DatEx.Skelya.GUI.UserControls">
+    <Grid Background="#D6DBE9">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="Auto"/>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="Auto"/>
+        </Grid.ColumnDefinitions>
+        <Menu Grid.Column="0" Background="#D6DBE9" VerticalAlignment="Center" Margin="2">
+            <MenuItem Header="  ≡  ">
+                <MenuItem Header="Сохранить как отчет в формате">
+                    <MenuItem Header="*.json"/>
+                    <MenuItem Header="*.csv"/>
+                    <MenuItem Header="*.excel"/>
+                    <MenuItem Header="*.pdf"/>
+                    <MenuItem Header="*.html"/>
+                </MenuItem>
+                <Separator/>
+                <MenuItem Header="Пользовательские фильтры">
+                    <MenuItem Header="Открыть"/>
+                    <MenuItem Header="Создать"/>
+                    <MenuItem Header="Сохранить"/>
+                    <MenuItem Header="Сохранить как..."/>
+                    <MenuItem Header="Удалить"/>
+                </MenuItem>
+                <Separator/>
+                <MenuItem Header="Настройки"/>
+                <MenuItem Header="О программе"/>
+                <Separator/>
+                <MenuItem Header="Выход"/>
+            </MenuItem>
+        </Menu>
+        <local:FastFilterCtrl Grid.Column="1" HorizontalAlignment="Center"/>
+        <local:OperationProgressCtrl HorizontalAlignment="Right" Grid.Column="2"/> 
+    
+    </Grid>
+    
+</UserControl>
