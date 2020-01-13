@@ -3,7 +3,8 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-             xmlns:local="clr-namespace:DatEx.Skelya.GUI.UserControls">
+             xmlns:local="clr-namespace:DatEx.Skelya.GUI.UserControls"
+             xmlns:commands="clr-namespace:DatEx.Skelya.GUI.Commands">    
     <Grid Background="#D6DBE9">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="Auto"/>
@@ -13,11 +14,11 @@
         <Menu Grid.Column="0" Background="#D6DBE9" VerticalAlignment="Center" Margin="2">
             <MenuItem Header="  ≡  ">
                 <MenuItem Header="Сохранить как отчет в формате">
-                    <MenuItem Header="*.json"/>
-                    <MenuItem Header="*.csv"/>
-                    <MenuItem Header="*.excel"/>
-                    <MenuItem Header="*.pdf"/>
-                    <MenuItem Header="*.html"/>
+                    <MenuItem Header="*.pdf" Command="{x:Static commands:AppCommands.SaveAsReportInPdf}"/>
+                    <MenuItem Header="*.excel" Command="{x:Static commands:AppCommands.SaveAsReportInExcel}"/>
+                    <MenuItem Header="*.csv" Command="{x:Static commands:AppCommands.SaveAsReportInCsv}"/>
+                    <MenuItem Header="*.html" Command="{x:Static commands:AppCommands.SaveAsReportInHtml}"/>
+                    <MenuItem Header="*.json" Command="{x:Static commands:AppCommands.SaveAsReportInJson}"/>
                 </MenuItem>
                 <Separator/>
                 <MenuItem Header="Пользовательские фильтры">
@@ -28,10 +29,11 @@
                     <MenuItem Header="Удалить"/>
                 </MenuItem>
                 <Separator/>
-                <MenuItem Header="Настройки"/>
-                <MenuItem Header="О программе"/>
+                <MenuItem Header="Изображение события ..." Command="{x:Static commands:AppCommands.ShowEventSnapshotDialog}"/>
+                <MenuItem Header="Настройки ..." Command="{x:Static commands:AppCommands.ShowAppSettingsDialog}"/>
+                <MenuItem Header="О программе ..." Command="{x:Static commands:AppCommands.ShowAppAboutDialog}"/>
                 <Separator/>
-                <MenuItem Header="Выход"/>
+                <MenuItem Header="Выход" Command="{x:Static commands:AppCommands.Exit}"/>
             </MenuItem>
         </Menu>
         <Label x:Name="Part_TimeInterval" Grid.Column="1" Content="2020.01.01-Ср   00:00   ...   2020.01.02-Чт   00:00   (1 д)" FontWeight="Bold" HorizontalAlignment="Center"/>

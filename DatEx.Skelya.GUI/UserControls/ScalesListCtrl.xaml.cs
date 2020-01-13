@@ -8,13 +8,17 @@ using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
+using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace DatEx.Skelya.GUI
+namespace DatEx.Skelya.GUI.UserControls
 {
-    public partial class MainWindow_ : Window
+    /// <summary>
+    /// Interaction logic for ScalesListCtrl.xaml
+    /// </summary>
+    public partial class ScalesListCtrl : UserControl
     {
-        public MainWindow_()
+        public ScalesListCtrl()
         {
             InitializeComponent();
         }

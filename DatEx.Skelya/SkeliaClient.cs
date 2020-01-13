@@ -39,6 +39,12 @@ namespace DatEx.Skelya
             return JsonConvert.DeserializeObject<QueryResult<T>>(result);
         }
 
+        //private QueryResult<T> PostRequest<T>(String query)
+        //{
+        //    HttpResponseMessage response = HttpClient.PostAsync(query).Result;
+        //    throw new NotImplementedException();
+        //}
+
         public QueryResult<User> GetUsers() => GetRequest<User>("users");
 
         public QueryResult<Trigger> GetTriggers() => GetRequest<Trigger>("triggers");

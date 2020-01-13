@@ -23,6 +23,11 @@ namespace DatEx.Skelya.CUI
             //ShowDataSectors(Client);
         }
 
+        public static void UpdateUserInfo(SkeliaClient client)
+        {
+
+        }
+
         public static void ShowEventLogs(SkeliaClient client)
         {
             List<EventLogRecord> eventLogRecords = client.GetEventLogRecords(new DateTime(2019, 12, 21, 10, 09, 19), new DateTime(2019, 12, 21, 10, 09, 21)).Items;

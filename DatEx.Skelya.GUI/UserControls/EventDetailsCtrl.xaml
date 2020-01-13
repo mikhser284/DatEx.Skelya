@@ -10,6 +10,7 @@
             <Setter Property="Foreground" Value="DodgerBlue"/>
             <Setter Property="FontWeight" Value="Bold"/>
             <Setter Property="FontSize" Value="14"/>
+            <Setter Property="Padding" Value="1"/>
         </Style>
 
         <Style x:Key="PropName" TargetType="{x:Type Label}">
@@ -32,8 +33,7 @@
             <Setter Property="Margin" Value="6,1,3,1"/>
             <Setter Property="Padding" Value="0"/>
             <Setter Property="Grid.Column" Value="1"/>
-            <Setter Property="MaxWidth" Value="300"/>
-            <Setter Property="Height" Value="60"/>
+            <Setter Property="MinHeight" Value="50"/>
             <Setter Property="HorizontalAlignment" Value="Left"/>
             <Setter Property="TextWrapping" Value="WrapWithOverflow"/>
         </Style>
@@ -47,18 +47,16 @@
     <ScrollViewer HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto">
         <StackPanel Grid.IsSharedSizeScope="True">
             
-            <Expander IsExpanded="True" Margin="3">
-                <Expander.Header>
-                    <Label Content="Событие" Style="{StaticResource PropsGroupTitle}"/>
-                </Expander.Header>
-                <Grid>
+            <Expander IsExpanded="True" Margin="3, 0">
+            <Expander.Header>
+                <Label Content="Событие" Style="{StaticResource PropsGroupTitle}"/>
+            </Expander.Header>
+            <Grid>
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="Auto" SharedSizeGroup="PropName"/>
                     <ColumnDefinition Width="*"/>
                 </Grid.ColumnDefinitions>
                 <Grid.RowDefinitions>
-                    <RowDefinition Height="Auto"/>
-                    <RowDefinition Height="Auto"/>
                     <RowDefinition Height="Auto"/>
                     <RowDefinition Height="Auto"/>
                     <RowDefinition Height="Auto"/>
@@ -80,24 +78,89 @@
 
                 <Label Grid.Row="4" Style="{StaticResource PropName}"  Content="Описание"/>
                 <TextBlock Grid.Row="4" Style="{StaticResource PropMultilineValue}" x:Name="Part_EventDescriptionTxt"/>
-
-                <Label Grid.Row="6" Style="{StaticResource PropName}"  Content="Комментариев, шт."/>
-                <Label Grid.Row="6" Style="{StaticResource PropValue}" x:Name="Part_EventCommentsCountLbl"/>
             </Grid>
-            </Expander>
-            
-            <Expander IsExpanded="True" Margin="3">
-                <Expander.Header>
-                    <Label Name="Part_ShapshotLbl" Content="Изображение" Style="{StaticResource PropsGroupTitle}"/>
-                </Expander.Header>
-                <Border Grid.Column="1" Grid.Row="1" BorderThickness="1" BorderBrush="SteelBlue" Background="AliceBlue" Height="200" CornerRadius="3" Margin="30,3,3,3">
-                    <Grid>
-                        <Label x:Name="Part_ImagePlaceholderLbl" Content="Изображение отсутствует" Foreground="SteelBlue" HorizontalAlignment="Center" VerticalAlignment="Center"/>
-                        <Image x:Name="Part_EventSnapshotImg"  Stretch="Uniform" VerticalAlignment="Top" />
-                    </Grid>
-                </Border>
-            </Expander>
-        </StackPanel>
+        </Expander>
         
+            <Expander IsExpanded="True" Margin="3, 0">
+            <Expander.Header>
+                <Label Name="Part_ShapshotLbl" Content="Изображение" Style="{StaticResource PropsGroupTitle}"/>
+            </Expander.Header>
+            <Border Grid.Column="1" Grid.Row="1" BorderThickness="1" BorderBrush="SteelBlue" Background="AliceBlue" Height="200" CornerRadius="3" Margin="30,3,3,3">
+                <Grid>
+                    <Label x:Name="Part_ImagePlaceholderLbl" Content="Изображение отсутствует" Foreground="SteelBlue" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                    <Image x:Name="Part_EventSnapshotImg"  Stretch="Uniform" VerticalAlignment="Top" />
+                </Grid>
+            </Border>
+        </Expander>
+
+            <Expander IsExpanded="False" Margin="3, 0">
+                <Expander.Header>
+                    <Label Content="Детали" Style="{StaticResource PropsGroupTitle}"/>
+                </Expander.Header>
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto" SharedSizeGroup="PropName"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                    </Grid.RowDefinitions>
+
+                    <Label Grid.Row="0" Style="{StaticResource PropName}"  Content="Критичность"/>
+                    <Label Grid.Row="0" Style="{StaticResource PropValue}" />
+
+                    <Label Grid.Row="1" Style="{StaticResource PropName}"  Content="Время"/>
+                    <Label Grid.Row="1" Style="{StaticResource PropValue}" />
+
+                    <Label Grid.Row="2" Style="{StaticResource PropName}"  Content="Место"/>
+                    <Label Grid.Row="2" Style="{StaticResource PropValue}" />
+
+                    <Label Grid.Row="3" Style="{StaticResource PropName}"  Content="Устройство"/>
+                    <Label Grid.Row="3" Style="{StaticResource PropValue}" />
+
+                    <Label Grid.Row="4" Style="{StaticResource PropName}"  Content="Описание"/>
+                    <Label Grid.Row="4" Style="{StaticResource PropValue}" />
+                </Grid>
+            </Expander>
+
+            <Expander IsExpanded="False" Margin="3, 0">
+        <Expander.Header>
+            <Label Content="Данные" Style="{StaticResource PropsGroupTitle}"/>
+        </Expander.Header>
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto" SharedSizeGroup="PropName"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
+
+            <Label Grid.Row="0" Style="{StaticResource PropName}"  Content="Критичность"/>
+            <Label Grid.Row="0" Style="{StaticResource PropValue}" />
+
+            <Label Grid.Row="1" Style="{StaticResource PropName}"  Content="Время"/>
+            <Label Grid.Row="1" Style="{StaticResource PropValue}" />
+
+            <Label Grid.Row="2" Style="{StaticResource PropName}"  Content="Место"/>
+            <Label Grid.Row="2" Style="{StaticResource PropValue}" />
+
+            <Label Grid.Row="3" Style="{StaticResource PropName}"  Content="Устройство"/>
+            <Label Grid.Row="3" Style="{StaticResource PropValue}" />
+
+            <Label Grid.Row="4" Style="{StaticResource PropName}"  Content="Описание"/>
+            <Label Grid.Row="4" Style="{StaticResource PropValue}" />
+        </Grid>
+    </Expander>
+          
+        </StackPanel>        
     </ScrollViewer>
 </UserControl>

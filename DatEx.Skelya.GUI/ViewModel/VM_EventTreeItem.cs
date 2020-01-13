@@ -30,11 +30,7 @@ namespace DatEx.Skelya.GUI.ViewModel
         public Int32 AllEventsCount 
         { 
             get => _allEventsCount; 
-            private set 
-            { 
-                _allEventsCount = value; 
-                OnPropertyChanged(nameof(AllEventsCount)); 
-            } 
+            private set { _allEventsCount = value; OnPropertyChanged(nameof(AllEventsCount)); } 
         }
 
         private Int32 _dangerEventsCount;

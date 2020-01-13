@@ -7,6 +7,6 @@
         mc:Ignorable="d"
         Title="AboutDlg" Height="450" Width="800">
     <Grid>
-        
+        <TextBlock Text="About app dialog"/>
     </Grid>
 </Window>
