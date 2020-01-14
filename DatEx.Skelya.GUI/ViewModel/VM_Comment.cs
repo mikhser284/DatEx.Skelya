@@ -44,9 +44,9 @@ namespace DatEx.Skelya.GUI.ViewModel
             ObservableCollection<VM_Comment> testCollection = new ObservableCollection<VM_Comment>
             {
                 new VM_Comment { Id = 1, Date = DateTime.Now, AuthorName = "Пупкин В.И.", Description = "Комментарий 01" },
-                new VM_Comment { Id = 2, Date = DateTime.Now, AuthorName = "Пупкин В.И.", Description = "Комментарий 02\nМногострочный комментарий" },
+                new VM_Comment { Id = 2, Date = DateTime.Now, AuthorName = "Пупкин В.И.", Description = "Комментарий 02\nМногострочный комментарий \nМногострочный комментарий" },
                 new VM_Comment { Id = 3, Date = DateTime.Now, AuthorName = "Пупкин В.И.", Description = "Комментарий 03" },
-                new VM_Comment { Id = 4, Date = DateTime.Now, AuthorName = "Пупкин В.И.", Description = "Комментарий 04" },
+                new VM_Comment { Id = 4, Date = DateTime.Now, AuthorName = "Пупкин В.И.", Description = "Комментарий 04\nМногострочный комментарий" },
                 new VM_Comment { Id = 5, Date = DateTime.Now, AuthorName = "Пупкин В.И.", Description = "Комментарий 05" },
             };
 

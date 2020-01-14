@@ -36,7 +36,7 @@
                 <MenuItem Header="Выход" Command="{x:Static commands:AppCommands.Exit}"/>
             </MenuItem>
         </Menu>
-        <Label x:Name="Part_TimeInterval" Grid.Column="1" Content="2020.01.01-Ср   00:00   ...   2020.01.02-Чт   00:00   (1 д)" FontWeight="Bold" HorizontalAlignment="Center"/>
+        <Label x:Name="Part_TimeInterval" Grid.Column="1" Content="Событий отображается: 123 из 3210 шт.   │   2020.01.01-Ср   00:00   ...   2020.01.02-Чт   00:00   (1 д)" FontWeight="Bold" HorizontalAlignment="Center"/>
         <local:OperationProgressCtrl HorizontalAlignment="Right" Grid.Column="2"/> 
     
     </Grid>

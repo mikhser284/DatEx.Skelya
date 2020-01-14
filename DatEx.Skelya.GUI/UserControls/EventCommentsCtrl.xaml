@@ -6,19 +6,25 @@
              xmlns:local="clr-namespace:DatEx.Skelya.GUI.UserControls"
              xmlns:vm ="clr-namespace:DatEx.Skelya.GUI.ViewModel"
              mc:Ignorable="d">
-    <Grid>
+    <Grid Grid.Column="0" Grid.Row="3" Background="White">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="Auto"/>
+        </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
             <RowDefinition Height="*"/>
-            <RowDefinition Height="Auto"/>
-            <RowDefinition Height="Auto"/>
-            <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
-        <ListView Grid.Row="0" x:Name="Part_CommentsList">
+        <TextBlock Grid.Column="0" Grid.Row="0" Text="Комментарии (5 шт.)" Foreground="SteelBlue" VerticalAlignment="Center" Margin="3, 0" FontWeight="Bold" FontSize="14"/>
+        <Button Grid.Column="1" Grid.Row="0" Content="Прикрепить" Margin="3" HorizontalAlignment="Center"/>
+        
+        <ListView Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="1" x:Name="Part_CommentsList" VerticalAlignment="Stretch" MinHeight="100">
             <ListView.Resources>
                 <DataTemplate DataType="{x:Type vm:VM_Comment}">
                     <Grid>
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="Auto"/>
+                            <ColumnDefinition Width="Auto" MaxWidth="20"/>
                             <ColumnDefinition Width="Auto"/>
                             <ColumnDefinition Width="*"/>
                         </Grid.ColumnDefinitions>
@@ -26,18 +32,15 @@
                             <RowDefinition Height="Auto"/>
                             <RowDefinition Height="Auto"/>
                         </Grid.RowDefinitions>
-                        <Separator Grid.Column="0" Grid.Row="0" Grid.RowSpan="2" Style="{StaticResource {x:Static ToolBar.SeparatorStyleKey}}" Background="DodgerBlue" Width="2"/>
-                        <TextBlock Grid.Column="1" Grid.Row="0" Text="{Binding Path=Date}" FontSize="10" Foreground="Gray" Margin="3, 0"/>
-                        <TextBlock Grid.Column="2" Grid.Row="0" Text="{Binding Path=AuthorName}" FontSize="10" Foreground="Gray" FontWeight="Bold" Margin="3, 0"/>
-                        <TextBlock Grid.Column="1" Grid.ColumnSpan="2" Grid.Row="1" Text="{Binding Path=Description}" TextWrapping="WrapWithOverflow" Margin="3, 0"/>
+                        <Separator Grid.Column="0" Grid.Row="0" Grid.RowSpan="2" Style="{StaticResource {x:Static ToolBar.SeparatorStyleKey}}" Background="SteelBlue" Width="2"/>
+                        
+                        <TextBlock Grid.Column="1" Grid.ColumnSpan="2" Grid.Row="0" Text="{Binding Path=Date}" FontSize="10" Foreground="SteelBlue" Margin="3, 0"/>
+                        <TextBlock Grid.Column="3" Grid.Row="0" Text="{Binding Path=AuthorName}" FontSize="10" Foreground="SteelBlue" FontWeight="Bold" Margin="3, 0"/>
+                        
+                        <TextBlock Grid.Column="2" Grid.ColumnSpan="2" Grid.Row="1" Text="{Binding Path=Description}" FontSize="10" TextWrapping="WrapWithOverflow" Margin="3, 0"/>
                     </Grid>
                 </DataTemplate>
             </ListView.Resources>
         </ListView>
-        <TextBlock Grid.Row="1" Text="Мои комментарии:"/>
-        <TextBox Grid.Row="2" Height="50"/>
-        <StackPanel Grid.Row="3" Orientation="Horizontal">
-            <Button Content="Прикрепить" Margin="3"/>
-        </StackPanel>
     </Grid>
 </UserControl>

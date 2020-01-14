@@ -38,21 +38,10 @@
                 <RowDefinition Height="2*" MinHeight="100"/>
             </Grid.RowDefinitions>
 
-            <TabControl Grid.Column="0" Grid.Row="0" >
-                <TabItem Header="Детали">
-                    <uc:EventDetailsCtrl x:Name="Part_EventDetails"/>
-                </TabItem>
-
-            </TabControl>
+            <uc:EventDetailsCtrl Grid.Column="0" Grid.Row="0" x:Name="Part_EventDetails" Background="White"/>
 
             <GridSplitter Grid.Column="0" Grid.Row="1" Background="Transparent" Height="6" HorizontalAlignment="Stretch"/>
-            
-            <TabControl Grid.Column="0" Grid.Row="2" >
-                <TabItem Header="Комментарии (5)">
-                    <uc:EventCommentsCtrl x:Name="Part_EventComments"/>
-                </TabItem>
-            </TabControl>
-
+            <uc:EventCommentsCtrl Grid.Column="0" Grid.Row="3" x:Name="Part_EventComments" VerticalAlignment="Stretch"/>
         </Grid>
 
         
@@ -91,12 +80,7 @@
 
             <GridSplitter Grid.Column="0" Grid.Row="1" Background="Transparent" Height="6" HorizontalAlignment="Stretch"/>
 
-            <TabControl Grid.Column="0" Grid.Row="2" >
-                <TabItem Header="Дерево событий">
-                    <uc:EventsTreeCtrl x:Name="Part_EventsTree"/>
-                </TabItem>
-            </TabControl>
-
+            <uc:EventsTreeCtrl Grid.Column="0" Grid.Row="2" x:Name="Part_EventsTree"/>            
         </Grid>
 
         
