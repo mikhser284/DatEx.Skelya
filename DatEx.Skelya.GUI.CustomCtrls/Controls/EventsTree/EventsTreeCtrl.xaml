@@ -1,0 +1,103 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:local="clr-namespace:DatEx.Skelya.GUI.CustomCtrls"
+                    xmlns:vm="clr-namespace:DatEx.Skelya.GUI.CustomCtrls.ViewModel">
+
+    <Style TargetType="{x:Type local:EventsTreeCtrl}">
+        <Style.Resources>
+            <Style x:Key="EventsCounter" TargetType="{x:Type TextBlock}">
+                <Setter Property="Padding" Value="3,1"/>
+                <Setter Property="FontWeight" Value="Bold"/>
+                <Setter Property="HorizontalAlignment" Value="Stretch"/>
+                <Setter Property="TextAlignment" Value="Right"/>
+            </Style>
+        </Style.Resources>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type local:EventsTreeCtrl}">
+                    <Border Background="{TemplateBinding Background}"
+                            BorderBrush="Orange"
+                            BorderThickness="2">
+
+                        <Grid Background="White">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="Auto"/>
+                                <ColumnDefinition Width="Auto"/>
+                                <ColumnDefinition Width="Auto"/>
+                            </Grid.ColumnDefinitions>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="*"/>
+                            </Grid.RowDefinitions>
+
+                            <TextBlock Grid.Column="0" Grid.Row="0" Text="Дерево событий" Foreground="SteelBlue" VerticalAlignment="Center" Margin="3, 0" FontWeight="Bold" FontSize="14"/>
+                            <Button Grid.Column="1" Grid.Row="0" x:Name="Part_ExpandLevel_Btn" Content="+" Margin="3" MinWidth="20"/>
+                            <TextBlock Grid.Column="2" Grid.Row="0" x:Name="Part_Level" Text="0" TextAlignment="Center" Margin="3" MinWidth="20"/>
+                            <Button Grid.Column="3" Grid.Row="0" x:Name="Part_CollapseLevel_Btn" Content="-" Margin="3" MinWidth="20"/>
+
+
+                                      <!--TreeViewItem.Expanded="OnTreeItemExpanded"
+                                      TreeViewItem.Collapsed="OnTreeItemCollapsed"-->
+                            <TreeView Grid.Column="0" Grid.ColumnSpan="4" Grid.Row="1" Grid.IsSharedSizeScope="True"
+                                      Name="Part_EventsCaption_Tree">
+                                <TreeView.Resources>
+                                    <SolidColorBrush x:Key="{x:Static SystemColors.InactiveSelectionHighlightBrushKey}" Color="White"/>
+                                    <SolidColorBrush x:Key="{x:Static SystemColors.HighlightBrushKey}" Color="White"/>
+                                    <SolidColorBrush x:Key="{x:Static SystemColors.HighlightTextBrushKey}" Color="Black"/>
+                                    <HierarchicalDataTemplate DataType="{x:Type vm:VM_EventTreeItem}" ItemsSource="{Binding Path=Descendants}">
+                                        <Grid>
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition x:Name="Part_Header_Column"/>
+                                                <ColumnDefinition MinWidth="40" SharedSizeGroup="Danger"/>
+                                                <ColumnDefinition MinWidth="40" SharedSizeGroup="Warning"/>
+                                                <ColumnDefinition MinWidth="40" SharedSizeGroup="Info"/>
+                                                <ColumnDefinition MinWidth="40" SharedSizeGroup="All"/>
+                                            </Grid.ColumnDefinitions>
+                                            <TextBlock Grid.Column="0" Margin="3, 1" Text="{Binding Path=Name}"/>
+                                            <TextBlock Grid.Column="1" Style="{StaticResource EventsCounter}" Foreground="Gray" Text="{Binding Path=AllEventsCount}"/>
+                                            <TextBlock Grid.Column="2" Style="{StaticResource EventsCounter}" Foreground="#BC0000" Text="{Binding Path=DangerEventsCount}"/>
+                                            <TextBlock Grid.Column="3" Style="{StaticResource EventsCounter}" Foreground="#BF9F00" Text="{Binding Path=WarningEventsCount}"/>
+                                            <TextBlock Grid.Column="4" Style="{StaticResource EventsCounter}" Foreground="#007CBA" Text="{Binding Path=InfoEventsCount}"/>
+                                        </Grid>
+                                    </HierarchicalDataTemplate>
+                                </TreeView.Resources>
+                            </TreeView>
+                                      <!--TreeViewItem.Expanded="OnTreeItemExpanded"
+                                      TreeViewItem.Collapsed="OnTreeItemCollapsed"-->
+
+                            <TreeView Grid.Column="0" Grid.ColumnSpan="4" Grid.Row="2" Grid.IsSharedSizeScope="True"
+                                      Name="Part_Events_Tree">
+                                <TreeView.Resources>
+                                    <SolidColorBrush x:Key="{x:Static SystemColors.InactiveSelectionHighlightBrushKey}" Color="AliceBlue"/>
+                                    <SolidColorBrush x:Key="{x:Static SystemColors.HighlightBrushKey}" Color="#D8EEFF"/>
+                                    <SolidColorBrush x:Key="{x:Static SystemColors.HighlightTextBrushKey}" Color="Black"/>
+                                    <HierarchicalDataTemplate DataType="{x:Type vm:VM_EventTreeItem}" ItemsSource="{Binding Path=Descendants}">
+                                        <Grid>
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition x:Name="Part_Header_Column"/>
+                                                <ColumnDefinition MinWidth="40" SharedSizeGroup="Danger"/>
+                                                <ColumnDefinition MinWidth="40" SharedSizeGroup="Warning"/>
+                                                <ColumnDefinition MinWidth="40" SharedSizeGroup="Info"/>
+                                                <ColumnDefinition MinWidth="40" SharedSizeGroup="All"/>
+                                            </Grid.ColumnDefinitions>
+                                            <TextBlock Grid.Column="0" Margin="3, 1" Text="{Binding Path=Name}"/>
+                                            <TextBlock Grid.Column="1" Style="{StaticResource EventsCounter}" Foreground="Gray" Text="{Binding Path=AllEventsCount}"/>
+                                            <TextBlock Grid.Column="2" Style="{StaticResource EventsCounter}" Foreground="#BC0000" Text="{Binding Path=DangerEventsCount}"/>
+                                            <TextBlock Grid.Column="3" Style="{StaticResource EventsCounter}" Foreground="#BF9F00" Text="{Binding Path=WarningEventsCount}"/>
+                                            <TextBlock Grid.Column="4" Style="{StaticResource EventsCounter}" Foreground="#007CBA" Text="{Binding Path=InfoEventsCount}"/>
+                                        </Grid>
+                                    </HierarchicalDataTemplate>
+                                </TreeView.Resources>
+                            </TreeView>
+
+                        </Grid>
+
+                    </Border>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+</ResourceDictionary>

@@ -2,15 +2,17 @@
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                     xmlns:local="clr-namespace:DatEx.Skelya.GUI.CustomCtrls">
 
-    <Style TargetType="{x:Type local:DateIntervalCtrl}">
+    <Style TargetType="{x:Type local:TriggersCtrl}">
         <Setter Property="Template">
             <Setter.Value>
-                <ControlTemplate TargetType="{x:Type local:DateIntervalCtrl}">
+                <ControlTemplate TargetType="{x:Type local:TriggersCtrl}">
                     <Border Background="{TemplateBinding Background}"
-                            BorderBrush="{TemplateBinding BorderBrush}"
-                            BorderThickness="{TemplateBinding BorderThickness}">
+                            BorderBrush="Red"
+                            BorderThickness="2">
 
-
+                        <Grid>
+                            <TextBlock Text="Triggers ctrl"/>
+                        </Grid>
 
                     </Border>
                 </ControlTemplate>

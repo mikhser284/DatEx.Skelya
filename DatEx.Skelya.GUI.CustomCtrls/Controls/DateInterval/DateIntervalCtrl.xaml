@@ -6,8 +6,8 @@
             <Setter.Value>
                 <ControlTemplate TargetType="{x:Type local:DateIntervalCtrl}">
                     <Border Background="{TemplateBinding Background}"
-                            BorderBrush="{TemplateBinding BorderBrush}"
-                            BorderThickness="{TemplateBinding BorderThickness}">
+                            BorderBrush="Orange"
+                            BorderThickness="2">
 
                         <Grid VerticalAlignment="Center">
                             <Grid.ColumnDefinitions>

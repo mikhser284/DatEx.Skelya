@@ -3,13 +3,13 @@
                     xmlns:local="clr-namespace:DatEx.Skelya.GUI.CustomCtrls"
                     xmlns:vm="clr-namespace:DatEx.Skelya.GUI.CustomCtrls.ViewModel">
     
-    <Style TargetType="{x:Type local:DateIntervalCtrl}">
+    <Style TargetType="{x:Type local:EventCommentsCtrl}">
         <Setter Property="Template">
             <Setter.Value>
-                <ControlTemplate TargetType="{x:Type local:DateIntervalCtrl}">
+                <ControlTemplate TargetType="{x:Type local:EventCommentsCtrl}">
                     <Border Background="{TemplateBinding Background}"
-                            BorderBrush="{TemplateBinding BorderBrush}"
-                            BorderThickness="{TemplateBinding BorderThickness}">
+                            BorderBrush="Orange"
+                            BorderThickness="2">
 
                         <Grid Grid.Column="0" Grid.Row="3" Background="White">
                             <Grid.ColumnDefinitions>

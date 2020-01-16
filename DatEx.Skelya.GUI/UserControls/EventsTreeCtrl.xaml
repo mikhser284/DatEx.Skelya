@@ -44,7 +44,7 @@
                 <HierarchicalDataTemplate DataType="{x:Type vm:VM_EventTreeItem}" ItemsSource="{Binding Path=Descendants}">
                     <Grid>
                         <Grid.ColumnDefinitions>
-                            <ColumnDefinition x:Name="Part_Header_Column"/>
+                            <ColumnDefinition/>
                             <ColumnDefinition MinWidth="40" SharedSizeGroup="Danger"/>
                             <ColumnDefinition MinWidth="40" SharedSizeGroup="Warning"/>
                             <ColumnDefinition MinWidth="40" SharedSizeGroup="Info"/>
@@ -71,7 +71,7 @@
                 <HierarchicalDataTemplate DataType="{x:Type vm:VM_EventTreeItem}" ItemsSource="{Binding Path=Descendants}">
                     <Grid>
                         <Grid.ColumnDefinitions>
-                            <ColumnDefinition x:Name="Part_Header_Column"/>
+                            <ColumnDefinition/>
                             <ColumnDefinition MinWidth="40" SharedSizeGroup="Danger"/>
                             <ColumnDefinition MinWidth="40" SharedSizeGroup="Warning"/>
                             <ColumnDefinition MinWidth="40" SharedSizeGroup="Info"/>

@@ -11,16 +11,13 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace DatEx.Skelya.GUI.UserControls
+namespace DatEx.Skelya.GUI.CustomCtrls
 {
-    /// <summary>
-    /// Interaction logic for ScalesListCtrl.xaml
-    /// </summary>
-    public partial class ScalesListCtrl : UserControl
+    public class AppMenuCtrl : Control
     {
-        public ScalesListCtrl()
+        static AppMenuCtrl()
         {
-            InitializeComponent();
+            DefaultStyleKeyProperty.OverrideMetadata(typeof(AppMenuCtrl), new FrameworkPropertyMetadata(typeof(AppMenuCtrl)));
         }
     }
 }

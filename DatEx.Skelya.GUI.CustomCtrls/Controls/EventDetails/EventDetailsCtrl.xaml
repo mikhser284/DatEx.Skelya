@@ -2,8 +2,7 @@
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                     xmlns:local="clr-namespace:DatEx.Skelya.GUI.CustomCtrls">
 
-    
-    <Style TargetType="{x:Type local:DateIntervalCtrl}">
+    <Style TargetType="{x:Type local:EventDetailsCtrl}">
         <Style.Resources>
             <Style TargetType="Label" x:Key="PropsGroupTitle">
                 <Setter Property="Foreground" Value="SteelBlue"/>
@@ -44,10 +43,10 @@
         </Style.Resources>
         <Setter Property="Template">
             <Setter.Value>
-                <ControlTemplate TargetType="{x:Type local:DateIntervalCtrl}">
+                <ControlTemplate TargetType="{x:Type local:EventDetailsCtrl}">
                     <Border Background="{TemplateBinding Background}"
-                            BorderBrush="{TemplateBinding BorderBrush}"
-                            BorderThickness="{TemplateBinding BorderThickness}">
+                            BorderBrush="Orange"
+                            BorderThickness="2">
 
                         <ScrollViewer HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto">
                             <StackPanel Grid.IsSharedSizeScope="True">

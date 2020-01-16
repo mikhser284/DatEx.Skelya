@@ -1,0 +1,54 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:local="clr-namespace:DatEx.Skelya.GUI.CustomCtrls"
+                    xmlns:commands="clr-namespace:DatEx.Skelya.GUI.CustomCtrls.Commands">
+    <Style TargetType="{x:Type local:AppMenuCtrl}">
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type local:AppMenuCtrl}">
+                    <Border Background="{TemplateBinding Background}"
+                            BorderBrush="Orange"
+                            BorderThickness="2">
+                        
+                        <Grid Background="#D6DBE9">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto"/>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="Auto"/>
+                            </Grid.ColumnDefinitions>
+                            <Menu Grid.Column="0" Background="#D6DBE9" VerticalAlignment="Center" Margin="2">
+                                <MenuItem Header="  ≡  ">
+                                    <MenuItem Header="Сохранить как отчет в формате">
+                                        <MenuItem Header="*.pdf" Command="{x:Static commands:AppCommands.SaveAsReportInPdf}"/>
+                                        <MenuItem Header="*.excel" Command="{x:Static commands:AppCommands.SaveAsReportInExcel}"/>
+                                        <MenuItem Header="*.csv" Command="{x:Static commands:AppCommands.SaveAsReportInCsv}"/>
+                                        <MenuItem Header="*.html" Command="{x:Static commands:AppCommands.SaveAsReportInHtml}"/>
+                                        <MenuItem Header="*.json" Command="{x:Static commands:AppCommands.SaveAsReportInJson}"/>
+                                    </MenuItem>
+                                    <Separator/>
+                                    <MenuItem Header="Пользовательские фильтры">
+                                        <MenuItem Header="Открыть"/>
+                                        <MenuItem Header="Создать"/>
+                                        <MenuItem Header="Сохранить"/>
+                                        <MenuItem Header="Сохранить как..."/>
+                                        <MenuItem Header="Удалить"/>
+                                    </MenuItem>
+                                    <Separator/>
+                                    <MenuItem Header="Изображение события ..." Command="{x:Static commands:AppCommands.ShowEventSnapshotDialog}"/>
+                                    <MenuItem Header="Настройки ..." Command="{x:Static commands:AppCommands.ShowAppSettingsDialog}"/>
+                                    <MenuItem Header="О программе ..." Command="{x:Static commands:AppCommands.ShowAppAboutDialog}"/>
+                                    <Separator/>
+                                    <MenuItem Header="Выход" Command="{x:Static commands:AppCommands.Exit}"/>
+                                </MenuItem>
+                            </Menu>
+                            <Label x:Name="Part_TimeInterval" Grid.Column="1" Content="Событий отображается: 123 из 3210 шт.   │   2020.01.01-Ср   00:00   ...   2020.01.02-Чт   00:00   (1 д)" FontWeight="Bold" HorizontalAlignment="Center"/>
+                            <local:OperationProgressCtrl HorizontalAlignment="Right" Grid.Column="2"/>
+
+                        </Grid>
+                    </Border>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+</ResourceDictionary>
