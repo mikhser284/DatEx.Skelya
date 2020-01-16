@@ -2,15 +2,11 @@
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:DatEx.Skelya.GUI"
-        
-        xmlns:dm="clr-namespace:DatEx.Skelya.DataModel;assembly=DatEx.Skelya"
-        xmlns:vm ="clr-namespace:DatEx.Skelya.GUI.ViewModel"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"        
         mc:Ignorable="d"
         Background="#293955"
         Title="Production events monitor © Kusto Agro LLC" Height="900" Width="1500">
-    <Window.Resources>
+    <!--<Window.Resources>
         <Style x:Key="Name" TargetType="{x:Type Label}">
             <Setter Property="FontWeight" Value="Bold"/>
             <Setter Property="Foreground" Value="#CCCCCC"/>
@@ -525,7 +521,8 @@
 
                     <ListView x:Name="Part_DevTypesList" Grid.Column="0" Grid.Row="1">
                         <ListView.Resources>
-                            <DataTemplate DataType="{x:Type vm:VM_DeviceType}">
+                            -->
+    <!--<DataTemplate DataType="{x:Type vm:VM_DeviceType}">
                                 <StackPanel Orientation="Horizontal">
                                     <CheckBox IsChecked="{Binding Path=CheckMark}" Focusable="False" VerticalAlignment="Center"/>
                                     <TextBlock VerticalAlignment="Center">
@@ -535,7 +532,8 @@
                                 <Run Text=")"/>
                                     </TextBlock>
                                 </StackPanel>
-                            </DataTemplate>
+                            </DataTemplate>-->
+    <!--
                         </ListView.Resources>
                     </ListView>
                 </Expander>
@@ -547,22 +545,24 @@
 
                     <TreeView x:Name="Part_DataSectorsTree" Grid.Column="1" Grid.Row="0">
                         <TreeView.Resources>
-                            <HierarchicalDataTemplate DataType="{x:Type vm:VM_DataSector}" ItemsSource="{Binding Path=Devices}">
+                            -->
+    <!--<HierarchicalDataTemplate DataType="{x:Type vm:VM_DataSector}" ItemsSource="{Binding Path=Devices}">
                                 <StackPanel Orientation="Horizontal">
                                     <CheckBox IsChecked="{Binding Path=CheckMark}" Focusable="False" VerticalAlignment="Center"/>
                                     <TextBlock VerticalAlignment="Center">
                                 <Run Text="{Binding Path=Name}"/>
                                     </TextBlock>
                                 </StackPanel>
-                            </HierarchicalDataTemplate>
-                            <DataTemplate DataType="{x:Type vm:VM_Device}">
+                            </HierarchicalDataTemplate>-->
+    <!--<DataTemplate DataType="{x:Type vm:VM_Device}">
                                 <StackPanel Orientation="Horizontal">
                                     <CheckBox IsChecked="{Binding Path=CheckMark}" Focusable="False" VerticalAlignment="Center"/>
                                     <TextBlock VerticalAlignment="Center">
                                 <Run Text="{Binding Path=Name}"/>
                                     </TextBlock>
                                 </StackPanel>
-                            </DataTemplate>
+                            </DataTemplate>-->
+    <!--
                         </TreeView.Resources>
                     </TreeView>
                 </Expander>
@@ -618,5 +618,8 @@
                 <Label x:Name="Part_OperationProgresPercentLbl" Content="Operation name" Visibility="Collapsed"/>
             </StatusBarItem>
         </StatusBar>
+    </Grid>-->
+    <Grid>
+
     </Grid>
 </Window>

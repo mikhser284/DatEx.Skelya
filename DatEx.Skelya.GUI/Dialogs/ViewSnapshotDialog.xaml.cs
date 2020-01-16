@@ -1,5 +1,5 @@
 ﻿using DatEx.Skelya.DataModel;
-using DatEx.Skelya.GUI.ViewModel;
+//using DatEx.Skelya.GUI.ViewModel;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;

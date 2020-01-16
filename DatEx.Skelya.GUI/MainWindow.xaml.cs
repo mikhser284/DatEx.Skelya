@@ -10,7 +10,6 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using DatEx.Skelya.GUI.Commands;
-using DatEx.Skelya.GUI.UserControls;
 
 namespace DatEx.Skelya.GUI
 {
