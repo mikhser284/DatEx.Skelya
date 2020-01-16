@@ -47,8 +47,8 @@
             <Setter.Value>
                 <ControlTemplate TargetType="{x:Type local:ScalesCtrl}">
                     <Border Background="{TemplateBinding Background}"
-                            BorderBrush="Red"
-                            BorderThickness="2">
+                            BorderBrush="{TemplateBinding BorderBrush}"
+                            BorderThickness="{TemplateBinding BorderThickness}">
 
                         <Border BorderBrush="SteelBlue" BorderThickness="1" Background="AliceBlue">
                             <StackPanel>

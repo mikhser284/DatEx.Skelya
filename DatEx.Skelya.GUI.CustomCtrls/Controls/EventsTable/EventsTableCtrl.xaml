@@ -7,8 +7,8 @@
             <Setter.Value>
                 <ControlTemplate TargetType="{x:Type local:EventsTableCtrl}">
                     <Border Background="{TemplateBinding Background}"
-                            BorderBrush="Orange"
-                            BorderThickness="2">
+                            BorderBrush="{TemplateBinding BorderBrush}"
+                            BorderThickness="{TemplateBinding BorderThickness}">
 
                         <DataGrid AutoGenerateColumns="False"
                                   GridLinesVisibility="Vertical"

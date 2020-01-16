@@ -16,8 +16,8 @@
             <Setter.Value>
                 <ControlTemplate TargetType="{x:Type local:EventsTreeCtrl}">
                     <Border Background="{TemplateBinding Background}"
-                            BorderBrush="Orange"
-                            BorderThickness="2">
+                            BorderBrush="{TemplateBinding BorderBrush}"
+                            BorderThickness="{TemplateBinding BorderThickness}">
 
                         <Grid Background="White">
                             <Grid.ColumnDefinitions>

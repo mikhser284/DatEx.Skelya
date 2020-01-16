@@ -8,8 +8,8 @@
             <Setter.Value>
                 <ControlTemplate TargetType="{x:Type local:EventCommentsCtrl}">
                     <Border Background="{TemplateBinding Background}"
-                            BorderBrush="Orange"
-                            BorderThickness="2">
+                            BorderBrush="{TemplateBinding BorderBrush}"
+                            BorderThickness="{TemplateBinding BorderThickness}">
 
                         <Grid Grid.Column="0" Grid.Row="3" Background="White">
                             <Grid.ColumnDefinitions>

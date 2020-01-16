@@ -6,8 +6,8 @@
             <Setter.Value>
                 <ControlTemplate TargetType="{x:Type local:EventFilterCtrl}">
                     <Border Background="{TemplateBinding Background}"
-                            BorderBrush="Orange"
-                            BorderThickness="2">
+                            BorderBrush="{TemplateBinding BorderBrush}"
+                            BorderThickness="{TemplateBinding BorderThickness}">
                         <StackPanel>
 
                             <Grid Background="#D6DBE9">

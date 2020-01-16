@@ -45,8 +45,8 @@
             <Setter.Value>
                 <ControlTemplate TargetType="{x:Type local:EventDetailsCtrl}">
                     <Border Background="{TemplateBinding Background}"
-                            BorderBrush="Orange"
-                            BorderThickness="2">
+                            BorderBrush="{TemplateBinding BorderBrush}"
+                            BorderThickness="{TemplateBinding BorderThickness}">
 
                         <ScrollViewer HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto">
                             <StackPanel Grid.IsSharedSizeScope="True">
