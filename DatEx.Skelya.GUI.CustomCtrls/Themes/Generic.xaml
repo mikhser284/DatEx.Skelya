@@ -1,11 +1,16 @@
 <ResourceDictionary
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-    xmlns:local="clr-namespace:DatEx.Skelya.GUI.CustomCtrls">
-
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
     <ResourceDictionary.MergedDictionaries>
-        <ResourceDictionary Source="/DatEx.Skelya.GUI.CustomCtrls;component/DateInterval/Ctrl/DateIntervalCtrl.xaml"/>
-        <ResourceDictionary Source="/DatEx.Skelya.GUI.CustomCtrls;component/EventsFilter/Ctrl/EventsFilterCtrl.xaml"/>
+        <ResourceDictionary Source="/DatEx.Skelya.GUI.CustomCtrls;component/DateIntervalCtrl.xaml"/>
+        <ResourceDictionary Source="/DatEx.Skelya.GUI.CustomCtrls;component/EventCommentsCtrl.xaml"/>
+        <ResourceDictionary Source="/DatEx.Skelya.GUI.CustomCtrls;component/EventDetailsCtrl.xaml"/>
+        <ResourceDictionary Source="/DatEx.Skelya.GUI.CustomCtrls;component/EventFilterCtrl.xaml"/>
+        <ResourceDictionary Source="/DatEx.Skelya.GUI.CustomCtrls;component/EventsTableCtrl.xaml"/>
+        <ResourceDictionary Source="/DatEx.Skelya.GUI.CustomCtrls;component/EventsTreeCtrl.xaml"/>
+        <ResourceDictionary Source="/DatEx.Skelya.GUI.CustomCtrls;component/OperationProgressCtrl.xaml"/>
+        <ResourceDictionary Source="/DatEx.Skelya.GUI.CustomCtrls;component/ScalesCtrl.xaml"/>
+        <ResourceDictionary Source="/DatEx.Skelya.GUI.CustomCtrls;component/ScalesListCtrl.xaml"/>
+        <ResourceDictionary Source="/DatEx.Skelya.GUI.CustomCtrls;component/TriggersCtrl.xaml"/>
     </ResourceDictionary.MergedDictionaries>
-
 </ResourceDictionary>

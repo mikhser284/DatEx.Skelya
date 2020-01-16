@@ -11,13 +11,13 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace DatEx.Skelya.GUI.CustomCtrls.DateInterval.Ctrl
+namespace DatEx.Skelya.GUI.CustomCtrls
 {
-    public class DateIntervalCtrl : Control
+    public class EventCommentsCtrl : Control
     {
-        static DateIntervalCtrl()
+        static EventCommentsCtrl()
         {
-            DefaultStyleKeyProperty.OverrideMetadata(typeof(DateIntervalCtrl), new FrameworkPropertyMetadata(typeof(DateIntervalCtrl)));
+            DefaultStyleKeyProperty.OverrideMetadata(typeof(EventCommentsCtrl), new FrameworkPropertyMetadata(typeof(EventCommentsCtrl)));
         }
     }
 }

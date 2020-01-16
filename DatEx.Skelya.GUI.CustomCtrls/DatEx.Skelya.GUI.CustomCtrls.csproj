@@ -5,11 +5,4 @@
     <UseWPF>true</UseWPF>
   </PropertyGroup>
 
-  <ItemGroup>
-    <Folder Include="DateInterval\CtrlAux\" />
-    <Folder Include="DateInterval\CtrlModel\" />
-    <Folder Include="EventsFilter\CtrlAux\" />
-    <Folder Include="EventsFilter\CtrlModel\" />
-  </ItemGroup>
-
 </Project>

@@ -19,13 +19,13 @@ namespace DatEx.Skelya.GUI
         public static AppSettings AppConfig = null;
         public static SkeliaClient Client = null;
         //
-        private static EventsTableCtrl UiPart_EventsTable = null;
-        private static EventDetailsCtrl UiPart_EventDetails = null;
-        private static EventCommentsCtrl UiPart_EventComments = null;
-        private static EventsTreeCtrl UiPart_EventsTree = null;
-        private static ScalesListCtrl UiPart_ScalesList = null;
+        //private static EventsTableCtrl UiPart_EventsTable = null;
+        //private static EventDetailsCtrl UiPart_EventDetails = null;
+        //private static EventCommentsCtrl UiPart_EventComments = null;
+        //private static EventsTreeCtrl UiPart_EventsTree = null;
+        //private static ScalesListCtrl UiPart_ScalesList = null;
         //private static EventsFilterCtrl UiPart_EventsFilter = null;
-        private static TriggersCtrl UiPart_Triggers = null;
+        //private static TriggersCtrl UiPart_Triggers = null;
 
         public MainWindow()
         {
@@ -34,13 +34,13 @@ namespace DatEx.Skelya.GUI
             AppConfig = AppSettings.Load();
             Client = new SkeliaClient(AppConfig.HttpAddressOf.SkelyaServer);
             //
-            UiPart_EventsTable = Part_EventsTable;
-            UiPart_EventDetails = Part_EventDetails;
-            UiPart_EventComments = Part_EventComments;
-            UiPart_EventsTree = Part_EventsTree;
-            UiPart_ScalesList = Part_ScalesList;
+            //UiPart_EventsTable = Part_EventsTable;
+            //UiPart_EventDetails = Part_EventDetails;
+            //UiPart_EventComments = Part_EventComments;
+            //UiPart_EventsTree = Part_EventsTree;
+            //UiPart_ScalesList = Part_ScalesList;
             //UiPart_EventsFilter = Part_EventsFilter;
-            UiPart_Triggers = Part_Triggers;
+            //UiPart_Triggers = Part_Triggers;
             //
             CommandBindings.AddRange(new List<CommandBinding>
             {

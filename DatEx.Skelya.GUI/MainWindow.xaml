@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:DatEx.Skelya.GUI"
         xmlns:uc="clr-namespace:DatEx.Skelya.GUI.UserControls"
-        xmlns:zCtrls="clr-namespace:DatEx.Skelya.GUI.CustomCtrls.EventsFilter.Ctrl;assembly=DatEx.Skelya.GUI.CustomCtrls"
+        xmlns:zCtrl="clr-namespace:DatEx.Skelya.GUI.CustomCtrls;assembly=DatEx.Skelya.GUI.CustomCtrls"
         mc:Ignorable="d"
         Background="#293955"
         Title="Production events monitor © Kusto Agro LLC" Height="900" Width="1500"
@@ -39,10 +39,11 @@
                 <RowDefinition Height="2*" MinHeight="100"/>
             </Grid.RowDefinitions>
 
-            <uc:EventDetailsCtrl Grid.Column="0" Grid.Row="0" x:Name="Part_EventDetails" Background="White"/>
+            <zCtrl:EventDetailsCtrl Grid.Column="0" Grid.Row="0" x:Name="Part_EventDetails" Background="White"/>
 
             <GridSplitter Grid.Column="0" Grid.Row="1" Background="Transparent" Height="6" HorizontalAlignment="Stretch"/>
-            <uc:EventCommentsCtrl Grid.Column="0" Grid.Row="3" x:Name="Part_EventComments" VerticalAlignment="Stretch"/>
+            
+            <zCtrl:EventCommentsCtrl Grid.Column="0" Grid.Row="3" x:Name="Part_EventComments" VerticalAlignment="Stretch"/>
         </Grid>
 
         
@@ -70,8 +71,7 @@
                 </TabItem>
 
                 <TabItem Header="Фильтры">
-                    <cc1:EventFilterCtrl x:Name="Part_EventsFilter"/>
-                    <!--<uc:EventsFilterCtrl x:Name="Part_EventsFilter"/>-->
+                    <zCtrl:EventFilterCtrl x:Name="Part_EventsFilter"/>
                 </TabItem>
 
                 <TabItem Header="Триггеры">

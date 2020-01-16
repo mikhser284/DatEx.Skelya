@@ -1,12 +1,10 @@
 ﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-                    xmlns:ctrl="clr-namespace:DatEx.Skelya.GUI.CustomCtrls.DateInterval.Ctrl"
-                    xmlns:aux="clr-namespace:DatEx.Skelya.GUI.CustomCtrls.DateInterval.CtrlAux"
-                    xmlns:model="clr-namespace:DatEx.Skelya.GUI.CustomCtrls.DateInterval.CtrlModel">
-    <Style TargetType="{x:Type ctrl:DateIntervalCtrl}">
+                    xmlns:local="clr-namespace:DatEx.Skelya.GUI.CustomCtrls">
+    <Style TargetType="{x:Type local:DateIntervalCtrl}">
         <Setter Property="Template">
             <Setter.Value>
-                <ControlTemplate TargetType="{x:Type ctrl:DateIntervalCtrl}">
+                <ControlTemplate TargetType="{x:Type local:DateIntervalCtrl}">
                     <Border Background="{TemplateBinding Background}"
                             BorderBrush="{TemplateBinding BorderBrush}"
                             BorderThickness="{TemplateBinding BorderThickness}">
