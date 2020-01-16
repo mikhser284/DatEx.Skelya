@@ -24,7 +24,7 @@ namespace DatEx.Skelya.GUI
         private static EventCommentsCtrl UiPart_EventComments = null;
         private static EventsTreeCtrl UiPart_EventsTree = null;
         private static ScalesListCtrl UiPart_ScalesList = null;
-        private static EventsFilterCtrl UiPart_EventsFilter = null;
+        //private static EventsFilterCtrl UiPart_EventsFilter = null;
         private static TriggersCtrl UiPart_Triggers = null;
 
         public MainWindow()
@@ -39,7 +39,7 @@ namespace DatEx.Skelya.GUI
             UiPart_EventComments = Part_EventComments;
             UiPart_EventsTree = Part_EventsTree;
             UiPart_ScalesList = Part_ScalesList;
-            UiPart_EventsFilter = Part_EventsFilter;
+            //UiPart_EventsFilter = Part_EventsFilter;
             UiPart_Triggers = Part_Triggers;
             //
             CommandBindings.AddRange(new List<CommandBinding>

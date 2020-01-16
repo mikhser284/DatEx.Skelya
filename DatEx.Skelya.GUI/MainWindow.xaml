@@ -5,6 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:DatEx.Skelya.GUI"
         xmlns:uc="clr-namespace:DatEx.Skelya.GUI.UserControls"
+        xmlns:zCtrls="clr-namespace:DatEx.Skelya.GUI.CustomCtrls.EventsFilter.Ctrl;assembly=DatEx.Skelya.GUI.CustomCtrls"
         mc:Ignorable="d"
         Background="#293955"
         Title="Production events monitor © Kusto Agro LLC" Height="900" Width="1500"
@@ -69,7 +70,8 @@
                 </TabItem>
 
                 <TabItem Header="Фильтры">
-                    <uc:EventsFilterCtrl x:Name="Part_EventsFilter"/>
+                    <cc1:EventFilterCtrl x:Name="Part_EventsFilter"/>
+                    <!--<uc:EventsFilterCtrl x:Name="Part_EventsFilter"/>-->
                 </TabItem>
 
                 <TabItem Header="Триггеры">

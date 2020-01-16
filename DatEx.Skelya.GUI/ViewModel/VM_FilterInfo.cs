@@ -6,7 +6,7 @@ using System.Text;
 
 namespace DatEx.Skelya.GUI.ViewModel
 {
-    public class VM_Filter : INotifyPropertyChanged
+    public class VM_FilterInfo : INotifyPropertyChanged
     {
         public Boolean CanBeUpdatedByUser { get; private set; }
 
@@ -46,7 +46,7 @@ namespace DatEx.Skelya.GUI.ViewModel
         public SetOfCheckableItemsWithId<Int32> Devices { get; set; }
 
         
-        public VM_Filter()
+        public VM_FilterInfo()
         {
             ContainsSnapshot = new SimpleCheckableItem("Содержит изображения");
             ContainsComments = new SimpleCheckableItem("Содержит комментарии");
