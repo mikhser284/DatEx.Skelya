@@ -1,4 +1,5 @@
-﻿using System;
+﻿using DatEx.Skelya.GUI.CustomCtrls.ViewModel;
+using System;
 using System.Collections.Generic;
 using System.Text;
 using System.Windows;
@@ -18,6 +19,9 @@ namespace DatEx.Skelya.GUI.CustomCtrls
     {
         public EventFilterCtrl()
         {
+            CurrentFilter = new VM_FilterInfo();
+            CurrentFilter.TimeFrom = DateTime.Now;
+            CurrentFilter.TimeTill = DateTime.Now;
 
         }
 
@@ -27,8 +31,8 @@ namespace DatEx.Skelya.GUI.CustomCtrls
 
             #region ————— Dependency property registration ————————————————————————————————————————————————————————————
 
-            PropNameProperty = DependencyProperty.Register(nameof(Prop), typeof(String), typeof(EventFilterCtrl),
-                new FrameworkPropertyMetadata(default(String), new PropertyChangedCallback(OnDependencyPropChanged_Prop)));
+            CurrentFilterProperty = DependencyProperty.Register(nameof(CurrentFilter), typeof(VM_FilterInfo), typeof(EventFilterCtrl),
+                new FrameworkPropertyMetadata(default(VM_FilterInfo), new PropertyChangedCallback(OnDependencyPropChanged_CurrentFilter)));
 
             #endregion ————— Dependency property registration
         }
@@ -55,22 +59,22 @@ namespace DatEx.Skelya.GUI.CustomCtrls
     {
         #region ————— PropNameChanged —————————————————————————————————————————————————————————————————————————————————
 
-        public static DependencyProperty PropNameProperty;
+        public static DependencyProperty CurrentFilterProperty;
 
-        public String Prop
+        public VM_FilterInfo CurrentFilter
         {
-            get => (String)GetValue(PropNameProperty);
-            set => SetValue(PropNameProperty, value);
+            get => (VM_FilterInfo)GetValue(CurrentFilterProperty);
+            set => SetValue(CurrentFilterProperty, value);
         }
 
-        private static void OnDependencyPropChanged_Prop(DependencyObject sender, DependencyPropertyChangedEventArgs e)
+        private static void OnDependencyPropChanged_CurrentFilter(DependencyObject sender, DependencyPropertyChangedEventArgs e)
         {
             EventFilterCtrl ctrl = sender as EventFilterCtrl;
             if (ctrl == null) return;
             String oldValue = (String)e.OldValue;
             String newValue = (String)e.NewValue;
             RoutedPropertyChangedEventArgs<String> args = new RoutedPropertyChangedEventArgs<String>(oldValue, newValue);
-            args.RoutedEvent = EventFilterCtrl.PropChangedEvent;
+            args.RoutedEvent = EventFilterCtrl.CurrentFilterChangedEvent;
             ctrl.RaiseEvent(args);
         }
 
@@ -85,12 +89,12 @@ namespace DatEx.Skelya.GUI.CustomCtrls
     {
         #region ————— EventNameChanged ————————————————————————————————————————————————————————————————————————————————
 
-        public static readonly RoutedEvent PropChangedEvent;
+        public static readonly RoutedEvent CurrentFilterChangedEvent;
 
-        public event RoutedPropertyChangedEventHandler<String> PropChanged
+        public event RoutedPropertyChangedEventHandler<String> CurrentFilterChanged
         {
-            add => AddHandler(PropChangedEvent, value);
-            remove => RemoveHandler(PropChangedEvent, value);
+            add => AddHandler(CurrentFilterChangedEvent, value);
+            remove => RemoveHandler(CurrentFilterChangedEvent, value);
         }
 
         #endregion ————— EventNameChanged
