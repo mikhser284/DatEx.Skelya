@@ -31,10 +31,17 @@ namespace DatEx.Skelya.GUI.CustomCtrls
 
             #region ————— Dependency property registration ————————————————————————————————————————————————————————————
 
-            CurrentFilterProperty = DependencyProperty.Register(nameof(CurrentFilter), typeof(VM_FilterInfo), typeof(EventFilterCtrl),
+            CurrentFilterProperty = DependencyProperty.Register(nameof(CurrentFilterProperty), typeof(VM_FilterInfo), typeof(EventFilterCtrl),
                 new FrameworkPropertyMetadata(default(VM_FilterInfo), new PropertyChangedCallback(OnDependencyPropChanged_CurrentFilter)));
 
             #endregion ————— Dependency property registration
+
+            #region ————— Routed events registraiton ——————————————————————————————————————————————————————————————————
+
+            CurrentFilterChangedEvent = EventManager.RegisterRoutedEvent(nameof(CurrentFilterChangedEvent), RoutingStrategy.Bubble,
+                typeof(RoutedPropertyChangedEventArgs<String>), typeof(EventFilterCtrl));
+
+            #endregion ————— Routed events registraiton
         }
 
         private static void BindCommand(RoutedCommand command, ExecutedRoutedEventHandler executedHandler, CanExecuteRoutedEventHandler canExecuteHandler)
@@ -71,9 +78,9 @@ namespace DatEx.Skelya.GUI.CustomCtrls
         {
             EventFilterCtrl ctrl = sender as EventFilterCtrl;
             if (ctrl == null) return;
-            String oldValue = (String)e.OldValue;
-            String newValue = (String)e.NewValue;
-            RoutedPropertyChangedEventArgs<String> args = new RoutedPropertyChangedEventArgs<String>(oldValue, newValue);
+            VM_FilterInfo oldValue = (VM_FilterInfo)e.OldValue;
+            VM_FilterInfo newValue = (VM_FilterInfo)e.NewValue;
+            RoutedPropertyChangedEventArgs<VM_FilterInfo> args = new RoutedPropertyChangedEventArgs<VM_FilterInfo>(oldValue, newValue);
             args.RoutedEvent = EventFilterCtrl.CurrentFilterChangedEvent;
             ctrl.RaiseEvent(args);
         }
@@ -91,7 +98,7 @@ namespace DatEx.Skelya.GUI.CustomCtrls
 
         public static readonly RoutedEvent CurrentFilterChangedEvent;
 
-        public event RoutedPropertyChangedEventHandler<String> CurrentFilterChanged
+        public event RoutedPropertyChangedEventHandler<VM_FilterInfo> CurrentFilterChanged
         {
             add => AddHandler(CurrentFilterChangedEvent, value);
             remove => RemoveHandler(CurrentFilterChangedEvent, value);
