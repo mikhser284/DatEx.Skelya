@@ -89,9 +89,9 @@
 
             <GridSplitter Grid.Column="0" Grid.Row="1" Background="Transparent" Height="6" HorizontalAlignment="Stretch"/>
 
-            <zCtrl:EventsTreeCtrl Grid.Column="0" Grid.Row="2" x:Name="Part_EventsTree"/>            
+            <zCtrl:EventsTreeCtrl Grid.Column="0" Grid.Row="2" x:Name="Part_EventsTree"/>
+            
         </Grid>
-
         
     </Grid>
 </Window>
