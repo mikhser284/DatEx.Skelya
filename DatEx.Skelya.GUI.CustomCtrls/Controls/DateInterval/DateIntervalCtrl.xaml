@@ -2,6 +2,10 @@
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                     xmlns:local="clr-namespace:DatEx.Skelya.GUI.CustomCtrls">
     <Style TargetType="{x:Type local:DateIntervalCtrl}">
+        <Style.Resources>
+            <local:ValConverter_EDateIntervalMode_String x:Key="ModeConverter"/>
+            <local:ValConverter_ETimeIntervalUnits_String x:Key="UnitsConverter"/>
+        </Style.Resources>
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="{x:Type local:DateIntervalCtrl}">
@@ -23,19 +27,32 @@
                             </Grid.RowDefinitions>
 
                             <Label Grid.Column="0" Grid.Row="0" Grid.RowSpan="2" Content="с" Height="24" VerticalAlignment="Center"/>
-                            <DatePicker Grid.Column="1" Grid.Row="0" Grid.RowSpan="2" VerticalAlignment="Top" Height="24" Margin="3"/>
-                            <ComboBox Grid.Column="2" Grid.Row="0" Grid.RowSpan="2" SelectedIndex="0" VerticalAlignment="Top" Height="24" MinWidth="50" Margin="3">
-                                <ComboBoxItem Content="-"/>
-                                <ComboBoxItem Content="+"/>
-                                <ComboBoxItem Content="по"/>
+                            <DatePicker x:Name="Part_FromTime_dPicker" Grid.Column="1" Grid.Row="0" Grid.RowSpan="2" VerticalAlignment="Top" Height="24" Margin="3"/>
+                            <ComboBox x:Name="Part_Mode_cBox" Grid.Column="2" Grid.Row="0" Grid.RowSpan="2" SelectedIndex="0" VerticalAlignment="Top" Height="24" MinWidth="55" Margin="3">
+                                <ComboBox.Resources>
+                                    <DataTemplate DataType="{x:Type local:EDateIntervalMode}">
+                                        <ComboBoxItem IsHitTestVisible="False">
+                                            <ComboBoxItem.Content>
+                                                <TextBlock Text="{Binding Path=., Converter={StaticResource ModeConverter}}" IsHitTestVisible="False"/>
+                                            </ComboBoxItem.Content>
+                                        </ComboBoxItem>
+                                    </DataTemplate>
+
+                                </ComboBox.Resources>
                             </ComboBox>
-                            <TextBox Grid.Column="3" Grid.Row="0" MinWidth="50" Text="24" Height="24" VerticalContentAlignment="Center" HorizontalContentAlignment="Right" VerticalAlignment="Top" Margin="3"/>
-                            <ComboBox Grid.Column="4" Grid.Row="0" SelectedIndex="1" VerticalAlignment="Top" Height="24" MinWidth="60" Margin="3">
-                                <ComboBoxItem Content="мин." ToolTip="минута / минут"/>
-                                <ComboBoxItem Content="ч." ToolTip="час / часов"/>
-                                <ComboBoxItem Content="д." ToolTip="день / дней"/>
+                            <TextBox x:Name="Part_TimeInterval_tBox" Grid.Column="3" Grid.Row="0" MinWidth="50" Text="24" Height="24" VerticalContentAlignment="Center" HorizontalContentAlignment="Right" VerticalAlignment="Top" Margin="3"/>
+                            <ComboBox x:Name="Part_TimeIntervalUnit_cBox" Grid.Column="4" Grid.Row="0" SelectedIndex="1" VerticalAlignment="Top" Height="24" MinWidth="65" Margin="3">
+                                <ComboBox.Resources>
+                                    <DataTemplate DataType="{x:Type local:ETimeIntervalUnits}">
+                                        <ComboBoxItem IsHitTestVisible="False">
+                                            <ComboBoxItem.Content>
+                                                <TextBlock Text="{Binding Path=., Converter={StaticResource UnitsConverter}}" IsHitTestVisible="False"/>
+                                            </ComboBoxItem.Content>
+                                        </ComboBoxItem>
+                                    </DataTemplate>
+                                </ComboBox.Resources>
                             </ComboBox>
-                            <DatePicker Grid.Column="3" Grid.ColumnSpan="2" Grid.Row="1" VerticalAlignment="Top" Height="24" Visibility="Collapsed" Margin="3"/>
+                            <DatePicker x:Name="Part_TillTime_dPicker" Grid.Column="3" Grid.ColumnSpan="2" Grid.Row="1" VerticalAlignment="Top" Height="24" Visibility="Collapsed" Margin="3"/>
                         </Grid>
 
                     </Border>

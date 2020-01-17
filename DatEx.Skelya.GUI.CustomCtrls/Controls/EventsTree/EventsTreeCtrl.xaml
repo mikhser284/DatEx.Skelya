@@ -37,9 +37,6 @@
                             <TextBlock Grid.Column="2" Grid.Row="0" x:Name="Part_Level" Text="0" TextAlignment="Center" Margin="3" MinWidth="20"/>
                             <Button Grid.Column="3" Grid.Row="0" x:Name="Part_CollapseLevel_Btn" Content="-" Margin="3" MinWidth="20"/>
 
-
-                                      <!--TreeViewItem.Expanded="OnTreeItemExpanded"
-                                      TreeViewItem.Collapsed="OnTreeItemCollapsed"-->
                             <TreeView Grid.Column="0" Grid.ColumnSpan="4" Grid.Row="1" Grid.IsSharedSizeScope="True"
                                       Name="Part_EventsCaption_Tree">
                                 <TreeView.Resources>

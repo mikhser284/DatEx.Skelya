@@ -38,8 +38,8 @@ namespace DatEx.Skelya.GUI.CustomCtrls
 
             #region ————— Routed events registraiton ——————————————————————————————————————————————————————————————————
 
-            CurrentFilterChangedEvent = EventManager.RegisterRoutedEvent(nameof(CurrentFilterChangedEvent), RoutingStrategy.Bubble,
-                typeof(RoutedPropertyChangedEventArgs<String>), typeof(EventFilterCtrl));
+            CurrentFilterChangedEvent = EventManager.RegisterRoutedEvent(nameof(CurrentFilterChanged), RoutingStrategy.Bubble,
+                typeof(RoutedPropertyChangedEventHandler<VM_FilterInfo>), typeof(EventFilterCtrl));
 
             #endregion ————— Routed events registraiton
         }

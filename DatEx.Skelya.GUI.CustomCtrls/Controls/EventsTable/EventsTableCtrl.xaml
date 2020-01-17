@@ -10,7 +10,7 @@
                             BorderBrush="{TemplateBinding BorderBrush}"
                             BorderThickness="{TemplateBinding BorderThickness}">
 
-                        <DataGrid AutoGenerateColumns="False"
+                        <DataGrid x:Name="Part_DataTable_dGrid" AutoGenerateColumns="False"
                                   GridLinesVisibility="Vertical"
                                   VerticalGridLinesBrush="#B8C6D8"
                                   HorizontalGridLinesBrush="#EFF4F7"

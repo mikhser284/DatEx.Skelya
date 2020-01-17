@@ -10,6 +10,8 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using DatEx.Skelya.GUI.Commands;
+using DatEx.Skelya.GUI.CustomCtrls;
+using DatEx.Skelya.GUI.CustomCtrls.ViewModel;
 
 namespace DatEx.Skelya.GUI
 {
@@ -18,12 +20,12 @@ namespace DatEx.Skelya.GUI
         public static AppSettings AppConfig = null;
         public static SkeliaClient Client = null;
         //
-        //private static EventsTableCtrl UiPart_EventsTable = null;
+        private static EventsTableCtrl UiPart_EventsTable = null;
         //private static EventDetailsCtrl UiPart_EventDetails = null;
         //private static EventCommentsCtrl UiPart_EventComments = null;
         //private static EventsTreeCtrl UiPart_EventsTree = null;
         //private static ScalesListCtrl UiPart_ScalesList = null;
-        //private static EventsFilterCtrl UiPart_EventsFilter = null;
+        private static EventFilterCtrl UiPart_EventsFilter = null;
         //private static TriggersCtrl UiPart_Triggers = null;
 
         public MainWindow()
@@ -33,12 +35,14 @@ namespace DatEx.Skelya.GUI
             AppConfig = AppSettings.Load();
             Client = new SkeliaClient(AppConfig.HttpAddressOf.SkelyaServer);
             //
-            //UiPart_EventsTable = Part_EventsTable;
+            UiPart_EventsTable = Part_EventsTable;
+            UiPart_EventsTable.FilterChanged += UiPart_EventsTable_FilterChanged;
             //UiPart_EventDetails = Part_EventDetails;
             //UiPart_EventComments = Part_EventComments;
             //UiPart_EventsTree = Part_EventsTree;
             //UiPart_ScalesList = Part_ScalesList;
-            //UiPart_EventsFilter = Part_EventsFilter;
+            UiPart_EventsFilter = Part_EventsFilter;
+            UiPart_EventsFilter.CurrentFilterChanged += UiPart_EventsFilter_CurrentFilterChanged;
             //UiPart_Triggers = Part_Triggers;
             //
             CommandBindings.AddRange(new List<CommandBinding>
@@ -47,6 +51,24 @@ namespace DatEx.Skelya.GUI
                 new CommandBinding(AppCommands.ShowAppSettingsDialog, ShowAppSettingsDialog_Executed, ShowAppSettingsDialog_CanExecute),
                 new CommandBinding(AppCommands.ShowAppAboutDialog, ShowAppAboutDialog_Executed, ShowAppAboutDialog_CanExecute)
             });
+
+            var filter = new VM_FilterInfo();
+            filter.TimeFrom = DateTime.Now;
+            filter.TimeTill = DateTime.Now;
+            UiPart_EventsFilter.CurrentFilter = filter;
+        }
+
+        private void UiPart_EventsTable_FilterChanged(Object sender, RoutedPropertyChangedEventArgs<VM_FilterInfo> e)
+        {
+            DateTime? from = e.NewValue.TimeFrom;
+            DateTime? till = e.NewValue.TimeTill;
+            MessageBox.Show($"{from} ... {till}");
+        }
+
+        private void UiPart_EventsFilter_CurrentFilterChanged(Object sender, RoutedPropertyChangedEventArgs<VM_FilterInfo> e)
+        {
+            UiPart_EventsTable.Filter = e.NewValue;
+            
         }
 
         private void ShowEventSnapshotDialog_CanExecute(object sender, CanExecuteRoutedEventArgs e)
