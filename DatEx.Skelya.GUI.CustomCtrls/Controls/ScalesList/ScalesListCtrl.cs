@@ -11,7 +11,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace DatEx.Skelya.GUI.CustomCtrls
+namespace DatEx.Skelya.GUI.CustomCtrls.Controls
 {
     public class ScalesListCtrl : Control
     {

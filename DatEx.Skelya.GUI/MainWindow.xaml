@@ -3,7 +3,8 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:zCtrl="clr-namespace:DatEx.Skelya.GUI.CustomCtrls;assembly=DatEx.Skelya.GUI.CustomCtrls"
+        xmlns:zCtrl="clr-namespace:DatEx.Skelya.GUI.CustomCtrls.Controls;assembly=DatEx.Skelya.GUI.CustomCtrls"
+        
         mc:Ignorable="d"
         Background="#293955"
         Title="Production events monitor © Kusto Agro LLC" Height="900" Width="1500"
@@ -75,6 +76,7 @@
                     <TabItem.Header>
                         <Label Content="Фильтры"/>
                     </TabItem.Header>
+                    
                     <zCtrl:EventFilterCtrl x:Name="Part_EventsFilter"/>
                 </TabItem>
 

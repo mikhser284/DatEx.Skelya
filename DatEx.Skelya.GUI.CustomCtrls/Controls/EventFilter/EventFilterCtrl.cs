@@ -12,7 +12,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace DatEx.Skelya.GUI.CustomCtrls
+namespace DatEx.Skelya.GUI.CustomCtrls.Controls
 {
     #region ■■■■■ Base ■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■
     public partial class EventFilterCtrl : Control
@@ -50,6 +50,7 @@ namespace DatEx.Skelya.GUI.CustomCtrls
         }
     }
     #endregion ■■■■■ Base
+
 
 
     #region ■■■■■ ControlParts ■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■

@@ -7,7 +7,7 @@ using System.Text;
 using System.Windows.Data;
 using System.Windows.Markup;
 
-namespace DatEx.Skelya.GUI.CustomCtrls
+namespace DatEx.Skelya.GUI.CustomCtrls.Helpers
 {
     public class EnumAndDescription
     {

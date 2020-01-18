@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Text;
 using System.Windows.Input;
 
-namespace DatEx.Skelya.GUI.CustomCtrls.Controls
+namespace DatEx.Skelya.GUI.CustomCtrls.Commands
 {
     class EventCommentsCommands
     {

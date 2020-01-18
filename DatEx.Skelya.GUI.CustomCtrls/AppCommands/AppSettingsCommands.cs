@@ -5,10 +5,10 @@ using System.Windows.Input;
 
 namespace DatEx.Skelya.GUI.CustomCtrls.Commands
 {
-    class SettingsCommands
+    class AppSettingsCommands
     {
         private static RoutedUICommand NewCommand(String commandName, String uiText, params KeyGesture[] keyGestures)
-            => new RoutedUICommand(uiText, commandName, typeof(SettingsCommands), new InputGestureCollection(keyGestures));
+            => new RoutedUICommand(uiText, commandName, typeof(AppSettingsCommands), new InputGestureCollection(keyGestures));
 
         // ▬▬▬▬▬
 

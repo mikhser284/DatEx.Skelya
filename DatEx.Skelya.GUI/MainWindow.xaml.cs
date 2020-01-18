@@ -11,6 +11,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using DatEx.Skelya.GUI.Commands;
 using DatEx.Skelya.GUI.CustomCtrls;
+using DatEx.Skelya.GUI.CustomCtrls.Controls;
 using DatEx.Skelya.GUI.CustomCtrls.ViewModel;
 
 namespace DatEx.Skelya.GUI

@@ -1,11 +1,12 @@
-﻿using System;
+﻿using DatEx.Skelya.GUI.CustomCtrls.Helpers;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Globalization;
 using System.Text;
 using System.Windows.Data;
 
-namespace DatEx.Skelya.GUI.CustomCtrls
+namespace DatEx.Skelya.GUI.CustomCtrls.Controls
 {
     public enum ETimeIntervalUnits
     {

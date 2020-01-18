@@ -14,8 +14,9 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 using DatEx.Skelya.GUI.CustomCtrls.Commands;
 using DatEx.Skelya.GUI.CustomCtrls.Controls;
+using DatEx.Skelya.GUI.CustomCtrls.Helpers;
 
-namespace DatEx.Skelya.GUI.CustomCtrls
+namespace DatEx.Skelya.GUI.CustomCtrls.Controls
 {
     #region ■■■■■ Base ■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■
     [TemplatePart(Name = nameof(Part_FromTime_dPicker), Type = typeof(DatePicker))]
