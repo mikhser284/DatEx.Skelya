@@ -3,6 +3,9 @@
                     xmlns:ctrls="clr-namespace:DatEx.Skelya.GUI.CustomCtrls.Controls"
                     xmlns:commands="clr-namespace:DatEx.Skelya.GUI.CustomCtrls.Commands"
                     xmlns:vm="clr-namespace:DatEx.Skelya.GUI.CustomCtrls.ViewModel">
+    <ResourceDictionary.MergedDictionaries>
+        <ResourceDictionary Source="/DatEx.Skelya.GUI.CustomCtrls;component/Styles/CheckBoxAlternateStyle.xaml"/>
+    </ResourceDictionary.MergedDictionaries>
     <Style TargetType="{x:Type ctrls:EventFilterCtrl}">
         <Setter Property="Template">
             <Setter.Value>
@@ -10,13 +13,19 @@
                     <Border Background="{TemplateBinding Background}"
                             BorderBrush="{TemplateBinding BorderBrush}"
                             BorderThickness="{TemplateBinding BorderThickness}">
-                        <StackPanel>
+                        
+                        <Grid>
 
-                            <Grid Background="#D6DBE9">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="*"/>
+                            </Grid.RowDefinitions>
+
+                            <Grid Grid.Row="0" Background="#D6DBE9">
                                 <Grid.ColumnDefinitions>
                                     <ColumnDefinition Width="Auto"/>
                                     <ColumnDefinition Width="*"/>
-
                                     <ColumnDefinition Width="Auto"/>
                                 </Grid.ColumnDefinitions>
 
@@ -25,168 +34,217 @@
                                 <ComboBox Grid.Column="1" SelectedIndex="0" Margin="3">
                                     <ComboBoxItem Content="Все события"/>
                                 </ComboBox>
+                                
                                 <StackPanel Grid.Column="2" Orientation="Horizontal">
                                     <Button Grid.Column="1" Content="[S]" Margin="3"/>
                                     <Button Grid.Column="1" Content="[Sa]" Margin="3"/>
                                     <Button Grid.Column="1" Content="[X]" Margin="3"/>
-
                                 </StackPanel>
 
                             </Grid>
 
-                            <ctrls:DateIntervalCtrl Margin="3,10"/>
+                            <ctrls:DateIntervalCtrl Grid.Row="1" Margin="3,10"/>
 
+                            <TreeView Grid.Row="2">
+                                <TreeViewItem>
+                                    <TreeViewItem.Header>
+                                        <CheckBox Focusable="False" FontWeight="Bold"
+                                                  IsChecked="{x:Null}" Content="Критичность события"/>
+                                    </TreeViewItem.Header>
+                                    <TreeViewItem>
+                                        <TreeViewItem.Header>
+                                            <CheckBox Style="{StaticResource CheckBoxAlternateStyle}" Focusable="False" IsThreeState="True"
+                                                      IsChecked="True" Content="Danger"/>
+                                        </TreeViewItem.Header>
+                                    </TreeViewItem>
+                                    <TreeViewItem>
+                                        <TreeViewItem.Header>
+                                            <CheckBox Style="{StaticResource CheckBoxAlternateStyle}" Focusable="False" IsThreeState="True"
+                                                      IsChecked="{x:Null}" Content="Warning"/>
+                                        </TreeViewItem.Header>
+                                    </TreeViewItem>
+                                    <TreeViewItem>
+                                        <TreeViewItem.Header>
+                                            <CheckBox Style="{StaticResource CheckBoxAlternateStyle}" Focusable="False" IsThreeState="True"
+                                                      IsChecked="False" Content="info"/>
+                                        </TreeViewItem.Header>
+                                    </TreeViewItem>
+                                </TreeViewItem>
 
+                                <TreeViewItem>
+                                    <TreeViewItem.Header>
+                                        <CheckBox Focusable="False" FontWeight="Bold"
+                                                  IsChecked="{x:Null}" Content="Изображения и комментарии"/>
+                                    </TreeViewItem.Header>
+                                    <TreeViewItem>
+                                        <TreeViewItem.Header>
+                                            <CheckBox Style="{StaticResource CheckBoxAlternateStyle}" Focusable="False" IsThreeState="True"
+                                                      IsChecked="True" Content="Событие содержит изображение"/>
+                                        </TreeViewItem.Header>
+                                    </TreeViewItem>
+                                    <TreeViewItem>
+                                        <TreeViewItem.Header>
+                                            <CheckBox Style="{StaticResource CheckBoxAlternateStyle}" Focusable="False" IsThreeState="True"
+                                                      IsChecked="{x:Null}" Content="Событие содержит комментарии"/>
+                                        </TreeViewItem.Header>
+                                    </TreeViewItem>                                    
+                                </TreeViewItem>
 
-                            <Expander IsExpanded="True" Margin="3">
-                                <Expander.Header>
-                                    <Grid>
-                                        <Grid.ColumnDefinitions>
-                                            <ColumnDefinition Width="*"/>
-                                            <ColumnDefinition Width="Auto"/>
-                                        </Grid.ColumnDefinitions>
-                                        <Label Grid.Column="0" Content="Критичность событий" FontWeight="Bold"/>
-                                        <Button Grid.Column="1" Content="Reset" Margin="2"/>
-                                    </Grid>
-                                </Expander.Header>
-                                <ListView Grid.Column="0" Grid.Row="1">
-                                    <StackPanel Orientation="Horizontal">
-                                        <CheckBox IsChecked="{x:Null}" IsThreeState="True" Focusable="False" VerticalAlignment="Center" Margin="3, 0"/>
-                                        <TextBlock VerticalAlignment="Center">
-                                <Run Text="Information"/>
-                                        </TextBlock>
-                                    </StackPanel>
-                                    <StackPanel Orientation="Horizontal">
-                                        <CheckBox IsChecked="{x:Null}" IsThreeState="True" Focusable="False" VerticalAlignment="Center" Margin="3, 0"/>
-                                        <TextBlock VerticalAlignment="Center">
-                                <Run Text="Warning"/>
-                                        </TextBlock>
-                                    </StackPanel>
-                                    <StackPanel Orientation="Horizontal">
-                                        <CheckBox IsChecked="{x:Null}" IsThreeState="True" Focusable="False" VerticalAlignment="Center" Margin="3, 0"/>
-                                        <TextBlock VerticalAlignment="Center">
-                                <Run Text="Danger"/>
-                                        </TextBlock>
-                                    </StackPanel>
-                                </ListView>
-                            </Expander>
+                                <TreeViewItem>
+                                    <TreeViewItem.Header>
+                                        <CheckBox Focusable="False" FontWeight="Bold"
+                                                  IsChecked="{x:Null}" Content="Расположение"/>
+                                    </TreeViewItem.Header>
+                                    <TreeViewItem>
+                                        <TreeViewItem.Header>
+                                            <CheckBox Style="{StaticResource CheckBoxAlternateStyle}" Focusable="False" IsThreeState="True" IsEnabled="False"
+                                                      IsChecked="True" Content="СП Росоша"/>
+                                        </TreeViewItem.Header>
+                                    </TreeViewItem>
+                                    <TreeViewItem>
+                                        <TreeViewItem.Header>
+                                            <CheckBox Style="{StaticResource CheckBoxAlternateStyle}" Focusable="False" IsThreeState="True" IsEnabled="False"
+                                                      IsChecked="{x:Null}" Content="СП Жмеринка"/>
+                                        </TreeViewItem.Header>
+                                    </TreeViewItem>
+                                    <TreeViewItem>
+                                        <TreeViewItem.Header>
+                                            <CheckBox Style="{StaticResource CheckBoxAlternateStyle}" Focusable="False" IsThreeState="True" IsEnabled="False"
+                                                      IsChecked="False" Content="СП Казатин"/>
+                                        </TreeViewItem.Header>
+                                    </TreeViewItem>
+                                    <TreeViewItem>
+                                        <TreeViewItem.Header>
+                                            <CheckBox Style="{StaticResource CheckBoxAlternateStyle}" Focusable="False" IsThreeState="True" IsEnabled="False"
+                                                      IsChecked="False" Content="АФТ"/>
+                                        </TreeViewItem.Header>
+                                    </TreeViewItem>
+                                    <TreeViewItem>
+                                        <TreeViewItem.Header>
+                                            <CheckBox Style="{StaticResource CheckBoxAlternateStyle}" Focusable="False" IsThreeState="True" IsEnabled="False"
+                                                      IsChecked="False" Content="Лещинское"/>
+                                        </TreeViewItem.Header>
+                                    </TreeViewItem>
+                                </TreeViewItem>
 
-                            <Expander IsExpanded="True" Margin="3">
-                                <Expander.Header>
-                                    <Grid>
-                                        <Grid.ColumnDefinitions>
-                                            <ColumnDefinition Width="*"/>
-                                            <ColumnDefinition Width="Auto"/>
-                                        </Grid.ColumnDefinitions>
-                                        <Label Grid.Column="0" Content="Типы событий" FontWeight="Bold"/>
-                                        <Button Grid.Column="1" Content="Reset" Margin="2"/>
-                                    </Grid>
-                                </Expander.Header>
-                                <ListView Grid.Column="0" Grid.Row="1">
-                                    <StackPanel Orientation="Horizontal">
-                                        <CheckBox IsChecked="{x:Null}" IsThreeState="True" Focusable="False" VerticalAlignment="Center" Margin="3, 0"/>
-                                        <TextBlock VerticalAlignment="Center">
-                                <Run Text="Название типа собития"/>
-                                        </TextBlock>
-                                    </StackPanel>
-                                </ListView>
-                            </Expander>
+                                <TreeViewItem>
+                                    <TreeViewItem.Header>
+                                        <CheckBox Focusable="False" FontWeight="Bold"
+                                                  IsChecked="{x:Null}" Content="Типы устройств"/>
+                                    </TreeViewItem.Header>
+                                    <TreeViewItem>
+                                        <TreeViewItem.Header>
+                                            <CheckBox Style="{StaticResource CheckBoxAlternateStyle}" Focusable="False" IsThreeState="True"
+                                                      IsChecked="True" Content="Весы"/>
+                                        </TreeViewItem.Header>
+                                    </TreeViewItem>
+                                    <TreeViewItem>
+                                        <TreeViewItem.Header>
+                                            <CheckBox Style="{StaticResource CheckBoxAlternateStyle}" Focusable="False" IsThreeState="True"
+                                                      IsChecked="{x:Null}" Content="Камера"/>
+                                        </TreeViewItem.Header>
+                                    </TreeViewItem>
+                                    <TreeViewItem>
+                                        <TreeViewItem.Header>
+                                            <CheckBox Style="{StaticResource CheckBoxAlternateStyle}" Focusable="False" IsThreeState="True"
+                                                      IsChecked="False" Content="Шлагбаум"/>
+                                        </TreeViewItem.Header>
+                                    </TreeViewItem>
+                                    <TreeViewItem>
+                                        <TreeViewItem.Header>
+                                            <CheckBox Style="{StaticResource CheckBoxAlternateStyle}" Focusable="False" IsThreeState="True"
+                                                      IsChecked="False" Content="Анализатор качества"/>
+                                        </TreeViewItem.Header>
+                                    </TreeViewItem>
+                                    <TreeViewItem>
+                                        <TreeViewItem.Header>
+                                            <CheckBox Style="{StaticResource CheckBoxAlternateStyle}" Focusable="False" IsThreeState="True"
+                                                      IsChecked="False" Content="Сканер штрих-кодов"/>
+                                        </TreeViewItem.Header>
+                                    </TreeViewItem>
+                                </TreeViewItem>
+                                
+                                <TreeViewItem>
+                                    <TreeViewItem.Header>
+                                        <CheckBox Focusable="False" FontWeight="Bold"
+                                                  IsChecked="{x:Null}" Content="Устройства"/>
+                                    </TreeViewItem.Header>
+                                    <TreeViewItem>
+                                        <TreeViewItem.Header>
+                                            <CheckBox Style="{StaticResource CheckBoxAlternateStyle}" Focusable="False" IsThreeState="True"
+                                                      IsChecked="True" Content="Росоша - ЖД Весы"/>
+                                        </TreeViewItem.Header>
+                                    </TreeViewItem>
+                                    <TreeViewItem>
+                                        <TreeViewItem.Header>
+                                            <CheckBox Style="{StaticResource CheckBoxAlternateStyle}" Focusable="False" IsThreeState="True"
+                                                      IsChecked="{x:Null}" Content="Росоша - Авто весы 1"/>
+                                        </TreeViewItem.Header>
+                                    </TreeViewItem>
+                                    <TreeViewItem>
+                                        <TreeViewItem.Header>
+                                            <CheckBox Style="{StaticResource CheckBoxAlternateStyle}" Focusable="False" IsThreeState="True"
+                                                      IsChecked="False" Content="Росоша - Авто весы 2"/>
+                                        </TreeViewItem.Header>
+                                    </TreeViewItem>
+                                    <TreeViewItem>
+                                        <TreeViewItem.Header>
+                                            <CheckBox Style="{StaticResource CheckBoxAlternateStyle}" Focusable="False" IsThreeState="True"
+                                                      IsChecked="False" Content="Росоша - Шлагбаум"/>
+                                        </TreeViewItem.Header>
+                                    </TreeViewItem>
+                                    <TreeViewItem>
+                                        <TreeViewItem.Header>
+                                            <CheckBox Style="{StaticResource CheckBoxAlternateStyle}" Focusable="False" IsThreeState="True"
+                                                      IsChecked="False" Content="Росоша - Сканер штрих-кодов"/>
+                                        </TreeViewItem.Header>
+                                    </TreeViewItem>
+                                </TreeViewItem>
 
-                            <Expander IsExpanded="True" Margin="3">
-                                <Expander.Header>
-                                    <Grid>
-                                        <Grid.ColumnDefinitions>
-                                            <ColumnDefinition Width="*"/>
-                                            <ColumnDefinition Width="Auto"/>
-                                        </Grid.ColumnDefinitions>
-                                        <Label Grid.Column="0" Content="Расположение" FontWeight="Bold"/>
-                                        <Button Grid.Column="1" Content="Reset" Margin="2"/>
-                                    </Grid>
-                                </Expander.Header>
-                                <ListView Grid.Column="0" Grid.Row="1">
-                                    <StackPanel Orientation="Horizontal">
-                                        <CheckBox IsChecked="{x:Null}" IsThreeState="True" Focusable="False" VerticalAlignment="Center" Margin="3, 0"/>
-                                        <TextBlock VerticalAlignment="Center">
-                                <Run Text="Название расположения"/>
-                                        </TextBlock>
-                                    </StackPanel>
-                                </ListView>
-                            </Expander>
+                                <TreeViewItem>
+                                    <TreeViewItem.Header>
+                                        <CheckBox Focusable="False" FontWeight="Bold"
+                                                  IsChecked="{x:Null}" Content="Типы событий"/>
+                                    </TreeViewItem.Header>
+                                    <TreeViewItem>
+                                        <TreeViewItem.Header>
+                                            <CheckBox Style="{StaticResource CheckBoxAlternateStyle}" Focusable="False" IsThreeState="True"
+                                                      IsChecked="True" Content="Событие типа А"/>
+                                        </TreeViewItem.Header>
+                                    </TreeViewItem>
+                                    <TreeViewItem>
+                                        <TreeViewItem.Header>
+                                            <CheckBox Style="{StaticResource CheckBoxAlternateStyle}" Focusable="False" IsThreeState="True"
+                                                      IsChecked="{x:Null}" Content="Событие типа Б"/>
+                                        </TreeViewItem.Header>
+                                    </TreeViewItem>
+                                    <TreeViewItem>
+                                        <TreeViewItem.Header>
+                                            <CheckBox Style="{StaticResource CheckBoxAlternateStyle}" Focusable="False" IsThreeState="True"
+                                                      IsChecked="False" Content="Событие типа В"/>
+                                        </TreeViewItem.Header>
+                                    </TreeViewItem>
+                                    <TreeViewItem>
+                                        <TreeViewItem.Header>
+                                            <CheckBox Style="{StaticResource CheckBoxAlternateStyle}" Focusable="False" IsThreeState="True"
+                                                      IsChecked="False" Content="Событие типа Г"/>
+                                        </TreeViewItem.Header>
+                                    </TreeViewItem>
+                                    <TreeViewItem>
+                                        <TreeViewItem.Header>
+                                            <CheckBox Style="{StaticResource CheckBoxAlternateStyle}" Focusable="False" IsThreeState="True"
+                                                      IsChecked="False" Content="Событие типа Д"/>
+                                        </TreeViewItem.Header>
+                                    </TreeViewItem>
+                                </TreeViewItem>
+                            </TreeView>
 
-                            <Expander IsExpanded="True" Margin="3">
-                                <Expander.Header>
-                                    <Grid>
-                                        <Grid.ColumnDefinitions>
-                                            <ColumnDefinition Width="*"/>
-                                            <ColumnDefinition Width="Auto"/>
-                                        </Grid.ColumnDefinitions>
-                                        <Label Grid.Column="0" Content="Типы устройств" FontWeight="Bold"/>
-                                        <Button Grid.Column="1" Content="Reset" Margin="2"/>
-                                    </Grid>
-                                </Expander.Header>
-                                <ListView Grid.Column="0" Grid.Row="1">
-                                    <StackPanel Orientation="Horizontal">
-                                        <CheckBox IsChecked="{x:Null}" IsThreeState="True" Focusable="False" VerticalAlignment="Center" Margin="3, 0"/>
-                                        <TextBlock VerticalAlignment="Center">
-                                <Run Text="Название типа устройства"/>
-                                        </TextBlock>
-                                    </StackPanel>
-                                </ListView>
-                            </Expander>
-
-                            <Expander IsExpanded="True" Margin="3">
-                                <Expander.Header>
-                                    <Grid>
-                                        <Grid.ColumnDefinitions>
-                                            <ColumnDefinition Width="*"/>
-                                            <ColumnDefinition Width="Auto"/>
-                                        </Grid.ColumnDefinitions>
-                                        <Label Grid.Column="0" Content="Устройства" FontWeight="Bold"/>
-                                        <Button Grid.Column="1" Content="Reset" Margin="2"/>
-                                    </Grid>
-                                </Expander.Header>
-                                <ListView Grid.Column="0" Grid.Row="1">
-                                    <StackPanel Orientation="Horizontal">
-                                        <CheckBox IsChecked="{x:Null}" IsThreeState="True" Focusable="False" VerticalAlignment="Center" Margin="3, 0"/>
-                                        <TextBlock VerticalAlignment="Center">
-                                <Run Text="Название устройства"/>
-                                        </TextBlock>
-                                    </StackPanel>
-                                </ListView>
-                            </Expander>
-
-                            <Expander IsExpanded="True" Margin="3">
-                                <Expander.Header>
-                                    <Grid>
-                                        <Grid.ColumnDefinitions>
-                                            <ColumnDefinition Width="*"/>
-                                            <ColumnDefinition Width="Auto"/>
-                                        </Grid.ColumnDefinitions>
-                                        <Label Grid.Column="0" Content="Изображения и комментарии" FontWeight="Bold"/>
-                                        <Button Grid.Column="1" Content="Reset" Margin="2"/>
-                                    </Grid>
-                                </Expander.Header>
-                                <ListView Grid.Column="0" Grid.Row="1">
-                                    <StackPanel Orientation="Horizontal">
-                                        <CheckBox IsChecked="{x:Null}" IsThreeState="True" Focusable="False" VerticalAlignment="Center" Margin="3, 0"/>
-                                        <TextBlock VerticalAlignment="Center">
-                                <Run Text="Содержит изображения"/>
-                                        </TextBlock>
-                                    </StackPanel>
-                                    <StackPanel Orientation="Horizontal">
-                                        <CheckBox IsChecked="{x:Null}" IsThreeState="True" Focusable="False" VerticalAlignment="Center" Margin="3, 0"/>
-                                        <TextBlock VerticalAlignment="Center">
-                                <Run Text="Содержит комментарии"/>
-                                        </TextBlock>
-                                    </StackPanel>
-                                </ListView>
-                            </Expander>
-                        </StackPanel>
+                        </Grid>
                     </Border>
                 </ControlTemplate>
             </Setter.Value>
         </Setter>
     </Style>
 
-    
+
 </ResourceDictionary>

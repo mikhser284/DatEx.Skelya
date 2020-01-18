@@ -51,6 +51,10 @@
 
         <zCtrl:EventsTableCtrl x:Name="Part_EventsTable" Grid.Column="3" Grid.Row="2"/>
 
+        <!--<Path Grid.Column="3" Grid.Row="2" Fill="Red" Margin="100"
+              Data="M2,1 L5,4 L8,1 L9,2 L6,5 L9,8 L8,9 L5,6 L2,9 L1,8 L4,5 L1,2 Z"/>-->
+
+
         <GridSplitter Grid.Column="4" Grid.Row="2" Width="6" Background="Transparent" HorizontalAlignment="Stretch"/>
 
         <Grid Grid.Column="5" Grid.Row="2">
@@ -65,25 +69,15 @@
 
             <TabControl Grid.Column="0" Grid.Row="0" >
 
-                <TabItem>
-                    <TabItem.Header>
-                        <Label Content="Показания весов"/>
-                    </TabItem.Header>
-                    <zCtrl:ScalesListCtrl x:Name="Part_ScalesList"/>
-                </TabItem>
-
-                <TabItem>
-                    <TabItem.Header>
-                        <Label Content="Фильтры"/>
-                    </TabItem.Header>
-                    
+                <TabItem Header="Фильтры">
                     <zCtrl:EventFilterCtrl x:Name="Part_EventsFilter"/>
                 </TabItem>
 
-                <TabItem>
-                    <TabItem.Header>
-                        <Label Content="Триггеры"/>
-                    </TabItem.Header>
+                <TabItem Header="Показания весов">
+                    <zCtrl:ScalesListCtrl x:Name="Part_ScalesList"/>
+                </TabItem>
+
+                <TabItem Header="Триггеры">
                     <zCtrl:TriggersCtrl x:Name="Part_Triggers"/>
                 </TabItem>
 
@@ -94,6 +88,5 @@
             <zCtrl:EventsTreeCtrl Grid.Column="0" Grid.Row="2" x:Name="Part_EventsTree"/>
             
         </Grid>
-        
     </Grid>
 </Window>
