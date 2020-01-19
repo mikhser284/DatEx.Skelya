@@ -45,31 +45,26 @@
 
                             <TextBlock Grid.Column="1" VerticalAlignment="Center">
                                 <Run Text="Обновление:"/>
-                                <Run Text="автоматически" FontWeight="Bold"/>
-                                <Run Text="(1 м.)"/>
-                                
-                                <Run Text="   │   "/>
-                                
-                                <Run Text="Событий:"/>
-                                <Run Text="123 из 3210 шт." FontWeight="Bold"/>
-                                
-                                <Run Text="   │   "/>
-                                
-                                <Run Text="Первое:"/>
-                                <Run Text="2020.01.01-Ср   00:00" FontWeight="Bold"/>
-                                <Run Text="   "/>
-                                <Run Text="Последнее:"/>
-                                <Run Text="2020.01.02-Чт   00:00" FontWeight="Bold"/>
-                                
-                                <Run Text="   │   "/>
-                                <Run Text="За время от:"/>
-                                <Run Text="2020.01.01-Ср" FontWeight="Bold"/>
+                                <Run Text="автоматически" FontWeight="Bold" x:Name="Part_UpdateMode_Run"/>
+                                <Run Text="("/>
+                                <Run Text="1" x:Name="Part_UpdateIntervalInMin_Run"/>
+                                <Run Text=" м. )   │   Событий:"/>
+                                <Run Text="123" FontWeight="Bold" x:Name="Part_EventsDisplayed_Run"/>
+                                <Run Text=" из "/>
+                                <Run Text="3210" FontWeight="Bold" x:Name="Part_EventsLoaded_Run"/>
+                                <Run Text=" шт.   Первое:"/>
+                                <Run Text="2020.01.01-Ср   00:00" FontWeight="Bold" x:Name="Part_TimeOfFirstEvent_Run"/>
+                                <Run Text="   Последнее:"/>
+                                <Run Text="2020.01.02-Чт   00:00" FontWeight="Bold" x:Name="Part_TimeOfLastEvent_Run"/>
+                                <Run Text="   │   За время от:"/>
+                                <Run Text="2020.01.01-Ср" FontWeight="Bold" x:Name="Part_DesiredStartTime_Run"/>
                                 <Run Text="   до:"/>
-                                <Run Text="2020.01.02-Чт" FontWeight="Bold"/>
-                                <Run Text="   "/>
-                                <Run Text="(1 д. 2 ч.)"/>
+                                <Run Text="2020.01.02-Чт" FontWeight="Bold" x:Name="Part_DesiredEndTime_Run"/>
+                                <Run Text="   ("/>
+                                <Run Text="1 д. 2 ч." x:Name="Part_DesiredTimeSpan_Run"/>
+                                <Run Text=")"/>
                             </TextBlock>
-                            <ctrls:OperationProgressCtrl HorizontalAlignment="Right" Grid.Column="2"/>
+                            <ctrls:OperationProgressCtrl HorizontalAlignment="Right" Grid.Column="2" x:Name="Part_Progress_opProg"/>
 
                         </Grid>
                     </Border>

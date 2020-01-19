@@ -6,12 +6,14 @@ using System.Text;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Controls.Primitives;
+using System.Windows.Data;
 using System.Windows.Input;
 
 namespace DatEx.Skelya.GUI.CustomCtrls.Controls
 {
     #region ■■■■■ Base ■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■
-    [TemplatePart(Name = nameof(Part_Name_Ctrl), Type = typeof(ContentControl))]
+    [TemplatePart(Name = nameof(Part_Value_tBox), Type = typeof(TextBox))]
+    [TemplatePart(Name = nameof(Part_ResetValue_Btn), Type = typeof(Button))]
     public partial class CtrlTemplate : Control
     {
         public CtrlTemplate()
@@ -23,20 +25,23 @@ namespace DatEx.Skelya.GUI.CustomCtrls.Controls
         {
             DefaultStyleKeyProperty.OverrideMetadata(typeof(CtrlTemplate), new FrameworkPropertyMetadata(typeof(CtrlTemplate)));
 
-            #region ————— Dependency property registration ————————————————————————————————————————————————————————————
+            #region ————— Local methods ———————————————————————————————————————————————————————————————————————————————
+            static DependencyProperty RegisterProperty<T>(String propName, T defaultValue, Action<DependencyObject, DependencyPropertyChangedEventArgs> propChangedCallback)
+                => DependencyProperty.Register(propName, typeof(T), typeof(EventsTableCtrl), new FrameworkPropertyMetadata(defaultValue, new PropertyChangedCallback(propChangedCallback)));
 
-            PropNameProperty = DependencyProperty.Register(nameof(Prop), typeof(String), typeof(CtrlTemplate),
-                new FrameworkPropertyMetadata(default(String), new PropertyChangedCallback(OnDependencyPropChanged_Prop)));
+            static RoutedEvent RegisterEvent<T>(String handlerName)
+                => EventManager.RegisterRoutedEvent(handlerName, RoutingStrategy.Bubble, typeof(RoutedPropertyChangedEventHandler<T>), typeof(EventsTableCtrl));
 
-            #endregion ————— Dependency property registration
+            static void BindCommand(RoutedCommand command, ExecutedRoutedEventHandler executedHandler, CanExecuteRoutedEventHandler canExecuteHandler)
+                => CommandManager.RegisterClassCommandBinding(typeof(EventsTableCtrl), new CommandBinding(command, executedHandler, canExecuteHandler));
+            #endregion ————— Local methods
 
-            #region ————— Routed events registraiton ——————————————————————————————————————————————————————————————————
-
-            PropChangedEvent = EventManager.RegisterRoutedEvent(nameof(PropChanged), RoutingStrategy.Bubble,
-                typeof(RoutedPropertyChangedEventHandler<String>), typeof(CtrlTemplate));
-
-
-            #endregion ————— Routed events registraiton
+            #region ————— Dependency property & routed events registration ————————————————————————————————————————————
+            //
+            ValueProperty = RegisterProperty<String>(nameof(Value), default(String), OnDependencyPropChanged_Value);
+            ValueChangedEvent = RegisterEvent<String>(nameof(ValueChanged));
+            //
+            #endregion ————— Dependency property & routed events registration
 
             #region ————— Class handlers registraiton —————————————————————————————————————————————————————————————————
 
@@ -46,14 +51,9 @@ namespace DatEx.Skelya.GUI.CustomCtrls.Controls
 
             #region ————— Commands registration ———————————————————————————————————————————————————————————————————————
 
-            BindCommand(CtrlTemplateCommands.CommandName, CommandName_Executed, CommandName_CanExecute);
+            BindCommand(CtrlTemplateCommands.ResetValue, ResetValue_Executed, ResetValue_CanExecute);
 
             #endregion ————— Commands registration
-        }
-        
-        private static void BindCommand(RoutedCommand command, ExecutedRoutedEventHandler executedHandler, CanExecuteRoutedEventHandler canExecuteHandler)
-        {
-            CommandManager.RegisterClassCommandBinding(typeof(CtrlTemplate), new CommandBinding(command, executedHandler, canExecuteHandler));
         }
     }
     #endregion ■■■■■ Base
@@ -63,7 +63,8 @@ namespace DatEx.Skelya.GUI.CustomCtrls.Controls
     #region ■■■■■ ControlParts ■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■
     public partial class CtrlTemplate
     {
-        private ContentControl Part_Name_Ctrl;
+        private ContentControl Part_Value_tBox;
+        private Button Part_ResetValue_Btn;
 
         private T FindTemplatePart<T>(String templatePartName) where T : DependencyObject
             => (GetTemplateChild(templatePartName) as T) ?? throw new NullReferenceException(templatePartName);
@@ -72,14 +73,25 @@ namespace DatEx.Skelya.GUI.CustomCtrls.Controls
         {
             base.OnApplyTemplate();
             //
-            Part_Name_Ctrl = FindTemplatePart<ContentControl>(nameof(Part_Name_Ctrl));
+            Part_Value_tBox = FindTemplatePart<ContentControl>(nameof(Part_Value_tBox));
+            Part_ResetValue_Btn = FindTemplatePart<Button>(nameof(Part_ResetValue_Btn));
             //
             SetUpTemplateParts();            
         }
 
         private void SetUpTemplateParts()
         {
-            Part_Name_Ctrl.ToolTip = GetToolTipText(CtrlTemplateCommands.CommandName);
+            Binding valueBinding = new Binding
+            {
+                Source = this,
+                Path = new PropertyPath(nameof(Value)),
+                Mode = BindingMode.TwoWay
+            };
+            BindingOperations.SetBinding(Part_Value_tBox, TextBox.TextProperty, valueBinding);
+            //
+            //
+            Part_ResetValue_Btn.Command = CtrlTemplateCommands.ResetValue;
+            Part_ResetValue_Btn.ToolTip = GetToolTipText(CtrlTemplateCommands.ResetValue);
         }
 
         private String GetToolTipText(RoutedUICommand command)
@@ -92,52 +104,39 @@ namespace DatEx.Skelya.GUI.CustomCtrls.Controls
 
 
 
-    #region ■■■■■ Properties ■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■
+    #region ■■■■■ Properties & Events ■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■
     public partial class CtrlTemplate
     {
-        #region ————— PropNameChanged —————————————————————————————————————————————————————————————————————————————————
+        #region ————— Value ———————————————————————————————————————————————————————————————————————————————————————————
+        public static DependencyProperty ValueProperty;
 
-        public static DependencyProperty PropNameProperty;
-
-        public String Prop
+        public String Value
         {
-            get => (String)GetValue(PropNameProperty);
-            set => SetValue(PropNameProperty, value);
+            get => (String)GetValue(ValueProperty);
+            set => SetValue(ValueProperty, value);
         }
 
-        private static void OnDependencyPropChanged_Prop(DependencyObject sender, DependencyPropertyChangedEventArgs e)
+        private static void OnDependencyPropChanged_Value(DependencyObject sender, DependencyPropertyChangedEventArgs e)
         {
             CtrlTemplate ctrl = sender as CtrlTemplate;
             if (ctrl == null) return;
             String oldValue = (String)e.OldValue;
             String newValue = (String)e.NewValue;
             RoutedPropertyChangedEventArgs<String> args = new RoutedPropertyChangedEventArgs<String>(oldValue, newValue);
-            args.RoutedEvent = CtrlTemplate.PropChangedEvent;
+            args.RoutedEvent = CtrlTemplate.ValueChangedEvent;
             ctrl.RaiseEvent(args);
         }
 
-        #endregion ————— PropNameChanged
-    }
-    #endregion ■■■■■ ControlParts
+        public static readonly RoutedEvent ValueChangedEvent;
 
-
-
-    #region ■■■■■ Events ■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■
-    public partial class CtrlTemplate
-    {
-        #region ————— EventNameChanged ————————————————————————————————————————————————————————————————————————————————
-
-        public static readonly RoutedEvent PropChangedEvent;
-
-        public event RoutedPropertyChangedEventHandler<String> PropChanged
+        public event RoutedPropertyChangedEventHandler<String> ValueChanged
         {
-            add => AddHandler(PropChangedEvent, value);
-            remove => RemoveHandler(PropChangedEvent, value);
+            add => AddHandler(ValueChangedEvent, value);
+            remove => RemoveHandler(ValueChangedEvent, value);
         }
-
-        #endregion ————— EventNameChanged
+        #endregion ————— Value
     }
-    #endregion ■■■■■ ControlParts
+    #endregion ■■■■■ Properties & Events
 
 
 
@@ -170,19 +169,19 @@ namespace DatEx.Skelya.GUI.CustomCtrls.Controls
     #region ■■■■■ Commands ■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■
     public partial class CtrlTemplate
     {
-        #region ————— CommandName —————————————————————————————————————————————————————————————————————————————————————
+        #region ————— ResetValue ——————————————————————————————————————————————————————————————————————————————————————
 
-        private static void CommandName_Executed(object sender, ExecutedRoutedEventArgs e)
+        private static void ResetValue_Executed(object sender, ExecutedRoutedEventArgs e)
         {
             MessageBox.Show($"Command {((RoutedUICommand)e.Command).Text} not implemented");
         }
 
-        private static void CommandName_CanExecute(object sender, CanExecuteRoutedEventArgs e)
+        private static void ResetValue_CanExecute(object sender, CanExecuteRoutedEventArgs e)
         {
             e.CanExecute = false;
         }
 
-        #endregion ————— CommandName
+        #endregion ————— ResetValue
     }
     #endregion ■■■■■ Commands
 }

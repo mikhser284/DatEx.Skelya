@@ -12,7 +12,7 @@ namespace DatEx.Skelya.GUI.CustomCtrls.Commands
 
         // ▬▬▬▬▬
 
-        public static readonly RoutedUICommand CommandName = NewCommand(nameof(CommandName)
+        public static readonly RoutedUICommand ResetValue = NewCommand(nameof(ResetValue)
             , "Command name"
             , new KeyGesture(Key.Space, ModifierKeys.Control | ModifierKeys.Shift | ModifierKeys.Alt));
          

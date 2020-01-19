@@ -26,7 +26,7 @@
             <RowDefinition Height="6"/>
         </Grid.RowDefinitions>
 
-        <zCtrl:AppMenuCtrl Grid.Column="0" Grid.ColumnSpan="7" Grid.Row="0"/>
+        <zCtrl:AppMenuCtrl x:Name="Part_AppMenu_appMnu" Grid.Column="0" Grid.ColumnSpan="7" Grid.Row="0"/>
 
         <Grid Grid.Column="1" Grid.Row="2">
             <Grid.ColumnDefinitions>

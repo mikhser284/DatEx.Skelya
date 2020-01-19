@@ -26,69 +26,38 @@ namespace DatEx.Skelya.GUI.CustomCtrls.Controls
     [TemplatePart(Name = nameof(Part_TillTime_dPicker), Type = typeof(DatePicker))]
     public partial class DateIntervalCtrl : Control
     {
-        public DateIntervalCtrl()
-        {
-            //Mode = EDateIntervalMode.EndTimeMinusTimeInterval;
-        }
+        public DateIntervalCtrl() { }
 
         static DateIntervalCtrl()
         {
             DefaultStyleKeyProperty.OverrideMetadata(typeof(DateIntervalCtrl), new FrameworkPropertyMetadata(typeof(DateIntervalCtrl)));
 
-            #region ————— Dependency property registration ————————————————————————————————————————————————————————————
+            #region ————— Local methods ———————————————————————————————————————————————————————————————————————————————            
+            static DependencyProperty RegisterProperty<T>(String propName, T defaultValue, Action<DependencyObject, DependencyPropertyChangedEventArgs> propChangedCallback)
+                => DependencyProperty.Register(propName, typeof(T), typeof(DateIntervalCtrl), new FrameworkPropertyMetadata(defaultValue, new PropertyChangedCallback(propChangedCallback)));
 
-            StartDateProperty = DependencyProperty.Register(nameof(StartDate), typeof(DateTime?), typeof(DateIntervalCtrl),
-                new FrameworkPropertyMetadata(default(DateTime?), new PropertyChangedCallback(OnDependencyPropChanged_StartDate)));
+            static RoutedEvent RegisterEvent<T>(String handlerName)
+                => EventManager.RegisterRoutedEvent(handlerName, RoutingStrategy.Bubble, typeof(RoutedPropertyChangedEventHandler<T>), typeof(DateIntervalCtrl));
+            #endregion ————— Local methods
 
-            EndDateProperty = DependencyProperty.Register(nameof(EndDate), typeof(DateTime?), typeof(DateIntervalCtrl),
-                new FrameworkPropertyMetadata(default(DateTime?), new PropertyChangedCallback(OnDependencyPropChanged_EndDate)));
-
-            ModeProperty = DependencyProperty.Register(nameof(Mode), typeof(EDateIntervalMode), typeof(DateIntervalCtrl),
-                new FrameworkPropertyMetadata(EDateIntervalMode.EndTimeMinusTimeInterval, new PropertyChangedCallback(OnDependencyPropChanged_Mode)));
-
-            TimeIntervalProperty = DependencyProperty.Register(nameof(TimeInterval), typeof(Int32?), typeof(DateIntervalCtrl),
-                new FrameworkPropertyMetadata(5, new PropertyChangedCallback(OnDependencyPropChanged_TimeInterval)));
-
-            TimeIntervalUnitsProperty = DependencyProperty.Register(nameof(TimeIntervalUnits), typeof(ETimeIntervalUnits), typeof(DateIntervalCtrl),
-                new FrameworkPropertyMetadata(ETimeIntervalUnits.Days, new PropertyChangedCallback(OnDependencyPropChanged_TimeIntervalUnits)));
-
-            #endregion ————— Dependency property registration
-
-            #region ————— Routed events registraiton ——————————————————————————————————————————————————————————————————
-
-            StartDateChangedEvent = EventManager.RegisterRoutedEvent(nameof(StartDateChanged), RoutingStrategy.Bubble,
-                typeof(RoutedPropertyChangedEventHandler<DateTime?>), typeof(DateIntervalCtrl));
-
-            EndDateChangedEvent = EventManager.RegisterRoutedEvent(nameof(EndDateChanged), RoutingStrategy.Bubble,
-                typeof(RoutedPropertyChangedEventHandler<DateTime?>), typeof(DateIntervalCtrl));
-
-            ModeChangedEvent = EventManager.RegisterRoutedEvent(nameof(ModeChanged), RoutingStrategy.Bubble,
-                typeof(RoutedPropertyChangedEventHandler<EDateIntervalMode>), typeof(DateIntervalCtrl));
-
-            TimeIntervalChangedEvent = EventManager.RegisterRoutedEvent(nameof(TimeIntervalChanged), RoutingStrategy.Bubble,
-                typeof(RoutedPropertyChangedEventHandler<Int32?>), typeof(DateIntervalCtrl));
-
-            TimeIntervalUnitsChangedEvent = EventManager.RegisterRoutedEvent(nameof(TimeIntervalUnitsChanged), RoutingStrategy.Bubble,
-                typeof(RoutedPropertyChangedEventHandler<ETimeIntervalUnits>), typeof(DateIntervalCtrl));
-
-            #endregion ————— Routed events registraiton
-
-            #region ————— Class handlers registraiton —————————————————————————————————————————————————————————————————
-
-            //EventManager.RegisterClassHandler(typeof(DateIntervalCtrl), TreeViewItem.ExpandedEvent, new RoutedEventHandler(OnTreeItemExpanded));
-
-            #endregion ————— Class handlers registraiton
-
-            #region ————— Commands registration ———————————————————————————————————————————————————————————————————————
-
-            BindCommand(CtrlTemplateCommands.CommandName, CommandName_Executed, CommandName_CanExecute);
-
-            #endregion ————— Commands registration
-        }
-
-        private static void BindCommand(RoutedCommand command, ExecutedRoutedEventHandler executedHandler, CanExecuteRoutedEventHandler canExecuteHandler)
-        {
-            CommandManager.RegisterClassCommandBinding(typeof(DateIntervalCtrl), new CommandBinding(command, executedHandler, canExecuteHandler));
+            #region ————— Dependency property & routed events registration ————————————————————————————————————————————
+            //
+            StartDateProperty = RegisterProperty<DateTime?>(nameof(StartDate), default(DateTime?), OnDependencyPropChanged_StartDate);
+            StartDateChangedEvent = RegisterEvent<DateTime?>(nameof(StartDateChanged));
+            //
+            EndDateProperty = RegisterProperty<DateTime?>(nameof(EndDate), default(DateTime?), OnDependencyPropChanged_EndDate);
+            EndDateChangedEvent = RegisterEvent<DateTime?>(nameof(EndDateChanged));
+            //
+            ModeProperty = RegisterProperty<EDateIntervalMode>(nameof(Mode), default(EDateIntervalMode), OnDependencyPropChanged_Mode);
+            ModeChangedEvent = RegisterEvent<EDateIntervalMode>(nameof(ModeChanged));
+            //
+            TimeIntervalProperty = RegisterProperty<Int32?>(nameof(TimeInterval), 1, OnDependencyPropChanged_TimeInterval);
+            TimeIntervalChangedEvent = RegisterEvent<Int32?>(nameof(TimeIntervalChanged));
+            //
+            TimeIntervalUnitsProperty = RegisterProperty<ETimeIntervalUnits>(nameof(TimeIntervalUnits), ETimeIntervalUnits.Days, OnDependencyPropChanged_TimeIntervalUnits);
+            TimeIntervalUnitsChangedEvent = RegisterEvent<ETimeIntervalUnits>(nameof(TimeIntervalUnitsChanged));
+            //
+            #endregion ————— Dependency property & routed events registration
         }
     }
     #endregion ■■■■■ Base
@@ -168,21 +137,15 @@ namespace DatEx.Skelya.GUI.CustomCtrls.Controls
             };
             BindingOperations.SetBinding(Part_TillTime_dPicker, DatePicker.SelectedDateProperty, endTimeBinding);
         }
-
-        private String GetToolTipText(RoutedUICommand command)
-        {
-            KeyGesture keyGesture = command.InputGestures[0] as KeyGesture;
-            return keyGesture == null ? command.Text : $"{command.Text} [{keyGesture.GetDisplayStringForCulture(CultureInfo.CurrentCulture)}]";
-        }
     }
     #endregion ■■■■■ ControlParts
 
 
 
-    #region ■■■■■ Properties ■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■
+    #region ■■■■■ Properties & Events ■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■
     public partial class DateIntervalCtrl
     {
-        #region ————— StartDateProperty ———————————————————————————————————————————————————————————————————————————————
+        #region ————— StartDate ———————————————————————————————————————————————————————————————————————————————————————
         public static DependencyProperty StartDateProperty;
 
         public DateTime? StartDate
@@ -201,9 +164,17 @@ namespace DatEx.Skelya.GUI.CustomCtrls.Controls
             args.RoutedEvent = DateIntervalCtrl.StartDateChangedEvent;
             ctrl.RaiseEvent(args);
         }
-        #endregion ————— StartDateProperty
 
-        #region ————— EndDateProperty —————————————————————————————————————————————————————————————————————————————————
+        public static readonly RoutedEvent StartDateChangedEvent;
+
+        public event RoutedPropertyChangedEventHandler<DateTime?> StartDateChanged
+        {
+            add => AddHandler(StartDateChangedEvent, value);
+            remove => RemoveHandler(StartDateChangedEvent, value);
+        }
+        #endregion ————— StartDate
+
+        #region ————— EndDate —————————————————————————————————————————————————————————————————————————————————————————
         public static DependencyProperty EndDateProperty;
 
         public DateTime? EndDate
@@ -222,9 +193,17 @@ namespace DatEx.Skelya.GUI.CustomCtrls.Controls
             args.RoutedEvent = DateIntervalCtrl.EndDateChangedEvent;
             ctrl.RaiseEvent(args);
         }
-        #endregion ————— EndDateProperty
 
-        #region ————— ModeProperty ————————————————————————————————————————————————————————————————————————————————————
+        public static readonly RoutedEvent EndDateChangedEvent;
+
+        public event RoutedPropertyChangedEventHandler<DateTime?> EndDateChanged
+        {
+            add => AddHandler(EndDateChangedEvent, value);
+            remove => RemoveHandler(EndDateChangedEvent, value);
+        }
+        #endregion ————— EndDate
+
+        #region ————— Mode ————————————————————————————————————————————————————————————————————————————————————————————
         public static DependencyProperty ModeProperty;
 
         public EDateIntervalMode Mode
@@ -272,9 +251,17 @@ namespace DatEx.Skelya.GUI.CustomCtrls.Controls
                 }
             }
         }
-        #endregion ————— ModeProperty
 
-        #region ————— TimeIntervalProperty ————————————————————————————————————————————————————————————————————————————
+        public static readonly RoutedEvent ModeChangedEvent;
+
+        public event RoutedPropertyChangedEventHandler<EDateIntervalMode> ModeChanged
+        {
+            add => AddHandler(ModeChangedEvent, value);
+            remove => RemoveHandler(ModeChangedEvent, value);
+        }
+        #endregion ————— Mode
+
+        #region ————— TimeInterval ————————————————————————————————————————————————————————————————————————————————————
         public static DependencyProperty TimeIntervalProperty;
 
         public Int32? TimeInterval
@@ -293,7 +280,15 @@ namespace DatEx.Skelya.GUI.CustomCtrls.Controls
             args.RoutedEvent = DateIntervalCtrl.TimeIntervalChangedEvent;
             ctrl.RaiseEvent(args);
         }
-        #endregion ————— TimeIntervalProperty
+
+        public static readonly RoutedEvent TimeIntervalChangedEvent;
+
+        public event RoutedPropertyChangedEventHandler<Int32?> TimeIntervalChanged
+        {
+            add => AddHandler(TimeIntervalChangedEvent, value);
+            remove => RemoveHandler(TimeIntervalChangedEvent, value);
+        }
+        #endregion ————— TimeInterval
 
         #region ————— TimeIntervalUnitsProperty ———————————————————————————————————————————————————————————————————————
         public static DependencyProperty TimeIntervalUnitsProperty;
@@ -314,64 +309,6 @@ namespace DatEx.Skelya.GUI.CustomCtrls.Controls
             args.RoutedEvent = DateIntervalCtrl.TimeIntervalUnitsChangedEvent;
             ctrl.RaiseEvent(args);
         }
-        #endregion ————— TimeIntervalUnitsProperty
-    }
-    #endregion ■■■■■ ControlParts
-
-
-
-    #region ■■■■■ Events ■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■
-    public partial class DateIntervalCtrl
-    {
-        #region ————— StartDateChangedEvent ———————————————————————————————————————————————————————————————————————————
-
-        public static readonly RoutedEvent StartDateChangedEvent;
-
-        public event RoutedPropertyChangedEventHandler<DateTime?> StartDateChanged
-        {
-            add => AddHandler(StartDateChangedEvent, value);
-            remove => RemoveHandler(StartDateChangedEvent, value);
-        }
-
-        #endregion ————— StartDateChangedEvent
-
-        #region ————— EndDateChangedEvent —————————————————————————————————————————————————————————————————————————————
-
-        public static readonly RoutedEvent EndDateChangedEvent;
-
-        public event RoutedPropertyChangedEventHandler<DateTime?> EndDateChanged
-        {
-            add => AddHandler(EndDateChangedEvent, value);
-            remove => RemoveHandler(EndDateChangedEvent, value);
-        }
-
-        #endregion ————— EndDateChangedEvent
-
-        #region ————— ModeChangedEvent ————————————————————————————————————————————————————————————————————————————————
-
-        public static readonly RoutedEvent ModeChangedEvent;
-
-        public event RoutedPropertyChangedEventHandler<EDateIntervalMode> ModeChanged
-        {
-            add => AddHandler(ModeChangedEvent, value);
-            remove => RemoveHandler(ModeChangedEvent, value);
-        }
-
-        #endregion ————— ModeChangedEvent
-
-        #region ————— TimeIntervalChangedEvent ————————————————————————————————————————————————————————————————————————
-
-        public static readonly RoutedEvent TimeIntervalChangedEvent;
-
-        public event RoutedPropertyChangedEventHandler<Int32?> TimeIntervalChanged
-        {
-            add => AddHandler(TimeIntervalChangedEvent, value);
-            remove => RemoveHandler(TimeIntervalChangedEvent, value);
-        }
-
-        #endregion ————— TimeIntervalChangedEvent
-
-        #region ————— TimeIntervalUnitsChangedEvent ————————————————————————————————————————————————————————————————————————
 
         public static readonly RoutedEvent TimeIntervalUnitsChangedEvent;
 
@@ -380,55 +317,7 @@ namespace DatEx.Skelya.GUI.CustomCtrls.Controls
             add => AddHandler(TimeIntervalUnitsChangedEvent, value);
             remove => RemoveHandler(TimeIntervalUnitsChangedEvent, value);
         }
-
-        #endregion ————— TimeIntervalUnitsChangedEvent
+        #endregion ————— TimeIntervalUnitsProperty
     }
-    #endregion ■■■■■ ControlParts
-
-
-
-    #region ■■■■■ Class handlers ■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■
-    public partial class DateIntervalCtrl
-    {
-        #region ————— ClassHandler ————————————————————————————————————————————————————————————————————————————————
-
-        //private static void OnTreeItemExpanded(object sender, RoutedEventArgs e)
-        //{
-        //    TreeViewItem treeViewItem = e.OriginalSource as TreeViewItem;
-        //    if(treeViewItem == null) return;
-        //    treeViewItem.ItemContainerGenerator.StatusChanged += ItemContainerGenerator_StatusChanged;
-
-        //    void ItemContainerGenerator_StatusChanged(object sender, EventArgs e)
-        //    {
-        //        ItemContainerGenerator generator = sender as ItemContainerGenerator;
-        //        if(generator.Status != GeneratorStatus.ContainersGenerated) return;
-        //        Application.Current.Dispatcher.BeginInvoke(new Action(() => MessageBox.Show("Item expanded")));
-        //        generator.StatusChanged -= ItemContainerGenerator_StatusChanged;
-        //    }
-        //}
-
-        #endregion ————— ClassHandler
-    }
-    #endregion ■■■■■ Class handlers
-
-
-
-    #region ■■■■■ Commands ■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■
-    public partial class DateIntervalCtrl
-    {
-        #region ————— CommandName —————————————————————————————————————————————————————————————————————————————————————
-
-        private static void CommandName_Executed(object sender, ExecutedRoutedEventArgs e)
-        {
-            MessageBox.Show($"Command {((RoutedUICommand)e.Command).Text} not implemented");
-        }
-
-        private static void CommandName_CanExecute(object sender, CanExecuteRoutedEventArgs e)
-        {
-            e.CanExecute = false;
-        }
-
-        #endregion ————— CommandName
-    }
-    #endregion ■■■■■ Commands
+    #endregion ■■■■■ Properties & Events
 }
