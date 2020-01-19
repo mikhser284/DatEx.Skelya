@@ -10,14 +10,11 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 
-namespace DatEx.Skelya.GUI.Dialogs
+namespace DatEx.Skelya.GUI.CustomCtrls.Dialogs
 {
-    /// <summary>
-    /// Interaction logic for SettingsDlg.xaml
-    /// </summary>
-    public partial class SettingsDlg : Window
+    public partial class AddRemarkDlg : Window
     {
-        public SettingsDlg()
+        public AddRemarkDlg()
         {
             InitializeComponent();
         }

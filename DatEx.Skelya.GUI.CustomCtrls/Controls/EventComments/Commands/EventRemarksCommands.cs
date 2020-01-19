@@ -5,15 +5,15 @@ using System.Windows.Input;
 
 namespace DatEx.Skelya.GUI.CustomCtrls.Commands
 {
-    class EventCommentsCommands
+    public class EventRemarksCommands
     {
         private static RoutedUICommand NewCommand(String commandName, String uiText, params KeyGesture[] keyGestures)
-            => new RoutedUICommand(uiText, commandName, typeof(EventCommentsCommands), new InputGestureCollection(keyGestures));
+            => new RoutedUICommand(uiText, commandName, typeof(EventRemarksCommands), new InputGestureCollection(keyGestures));
 
         // ▬▬▬▬▬
 
-        public static readonly RoutedUICommand ApplyFilter = NewCommand(nameof(ApplyFilter)
-                , "Применить комментарий"
+        public static readonly RoutedUICommand AddRemark = NewCommand(nameof(AddRemark)
+                , "Добавить примечание"
                 , new KeyGesture(Key.C, ModifierKeys.Control | ModifierKeys.Shift));
     }
 }

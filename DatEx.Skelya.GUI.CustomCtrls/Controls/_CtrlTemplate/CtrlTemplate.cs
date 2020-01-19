@@ -33,7 +33,7 @@ namespace DatEx.Skelya.GUI.CustomCtrls.Controls
             #region ————— Routed events registraiton ——————————————————————————————————————————————————————————————————
 
             PropChangedEvent = EventManager.RegisterRoutedEvent(nameof(PropChanged), RoutingStrategy.Bubble,
-                typeof(RoutedPropertyChangedEventArgs<String>), typeof(CtrlTemplate));
+                typeof(RoutedPropertyChangedEventHandler<String>), typeof(CtrlTemplate));
 
 
             #endregion ————— Routed events registraiton

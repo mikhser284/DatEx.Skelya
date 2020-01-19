@@ -18,7 +18,6 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 using DatEx.Skelya;
 using DatEx.Skelya.DataModel;
-using DatEx.Skelya.GUI.Dialogs;
 //using DatEx.Skelya.GUI.ViewModel;
 using Newtonsoft.Json;
 

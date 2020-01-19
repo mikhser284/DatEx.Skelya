@@ -29,7 +29,8 @@
                                     <ColumnDefinition Width="Auto"/>
                                 </Grid.ColumnDefinitions>
 
-                                <Button Grid.Column="0" Content="Применить" Background="#FFF29D" BorderBrush="#FFD800" Margin="3"/>
+                                <Button Grid.Column="0" Margin="3"
+                                        x:Name="Part_ApplyFilter_Btn" Content="Применить"/>
 
                                 <ComboBox Grid.Column="1" SelectedIndex="0" Margin="3">
                                     <ComboBoxItem Content="Все события"/>

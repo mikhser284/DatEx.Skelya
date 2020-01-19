@@ -28,7 +28,7 @@ namespace DatEx.Skelya.GUI.CustomCtrls.Controls
     {
         public DateIntervalCtrl()
         {
-
+            //Mode = EDateIntervalMode.EndTimeMinusTimeInterval;
         }
 
         static DateIntervalCtrl()
@@ -44,13 +44,13 @@ namespace DatEx.Skelya.GUI.CustomCtrls.Controls
                 new FrameworkPropertyMetadata(default(DateTime?), new PropertyChangedCallback(OnDependencyPropChanged_EndDate)));
 
             ModeProperty = DependencyProperty.Register(nameof(Mode), typeof(EDateIntervalMode), typeof(DateIntervalCtrl),
-                new FrameworkPropertyMetadata(default(EDateIntervalMode), new PropertyChangedCallback(OnDependencyPropChanged_Mode)));
+                new FrameworkPropertyMetadata(EDateIntervalMode.EndTimeMinusTimeInterval, new PropertyChangedCallback(OnDependencyPropChanged_Mode)));
 
             TimeIntervalProperty = DependencyProperty.Register(nameof(TimeInterval), typeof(Int32?), typeof(DateIntervalCtrl),
-                new FrameworkPropertyMetadata(default(Int32?), new PropertyChangedCallback(OnDependencyPropChanged_TimeInterval)));
+                new FrameworkPropertyMetadata(5, new PropertyChangedCallback(OnDependencyPropChanged_TimeInterval)));
 
             TimeIntervalUnitsProperty = DependencyProperty.Register(nameof(TimeIntervalUnits), typeof(ETimeIntervalUnits), typeof(DateIntervalCtrl),
-                new FrameworkPropertyMetadata(default(ETimeIntervalUnits), new PropertyChangedCallback(OnDependencyPropChanged_TimeIntervalUnits)));
+                new FrameworkPropertyMetadata(ETimeIntervalUnits.Days, new PropertyChangedCallback(OnDependencyPropChanged_TimeIntervalUnits)));
 
             #endregion ————— Dependency property registration
 
@@ -122,8 +122,51 @@ namespace DatEx.Skelya.GUI.CustomCtrls.Controls
 
         private void SetUpTemplateParts()
         {
+            Binding startTimeBinding = new Binding
+            {
+                Source = this,
+                Path = new PropertyPath(nameof(StartDate)),
+                Mode = BindingMode.TwoWay
+            };
+            BindingOperations.SetBinding(Part_FromTime_dPicker, DatePicker.SelectedDateProperty, startTimeBinding);
+            //
+            //
             Part_Mode_cBox.ItemsSource = EnumHelper.GetAllValues<EDateIntervalMode>();
+            Binding modeBinding = new Binding
+            {
+                 Source = this,
+                 Path = new PropertyPath(nameof(Mode)),
+                 Mode = BindingMode.TwoWay
+            };
+            BindingOperations.SetBinding(Part_Mode_cBox, ComboBox.SelectedValueProperty, modeBinding);
+            //
+            //
+            Binding timeIntervalBinding = new Binding
+            {
+                Source = this,
+                Path = new PropertyPath(nameof(TimeInterval)),
+                Mode = BindingMode.TwoWay
+            };
+            BindingOperations.SetBinding(Part_TimeInterval_tBox, TextBox.TextProperty, timeIntervalBinding);
+            //
+            //
             Part_TimeIntervalUnit_cBox.ItemsSource = EnumHelper.GetAllValues<ETimeIntervalUnits>();
+            Binding timeIntervalUnitBinding = new Binding
+            {
+                Source = this,
+                Path = new PropertyPath(nameof(TimeIntervalUnits)),
+                Mode = BindingMode.TwoWay
+            };
+            BindingOperations.SetBinding(Part_TimeIntervalUnit_cBox, ComboBox.SelectedValueProperty, timeIntervalUnitBinding);
+            //
+            //
+            Binding endTimeBinding = new Binding
+            {
+                Source = this,
+                Path = new PropertyPath(nameof(EndDate)),
+                Mode = BindingMode.TwoWay
+            };
+            BindingOperations.SetBinding(Part_TillTime_dPicker, DatePicker.SelectedDateProperty, endTimeBinding);
         }
 
         private String GetToolTipText(RoutedUICommand command)
@@ -197,8 +240,37 @@ namespace DatEx.Skelya.GUI.CustomCtrls.Controls
             EDateIntervalMode oldValue = (EDateIntervalMode)e.OldValue;
             EDateIntervalMode newValue = (EDateIntervalMode)e.NewValue;
             RoutedPropertyChangedEventArgs<EDateIntervalMode> args = new RoutedPropertyChangedEventArgs<EDateIntervalMode>(oldValue, newValue);
-            args.RoutedEvent = DateIntervalCtrl.ModeChangedEvent;
+            args.RoutedEvent = DateIntervalCtrl.ModeChangedEvent;            
+            ChangePartsVisibility(newValue, ctrl);
             ctrl.RaiseEvent(args);
+
+            void ChangePartsVisibility(EDateIntervalMode mode, DateIntervalCtrl ctrl)
+            {
+                switch( mode)
+                {
+                    case EDateIntervalMode.EndTimeMinusTimeInterval:
+                        {
+                            ctrl.Part_TillTime_dPicker.Visibility = Visibility.Collapsed;
+                            ctrl.Part_TimeInterval_tBox.Visibility = Visibility.Visible;
+                            ctrl.Part_TimeIntervalUnit_cBox.Visibility = Visibility.Visible;
+                            break;
+                        }
+                    case EDateIntervalMode.FromTimeTillTime:
+                        {
+                            ctrl.Part_TillTime_dPicker.Visibility = Visibility.Visible;
+                            ctrl.Part_TimeInterval_tBox.Visibility = Visibility.Collapsed;
+                            ctrl.Part_TimeIntervalUnit_cBox.Visibility = Visibility.Collapsed;
+                            break;
+                        }
+                    case EDateIntervalMode.StartTimePlusTimeInterval:
+                        {
+                            ctrl.Part_TillTime_dPicker.Visibility = Visibility.Collapsed;
+                            ctrl.Part_TimeInterval_tBox.Visibility = Visibility.Visible;
+                            ctrl.Part_TimeIntervalUnit_cBox.Visibility = Visibility.Visible;
+                            break;
+                        }
+                }
+            }
         }
         #endregion ————— ModeProperty
 

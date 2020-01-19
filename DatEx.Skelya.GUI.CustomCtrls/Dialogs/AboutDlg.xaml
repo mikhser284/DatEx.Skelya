@@ -5,7 +5,8 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:dlg="clr-namespace:DatEx.Skelya.GUI.CustomCtrls.Dialogs"
         mc:Ignorable="d"
-        Title="О программе" Height="450" Width="800">
+        Title="О программе" WindowStartupLocation="CenterOwner"
+        Height="450" Width="800">
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="*"/>

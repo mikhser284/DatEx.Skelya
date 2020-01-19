@@ -42,7 +42,33 @@
                                     <MenuItem Header="Выход" Command="{x:Static commands:AppCommands.Exit}"/>
                                 </MenuItem>
                             </Menu>
-                            <Label x:Name="Part_TimeInterval" Grid.Column="1" Content="Событий отображается: 123 из 3210 шт.   │   2020.01.01-Ср   00:00   ...   2020.01.02-Чт   00:00   (1 д)" FontWeight="Bold" HorizontalAlignment="Center"/>
+
+                            <TextBlock Grid.Column="1" VerticalAlignment="Center">
+                                <Run Text="Обновление:"/>
+                                <Run Text="автоматически" FontWeight="Bold"/>
+                                <Run Text="(1 м.)"/>
+                                
+                                <Run Text="   │   "/>
+                                
+                                <Run Text="Событий:"/>
+                                <Run Text="123 из 3210 шт." FontWeight="Bold"/>
+                                
+                                <Run Text="   │   "/>
+                                
+                                <Run Text="Первое:"/>
+                                <Run Text="2020.01.01-Ср   00:00" FontWeight="Bold"/>
+                                <Run Text="   "/>
+                                <Run Text="Последнее:"/>
+                                <Run Text="2020.01.02-Чт   00:00" FontWeight="Bold"/>
+                                
+                                <Run Text="   │   "/>
+                                <Run Text="За время от:"/>
+                                <Run Text="2020.01.01-Ср" FontWeight="Bold"/>
+                                <Run Text="   до:"/>
+                                <Run Text="2020.01.02-Чт" FontWeight="Bold"/>
+                                <Run Text="   "/>
+                                <Run Text="(1 д. 2 ч.)"/>
+                            </TextBlock>
                             <ctrls:OperationProgressCtrl HorizontalAlignment="Right" Grid.Column="2"/>
 
                         </Grid>
