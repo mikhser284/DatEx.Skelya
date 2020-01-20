@@ -17,51 +17,45 @@ using System.Windows.Shapes;
 namespace DatEx.Skelya.GUI.CustomCtrls.Controls
 {
     #region ■■■■■ Base ■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■
+    
     [TemplatePart(Name = nameof(Part_ApplyFilter_Btn), Type = typeof(Button))]
     public partial class EventFilterCtrl : Control
     {
         public EventFilterCtrl()
         {
-            CurrentFilter = new VM_FilterInfo();
-            CurrentFilter.TimeFrom = DateTime.Now;
-            CurrentFilter.TimeTill = DateTime.Now;
-
+            //CurrentFilter = new VM_FilterInfo();
+            //CurrentFilter.TimeFrom = DateTime.Now;
+            //CurrentFilter.TimeTill = DateTime.Now;
         }
 
         static EventFilterCtrl()
         {
             DefaultStyleKeyProperty.OverrideMetadata(typeof(EventFilterCtrl), new FrameworkPropertyMetadata(typeof(EventFilterCtrl)));
 
-            #region ————— Dependency property registration ————————————————————————————————————————————————————————————
+            #region ————— Local methods ———————————————————————————————————————————————————————————————————————————————            
+            static DependencyProperty RegisterProperty<T>(String propName, T defaultValue, Action<DependencyObject, DependencyPropertyChangedEventArgs> propChangedCallback)
+                => DependencyProperty.Register(propName, typeof(T), typeof(EventFilterCtrl), new FrameworkPropertyMetadata(defaultValue, new PropertyChangedCallback(propChangedCallback)));
 
-            CurrentFilterProperty = DependencyProperty.Register(nameof(CurrentFilterProperty), typeof(VM_FilterInfo), typeof(EventFilterCtrl),
-                new FrameworkPropertyMetadata(default(VM_FilterInfo), new PropertyChangedCallback(OnDependencyPropChanged_CurrentFilter)));
+            static RoutedEvent RegisterEvent<T>(String handlerName)
+                => EventManager.RegisterRoutedEvent(handlerName, RoutingStrategy.Bubble, typeof(RoutedPropertyChangedEventHandler<T>), typeof(EventFilterCtrl));
 
-            AppliedFilterProperty = DependencyProperty.Register(nameof(AppliedFilterProperty), typeof(VM_FilterInfo), typeof(EventFilterCtrl),
-                new FrameworkPropertyMetadata(default(VM_FilterInfo), new PropertyChangedCallback(OnDependencyPropChanged_AppliedFilter)));
+            static void BindCommand(RoutedCommand command, ExecutedRoutedEventHandler executedHandler, CanExecuteRoutedEventHandler canExecuteHandler)
+                => CommandManager.RegisterClassCommandBinding(typeof(EventFilterCtrl), new CommandBinding(command, executedHandler, canExecuteHandler));
+            #endregion ————— Local methods
 
-            #endregion ————— Dependency property registration
-
-            #region ————— Routed events registraiton ——————————————————————————————————————————————————————————————————
-
-            CurrentFilterChangedEvent = EventManager.RegisterRoutedEvent(nameof(CurrentFilterChanged), RoutingStrategy.Bubble,
-                typeof(RoutedPropertyChangedEventHandler<VM_FilterInfo>), typeof(EventFilterCtrl));
-
-            AppliedFilterChangedEvent = EventManager.RegisterRoutedEvent(nameof(AppliedFilterChanged), RoutingStrategy.Bubble,
-                typeof(RoutedPropertyChangedEventHandler<VM_FilterInfo>), typeof(EventFilterCtrl));
-
-            #endregion ————— Routed events registraiton
+            #region ————— Dependency property & routed events registration ————————————————————————————————————————————
+            //
+            CurrentFilterProperty = RegisterProperty<VM_FilterInfo>(nameof(CurrentFilterProperty), default(VM_FilterInfo), OnDependencyPropChanged_CurrentFilter);
+            CurrentFilterChangedEvent = RegisterEvent<VM_FilterInfo>(nameof(CurrentFilterChanged));
+            //
+            AppliedFilterProperty = RegisterProperty<VM_FilterInfo>(nameof(AppliedFilterProperty), default(VM_FilterInfo), OnDependencyPropChanged_AppliedFilter);
+            AppliedFilterChangedEvent = RegisterEvent<VM_FilterInfo>(nameof(AppliedFilterChanged));
+            //
+            #endregion ————— Dependency property & routed events registration
 
             #region ————— Commands registration ———————————————————————————————————————————————————————————————————————
-
             BindCommand(EventFilterCommands.ApplyFilter, ApplyFilter_Executed, ApplyFilter_CanExecute);
-
             #endregion ————— Commands registration
-        }
-
-        private static void BindCommand(RoutedCommand command, ExecutedRoutedEventHandler executedHandler, CanExecuteRoutedEventHandler canExecuteHandler)
-        {
-            CommandManager.RegisterClassCommandBinding(typeof(EventFilterCtrl), new CommandBinding(command, executedHandler, canExecuteHandler));
         }
     }
     #endregion ■■■■■ Base
@@ -71,8 +65,8 @@ namespace DatEx.Skelya.GUI.CustomCtrls.Controls
     #region ■■■■■ ControlParts ■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■
     public partial class EventFilterCtrl
     {
-        private Button Part_ApplyFilter_Btn;
-
+        private Button Part_ApplyFilter_Btn;        
+        //
         private T FindTemplatePart<T>(String templatePartName) where T : DependencyObject
             => (GetTemplateChild(templatePartName) as T) ?? throw new NullReferenceException(templatePartName);
 
@@ -80,10 +74,9 @@ namespace DatEx.Skelya.GUI.CustomCtrls.Controls
         {
             base.OnApplyTemplate();
             //
-            Part_ApplyFilter_Btn = FindTemplatePart<Button>(nameof(Part_ApplyFilter_Btn));
+            Part_ApplyFilter_Btn = FindTemplatePart<Button>(nameof(Part_ApplyFilter_Btn));            
             //
             SetUpTemplateParts();
-
         }
 
         private void SetUpTemplateParts()
@@ -102,10 +95,10 @@ namespace DatEx.Skelya.GUI.CustomCtrls.Controls
 
 
 
-    #region ■■■■■ Properties ■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■
+    #region ■■■■■ Properties & Events ■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■
     public partial class EventFilterCtrl
     {
-        #region ————— CurrentFilterProperty ———————————————————————————————————————————————————————————————————————————
+        #region ————— CurrentFilter ———————————————————————————————————————————————————————————————————————————————————
 
         public static DependencyProperty CurrentFilterProperty;
 
@@ -126,10 +119,16 @@ namespace DatEx.Skelya.GUI.CustomCtrls.Controls
             ctrl.RaiseEvent(args);
         }
 
-        #endregion ————— CurrentFilterProperty
+        public static readonly RoutedEvent CurrentFilterChangedEvent;
 
-        #region ————— AppliedFilterProperty ———————————————————————————————————————————————————————————————————————————
+        public event RoutedPropertyChangedEventHandler<VM_FilterInfo> CurrentFilterChanged
+        {
+            add => AddHandler(CurrentFilterChangedEvent, value);
+            remove => RemoveHandler(CurrentFilterChangedEvent, value);
+        }
+        #endregion ————— CurrentFilter
 
+        #region ————— AppliedFilter ———————————————————————————————————————————————————————————————————————————————————
         public static DependencyProperty AppliedFilterProperty;
 
         public VM_FilterInfo AppliedFilter
@@ -149,29 +148,6 @@ namespace DatEx.Skelya.GUI.CustomCtrls.Controls
             ctrl.RaiseEvent(args);
         }
 
-        #endregion ————— AppliedFilterProperty
-    }
-    #endregion ■■■■■ ControlParts
-
-
-
-    #region ■■■■■ Events ■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■
-    public partial class EventFilterCtrl
-    {
-        #region ————— CurrentFilterChangedEvent ———————————————————————————————————————————————————————————————————————
-
-        public static readonly RoutedEvent CurrentFilterChangedEvent;
-
-        public event RoutedPropertyChangedEventHandler<VM_FilterInfo> CurrentFilterChanged
-        {
-            add => AddHandler(CurrentFilterChangedEvent, value);
-            remove => RemoveHandler(CurrentFilterChangedEvent, value);
-        }
-
-        #endregion ————— CurrentFilterChangedEvent
-
-        #region ————— AppliedFilterChangedEvent ———————————————————————————————————————————————————————————————————————
-
         public static readonly RoutedEvent AppliedFilterChangedEvent;
 
         public event RoutedPropertyChangedEventHandler<VM_FilterInfo> AppliedFilterChanged
@@ -179,10 +155,9 @@ namespace DatEx.Skelya.GUI.CustomCtrls.Controls
             add => AddHandler(AppliedFilterChangedEvent, value);
             remove => RemoveHandler(AppliedFilterChangedEvent, value);
         }
-
-        #endregion ————— AppliedFilterChangedEvent
+        #endregion ————— AppliedFilter
     }
-    #endregion ■■■■■ ControlParts
+    #endregion ■■■■■ Properties & Events
 
 
 
@@ -194,14 +169,16 @@ namespace DatEx.Skelya.GUI.CustomCtrls.Controls
         {
             EventFilterCtrl ctrl = sender as EventFilterCtrl;
             ctrl.AppliedFilter = ctrl.CurrentFilter;
+            MessageBox.Show("Применить фильтр");
         }
 
         private static void ApplyFilter_CanExecute(object sender, CanExecuteRoutedEventArgs e)
         {
             EventFilterCtrl ctrl = sender as EventFilterCtrl;
             e.CanExecute = ctrl != null && ctrl.CurrentFilter != null;
+            e.CanExecute = true;
         }
         #endregion ————— CommandName
     }
-    #endregion ■■■■■ ControlParts
+    #endregion ■■■■■ Commands
 }

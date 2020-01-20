@@ -27,13 +27,13 @@ namespace DatEx.Skelya.GUI.CustomCtrls.Controls
 
             #region ————— Local methods ———————————————————————————————————————————————————————————————————————————————
             static DependencyProperty RegisterProperty<T>(String propName, T defaultValue, Action<DependencyObject, DependencyPropertyChangedEventArgs> propChangedCallback)
-                => DependencyProperty.Register(propName, typeof(T), typeof(EventsTableCtrl), new FrameworkPropertyMetadata(defaultValue, new PropertyChangedCallback(propChangedCallback)));
+                => DependencyProperty.Register(propName, typeof(T), typeof(CtrlTemplate), new FrameworkPropertyMetadata(defaultValue, new PropertyChangedCallback(propChangedCallback)));
 
             static RoutedEvent RegisterEvent<T>(String handlerName)
-                => EventManager.RegisterRoutedEvent(handlerName, RoutingStrategy.Bubble, typeof(RoutedPropertyChangedEventHandler<T>), typeof(EventsTableCtrl));
+                => EventManager.RegisterRoutedEvent(handlerName, RoutingStrategy.Bubble, typeof(RoutedPropertyChangedEventHandler<T>), typeof(CtrlTemplate));
 
             static void BindCommand(RoutedCommand command, ExecutedRoutedEventHandler executedHandler, CanExecuteRoutedEventHandler canExecuteHandler)
-                => CommandManager.RegisterClassCommandBinding(typeof(EventsTableCtrl), new CommandBinding(command, executedHandler, canExecuteHandler));
+                => CommandManager.RegisterClassCommandBinding(typeof(CtrlTemplate), new CommandBinding(command, executedHandler, canExecuteHandler));
             #endregion ————— Local methods
 
             #region ————— Dependency property & routed events registration ————————————————————————————————————————————

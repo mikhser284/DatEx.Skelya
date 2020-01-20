@@ -32,6 +32,7 @@ namespace DatEx.Skelya.GUI
         private static ScalesListCtrl UiPart_ScalesList = null;
         private static EventFilterCtrl UiPart_EventsFilter = null;
         private static TriggersCtrl UiPart_Triggers = null;
+        private static TimeRangeCtrl UiPart_TimeRange = null;
 
         public MainWindow()
         {
@@ -43,7 +44,6 @@ namespace DatEx.Skelya.GUI
                 new CommandBinding(AppCommands.ShowEventSnapshotDialog, ShowEventSnapshotDialog_Executed, ShowEventSnapshotDialog_CanExecute),
                 new CommandBinding(AppCommands.ShowAppSettingsDialog, ShowAppSettingsDialog_Executed, ShowAppSettingsDialog_CanExecute),
                 new CommandBinding(AppCommands.ShowAppAboutDialog, ShowAppAboutDialog_Executed, ShowAppAboutDialog_CanExecute),
-                new CommandBinding(EventFilterCommands.ApplyFilter, ApplyFilter_Executed, ApplyFilter_CanExecute),
                 new CommandBinding(EventRemarksCommands.AddRemark, AddRemark_Executed, AddRemark_CanExecute),
             });
         }
@@ -53,12 +53,13 @@ namespace DatEx.Skelya.GUI
             AppConfig = AppSettings.Load();
             LoadApplicationParts();
             Client = new SkeliaClient(AppConfig.HttpAddressOf.SkelyaServer);
-            Bind_EventsFilter_EventsTable(UiPart_EventsFilter, UiPart_EventsTable);
-            Bind_EventsTable_ApplicationMenu(UiPart_EventsTable, UiPart_AppMenu);
+            SetAppPartsBindings_EventTable(UiPart_EventsFilter, UiPart_EventsTable);
+            SetAppPartsBindings_ApplicationMenu(UiPart_AppMenu, UiPart_EventsTable, UiPart_TimeRange);
         }
 
         private void LoadApplicationParts()
         {
+            UiPart_TimeRange = Part_TimeRange_tRange;
             UiPart_AppMenu = Part_AppMenu_appMnu;
             UiPart_EventsTable = Part_EventsTable;
             UiPart_EventsTable.AppliedFilterChanged += UiPart_EventsTable_FilterChanged;
@@ -66,11 +67,11 @@ namespace DatEx.Skelya.GUI
             UiPart_EventComments = Part_EventComments;
             UiPart_EventsTree = Part_EventsTree;
             UiPart_ScalesList = Part_ScalesList;
-            UiPart_EventsFilter = Part_EventsFilter;            
-            UiPart_Triggers = Part_Triggers;
+            UiPart_EventsFilter = Part_EventsFilter;
+            //UiPart_Triggers = Part_Triggers;
         }
 
-        private void Bind_EventsFilter_EventsTable(EventFilterCtrl eventsFilter, EventsTableCtrl eventsTable)
+        private void SetAppPartsBindings_EventTable(EventFilterCtrl eventsFilter, EventsTableCtrl eventsTable)
         {
             eventsFilter.AppliedFilterChanged += AppliedFilterChanged;
             //
@@ -85,7 +86,7 @@ namespace DatEx.Skelya.GUI
             }
         }
 
-        private void Bind_EventsTable_ApplicationMenu(EventsTableCtrl eventsTable, AppMenuCtrl mnu)
+        private void SetAppPartsBindings_ApplicationMenu(AppMenuCtrl mnu, EventsTableCtrl eventsTable, TimeRangeCtrl timeRange)
         {
             Binding updateModeBinding = new Binding
             {
@@ -150,32 +151,32 @@ namespace DatEx.Skelya.GUI
             //
             Binding desiredStartTimeBinding = new Binding
             {
-                Source = eventsTable,
-                Path = new PropertyPath(nameof(eventsTable.DesiredStartTime)),
+                Source = timeRange,
+                Path = new PropertyPath(nameof(timeRange.TimeRangeStart)),
                 Converter = new ValConverter_DateTime_String(),
                 ConverterParameter = "yyyy.MM.dd-ddd",
                 ConverterCulture = new CultureInfo("ru-RU"),
                 Mode = BindingMode.OneWay
             };
             BindingOperations.SetBinding(mnu, AppMenuCtrl.DesiredStartTimeProperty, desiredStartTimeBinding);
-            //
-            //
+            ////
+            ////
             Binding desiredEndTimeBinding = new Binding
             {
-                Source = eventsTable,
-                Path = new PropertyPath(nameof(eventsTable.DesiredEndTime)),
+                Source = timeRange,
+                Path = new PropertyPath(nameof(timeRange.TimeRangeEnd)),
                 Converter = new ValConverter_DateTime_String(),
                 ConverterParameter = "yyyy.MM.dd-ddd",
                 ConverterCulture = new CultureInfo("ru-RU"),
                 Mode = BindingMode.OneWay
             };
             BindingOperations.SetBinding(mnu, AppMenuCtrl.DesiredEndTimeProperty, desiredEndTimeBinding);
-            //
-            //
+            ////
+            ////
             Binding desiredTimeSpanBinding = new Binding
             {
-                Source = eventsTable,
-                Path = new PropertyPath(nameof(eventsTable.DesiredTimeSpan)),
+                Source = timeRange,
+                Path = new PropertyPath(nameof(timeRange.TimeRange)),
                 Converter = new ValConverter_TimeSpan_String(),
                 //ConverterParameter = "yyyy.MM.dd-ddd",
                 ConverterCulture = new CultureInfo("ru-RU"),
@@ -184,7 +185,6 @@ namespace DatEx.Skelya.GUI
             BindingOperations.SetBinding(mnu, AppMenuCtrl.DesiredTimeSpanProperty, desiredTimeSpanBinding);
         }
 
-        
 
         private void UiPart_EventsTable_FilterChanged(Object sender, RoutedPropertyChangedEventArgs<VM_FilterInfo> e)
         {
@@ -224,15 +224,6 @@ namespace DatEx.Skelya.GUI
             if (aboutDlg.ShowDialog() != true) return;
         }
 
-        private void ApplyFilter_CanExecute(object sender, CanExecuteRoutedEventArgs e)
-        {
-            e.CanExecute = true;
-        }
-
-        private void ApplyFilter_Executed(object sender, ExecutedRoutedEventArgs e)
-        {
-            MessageBox.Show("Not implemented");
-        }
 
         private void AddRemark_CanExecute(object sender, CanExecuteRoutedEventArgs e)
         {

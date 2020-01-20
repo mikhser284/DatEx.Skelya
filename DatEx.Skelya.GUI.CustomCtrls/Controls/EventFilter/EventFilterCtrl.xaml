@@ -18,7 +18,6 @@
 
                             <Grid.RowDefinitions>
                                 <RowDefinition Height="Auto"/>
-                                <RowDefinition Height="Auto"/>
                                 <RowDefinition Height="*"/>
                             </Grid.RowDefinitions>
 
@@ -44,9 +43,7 @@
 
                             </Grid>
 
-                            <ctrls:TimeRangeCtrl Grid.Row="1" Margin="3,10"/>
-
-                            <TreeView Grid.Row="2">
+                            <TreeView Grid.Row="1">
                                 <TreeViewItem>
                                     <TreeViewItem.Header>
                                         <CheckBox Focusable="False" FontWeight="Bold"

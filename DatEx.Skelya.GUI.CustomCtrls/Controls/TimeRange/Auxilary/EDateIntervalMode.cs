@@ -14,10 +14,10 @@ namespace DatEx.Skelya.GUI.CustomCtrls.Controls
         FromTimeTillTime,
         
         [Description("+")]
-        StartTimePlusTimeInterval,
+        TimePlusTimeInterval,
 
         [Description("-")]
-        EndTimeMinusTimeInterval
+        TimeMinusTimeInterval
     }
 
     public class ValConverter_EDateIntervalMode_String : IValueConverter

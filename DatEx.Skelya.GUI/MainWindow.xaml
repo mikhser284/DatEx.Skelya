@@ -33,7 +33,7 @@
                 <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions>
             <Grid.RowDefinitions>
-                <RowDefinition Height="5*" MinHeight="100"/>
+                <RowDefinition Height="5*" MinHeight="200"/>
                 <RowDefinition MinHeight="6" MaxHeight="6"/>
                 <RowDefinition Height="2*" MinHeight="100"/>
             </Grid.RowDefinitions>
@@ -62,30 +62,33 @@
                 <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions>
             <Grid.RowDefinitions>
-                <RowDefinition Height="5*" MinHeight="100"/>
+                <RowDefinition Height="5*" MinHeight="200"/>
                 <RowDefinition MinHeight="6" MaxHeight="6"/>
                 <RowDefinition Height="2*" MinHeight="100"/>
             </Grid.RowDefinitions>
 
-            <TabControl Grid.Column="0" Grid.Row="0" >
+            <Grid Grid.Row="0">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="Auto" MinHeight="40"/>
+                </Grid.RowDefinitions>
+                <TabControl Grid.Row="0" >
+                    <TabItem Header="Фильтры">
+                        <zCtrl:EventFilterCtrl Grid.Row="0" x:Name="Part_EventsFilter"/>                        
+                    </TabItem>
+                    <TabItem Header="Показания весов">
+                        <zCtrl:ScalesListCtrl x:Name="Part_ScalesList"/>
+                    </TabItem>
+                    <TabItem Header="Триггеры">
+                        <zCtrl:TriggersCtrl x:Name="Part_Triggers"/>
+                    </TabItem>
+                </TabControl>
+                <zCtrl:TimeRangeCtrl x:Name="Part_TimeRange_tRange" Grid.Row="1" Background="White"/>
+            </Grid>
 
-                <TabItem Header="Фильтры">
-                    <zCtrl:EventFilterCtrl x:Name="Part_EventsFilter"/>
-                </TabItem>
+            <GridSplitter Grid.Row="1" Background="Transparent" Height="6" HorizontalAlignment="Stretch"/>
 
-                <TabItem Header="Показания весов">
-                    <zCtrl:ScalesListCtrl x:Name="Part_ScalesList"/>
-                </TabItem>
-
-                <TabItem Header="Триггеры">
-                    <zCtrl:TriggersCtrl x:Name="Part_Triggers"/>
-                </TabItem>
-
-            </TabControl>
-
-            <GridSplitter Grid.Column="0" Grid.Row="1" Background="Transparent" Height="6" HorizontalAlignment="Stretch"/>
-
-            <zCtrl:EventsTreeCtrl Grid.Column="0" Grid.Row="2" x:Name="Part_EventsTree"/>
+            <zCtrl:EventsTreeCtrl Grid.Row="2" x:Name="Part_EventsTree"/>
             
         </Grid>
     </Grid>
