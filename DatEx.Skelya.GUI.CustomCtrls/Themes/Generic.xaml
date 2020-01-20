@@ -4,7 +4,7 @@
     <ResourceDictionary.MergedDictionaries>
 
         <ResourceDictionary Source="/DatEx.Skelya.GUI.CustomCtrls;component/Controls/AppMenu/AppMenuCtrl.xaml"/>
-        <ResourceDictionary Source="/DatEx.Skelya.GUI.CustomCtrls;component/Controls/DateInterval/DateIntervalCtrl.xaml"/>
+        <ResourceDictionary Source="/DatEx.Skelya.GUI.CustomCtrls;component/Controls/TimeRange/TimeRangeCtrl.xaml"/>
         <ResourceDictionary Source="/DatEx.Skelya.GUI.CustomCtrls;component/Controls/EventComments/EventCommentsCtrl.xaml"/>
         <ResourceDictionary Source="/DatEx.Skelya.GUI.CustomCtrls;component/Controls/EventDetails/EventDetailsCtrl.xaml"/>
         <ResourceDictionary Source="/DatEx.Skelya.GUI.CustomCtrls;component/Controls/EventFilter/EventFilterCtrl.xaml"/>

@@ -44,7 +44,7 @@
 
                             </Grid>
 
-                            <ctrls:DateIntervalCtrl Grid.Row="1" Margin="3,10"/>
+                            <ctrls:TimeRangeCtrl Grid.Row="1" Margin="3,10"/>
 
                             <TreeView Grid.Row="2">
                                 <TreeViewItem>
