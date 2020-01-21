@@ -81,8 +81,8 @@ namespace DatEx.Skelya.GUI
             {
                 VM_FilterInfo appliedFilter = e.NewValue;
                 eventsTable.AppliedFilter = appliedFilter;
-                eventsTable.DesiredStartTime = appliedFilter.TimeFrom;
-                eventsTable.DesiredEndTime = appliedFilter.TimeTill;
+                eventsTable.DesiredDesiredTimeRangeStart = appliedFilter.TimeFrom;
+                eventsTable.DesiredTimeRangeEnd = appliedFilter.TimeTill;
             }
         }
 
@@ -176,7 +176,7 @@ namespace DatEx.Skelya.GUI
             Binding desiredTimeSpanBinding = new Binding
             {
                 Source = timeRange,
-                Path = new PropertyPath(nameof(timeRange.TimeRange)),
+                Path = new PropertyPath(nameof(timeRange.TimeRangeInterval)),
                 Converter = new ValConverter_TimeSpan_String(),
                 //ConverterParameter = "yyyy.MM.dd-ddd",
                 ConverterCulture = new CultureInfo("ru-RU"),

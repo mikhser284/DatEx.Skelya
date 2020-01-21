@@ -45,7 +45,7 @@
                             <TextBox x:Name="Part_TimeSpan_tBox" Grid.Column="3" Grid.Row="0" MinWidth="50" Text="24" Height="24" VerticalContentAlignment="Center" HorizontalContentAlignment="Right" VerticalAlignment="Top" Margin="3"/>
                             <ComboBox x:Name="Part_TimeSpanUnit_cBox" Grid.Column="4" Grid.Row="0" SelectedIndex="1" VerticalAlignment="Top" Height="24" MinWidth="65" Margin="3">
                                 <ComboBox.Resources>
-                                    <DataTemplate DataType="{x:Type ctrls:ETimeIntervalUnits}">
+                                    <DataTemplate DataType="{x:Type ctrls:ETimeIntervalUnit}">
                                         <ComboBoxItem IsHitTestVisible="False">
                                             <ComboBoxItem.Content>
                                                 <TextBlock Text="{Binding Path=., Converter={StaticResource UnitsConverter}}" IsHitTestVisible="False"/>

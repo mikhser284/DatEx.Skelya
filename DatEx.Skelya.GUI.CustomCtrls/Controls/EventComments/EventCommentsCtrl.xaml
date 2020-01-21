@@ -29,20 +29,26 @@
                                         <Grid>
                                             <Grid.ColumnDefinitions>
                                                 <ColumnDefinition Width="Auto"/>
-                                                <ColumnDefinition Width="Auto" MaxWidth="20"/>
                                                 <ColumnDefinition Width="Auto"/>
                                                 <ColumnDefinition Width="*"/>
                                             </Grid.ColumnDefinitions>
                                             <Grid.RowDefinitions>
+                                                <RowDefinition Height="Auto" MinHeight="5"/>
                                                 <RowDefinition Height="Auto"/>
                                                 <RowDefinition Height="Auto"/>
                                             </Grid.RowDefinitions>
-                                            <Separator Grid.Column="0" Grid.Row="0" Grid.RowSpan="2" Style="{StaticResource {x:Static ToolBar.SeparatorStyleKey}}" Background="SteelBlue" Width="2"/>
+                                            <!--<Separator Grid.Column="0" Grid.Row="0" Grid.RowSpan="2" Style="{StaticResource {x:Static ToolBar.SeparatorStyleKey}}" Background="SteelBlue" Width="2"/>-->
 
-                                            <TextBlock Grid.Column="1" Grid.ColumnSpan="2" Grid.Row="0" Text="{Binding Path=Date}" FontSize="10" Foreground="SteelBlue" Margin="3, 0"/>
-                                            <TextBlock Grid.Column="3" Grid.Row="0" Text="{Binding Path=AuthorName}" FontSize="10" Foreground="SteelBlue" FontWeight="Bold" Margin="3, 0"/>
+                                            <!--<Separator Grid.Column="0" Grid.Row="0" Grid.ColumnSpan="3" Background="SteelBlue" Height="2"/>-->
 
-                                            <TextBlock Grid.Column="2" Grid.ColumnSpan="2" Grid.Row="1" Text="{Binding Path=Description}" FontSize="10" TextWrapping="WrapWithOverflow" Margin="3, 0"/>
+                                            <Border Grid.Column="0" Grid.Row="1" Grid.RowSpan="2" BorderThickness="1" CornerRadius="3" Margin="3" Height="30" Width="30" Background="SteelBlue" VerticalAlignment="Top" HorizontalAlignment="Left">
+                                                <Label Content="ПВ" FontFamily="Segoe UI" FontWeight="Bold" FontSize="13" Padding="0" Margin="0" VerticalAlignment="Center" HorizontalAlignment="Center" Foreground="AliceBlue"/>
+                                            </Border>
+
+                                            <TextBlock Grid.Column="1" Grid.Row="1" Text="{Binding Path=Date}" FontSize="10" Foreground="SteelBlue" Margin="3, 0"/>
+                                            <TextBlock Grid.Column="2" Grid.Row="1" Text="{Binding Path=AuthorName}" FontSize="10" Foreground="SteelBlue" FontWeight="Bold" Margin="3, 0"/>
+
+                                            <TextBlock Grid.Column="1" Grid.ColumnSpan="2" Grid.Row="2" Text="{Binding Path=Description}" FontSize="10" TextWrapping="WrapWithOverflow" Margin="3, 0" VerticalAlignment="Top" HorizontalAlignment="Left"/>
                                         </Grid>
                                     </DataTemplate>
                                 </ListView.Resources>

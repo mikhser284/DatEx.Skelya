@@ -8,7 +8,7 @@ using System.Windows.Data;
 
 namespace DatEx.Skelya.GUI.CustomCtrls.Controls
 {
-    public enum ETimeIntervalUnits
+    public enum ETimeIntervalUnit
     {
         [Description("мин.")]
         Minutes,
@@ -23,9 +23,9 @@ namespace DatEx.Skelya.GUI.CustomCtrls.Controls
     public class ValConverter_ETimeIntervalUnits_String : IValueConverter
     {
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
-            => EnumHelper.GetDescription((ETimeIntervalUnits)value);
+            => EnumHelper.GetDescription((ETimeIntervalUnit)value);
 
         public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
-            => EnumHelper.GetValue<ETimeIntervalUnits>((String)value);
+            => EnumHelper.GetValue<ETimeIntervalUnit>((String)value);
     }
 }

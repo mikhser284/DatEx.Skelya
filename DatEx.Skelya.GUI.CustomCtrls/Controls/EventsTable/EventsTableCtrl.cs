@@ -63,13 +63,13 @@ namespace DatEx.Skelya.GUI.CustomCtrls.Controls
             EventsTimeSpanProperty = RegisterProperty<TimeSpan?>(nameof(EventsTimeSpan), default(TimeSpan?), OnDependencyPropChanged_EventsTimeSpan);
             EventsTimeSpanChangedEvent = RegisterEvent<TimeSpan?>(nameof(EventsTimeSpanChanged));
             //
-            DesiredStartTimeProperty = RegisterProperty<DateTime?>(nameof(DesiredStartTime), default(DateTime?), OnDependencyPropChanged_DesiredStartTime);
-            DesiredStartTimeChangedEvent = RegisterEvent<DateTime?>(nameof(DesiredStartTimeChanged));
+            DesiredTimeRangeStartProperty = RegisterProperty<DateTime?>(nameof(DesiredDesiredTimeRangeStart), default(DateTime?), OnDependencyPropChanged_DesiredTimeRangeStart);
+            DesiredTimeRangeStartChangedEvent = RegisterEvent<DateTime?>(nameof(DesiredTimeRangeStartChanged));
             //
-            DesiredEndTimeProperty = RegisterProperty<DateTime?>(nameof(DesiredEndTime), default(DateTime?), OnDependencyPropChanged_DesiredEndTime);
-            DesiredEndTimeChangedEvent = RegisterEvent<DateTime?>(nameof(DesiredEndTimeChanged));
+            DesiredTimeRangeEndProperty = RegisterProperty<DateTime?>(nameof(DesiredTimeRangeEnd), default(DateTime?), OnDependencyPropChanged_DesiredTimeRangeEnd);
+            DesiredTimeRangeEndChangedEvent = RegisterEvent<DateTime?>(nameof(DesiredTimeRangeEndChanged));
             //
-            DesiredTimeSpanProperty = RegisterProperty<TimeSpan?>(nameof(DesiredTimeSpan), default(TimeSpan), OnDependencyPropChanged_DesiredTimeSpan);
+            DesiredTimeIntervalProperty = RegisterProperty<TimeSpan>(nameof(DesiredTimeInterval), default(TimeSpan), OnDependencyPropChanged_DesiredTimeSpan);
             DesiredTimeSpanChangedEvent = RegisterEvent<TimeSpan?>(nameof(DesiredTimeSpanChanged));
             //
             AppliedFilterProperty = RegisterProperty<VM_FilterInfo>(nameof(AppliedFilter), default(VM_FilterInfo), OnDependencyPropChanged_Filter);
@@ -330,70 +330,70 @@ namespace DatEx.Skelya.GUI.CustomCtrls.Controls
         #endregion ————— EventsTimeSpan
 
         #region ————— DesiredStartTime ————————————————————————————————————————————————————————————————————————————————
-        public static DependencyProperty DesiredStartTimeProperty;
+        public static DependencyProperty DesiredTimeRangeStartProperty;
 
-        public DateTime? DesiredStartTime
+        public DateTime? DesiredDesiredTimeRangeStart
         {
-            get => (DateTime?)GetValue(DesiredStartTimeProperty);
-            set => SetValue(DesiredStartTimeProperty, value);
+            get => (DateTime?)GetValue(DesiredTimeRangeStartProperty);
+            set => SetValue(DesiredTimeRangeStartProperty, value);
         }
 
-        private static void OnDependencyPropChanged_DesiredStartTime(DependencyObject sender, DependencyPropertyChangedEventArgs e)
+        private static void OnDependencyPropChanged_DesiredTimeRangeStart(DependencyObject sender, DependencyPropertyChangedEventArgs e)
         {
             EventsTableCtrl ctrl = sender as EventsTableCtrl;
             if (ctrl == null) return;
             DateTime? oldValue = (DateTime?)e.OldValue;
             DateTime? newValue = (DateTime?)e.NewValue;
             RoutedPropertyChangedEventArgs<DateTime?> args = new RoutedPropertyChangedEventArgs<DateTime?>(oldValue, newValue);
-            args.RoutedEvent = EventsTableCtrl.DesiredStartTimeChangedEvent;
+            args.RoutedEvent = EventsTableCtrl.DesiredTimeRangeStartChangedEvent;
             ctrl.RaiseEvent(args);
         }
 
-        public static readonly RoutedEvent DesiredStartTimeChangedEvent;
+        public static readonly RoutedEvent DesiredTimeRangeStartChangedEvent;
 
-        public event RoutedPropertyChangedEventHandler<DateTime?> DesiredStartTimeChanged
+        public event RoutedPropertyChangedEventHandler<DateTime?> DesiredTimeRangeStartChanged
         {
-            add => AddHandler(DesiredStartTimeChangedEvent, value);
-            remove => RemoveHandler(DesiredStartTimeChangedEvent, value);
+            add => AddHandler(DesiredTimeRangeStartChangedEvent, value);
+            remove => RemoveHandler(DesiredTimeRangeStartChangedEvent, value);
         }
         #endregion ————— DesiredStartTime
 
         #region ————— DesiredEndTime ——————————————————————————————————————————————————————————————————————————————————
-        public static DependencyProperty DesiredEndTimeProperty;
+        public static DependencyProperty DesiredTimeRangeEndProperty;
 
-        public DateTime? DesiredEndTime
+        public DateTime? DesiredTimeRangeEnd
         {
-            get => (DateTime?)GetValue(DesiredEndTimeProperty);
-            set => SetValue(DesiredEndTimeProperty, value);
+            get => (DateTime?)GetValue(DesiredTimeRangeEndProperty);
+            set => SetValue(DesiredTimeRangeEndProperty, value);
         }
 
-        private static void OnDependencyPropChanged_DesiredEndTime(DependencyObject sender, DependencyPropertyChangedEventArgs e)
+        private static void OnDependencyPropChanged_DesiredTimeRangeEnd(DependencyObject sender, DependencyPropertyChangedEventArgs e)
         {
             EventsTableCtrl ctrl = sender as EventsTableCtrl;
             if (ctrl == null) return;
             DateTime? oldValue = (DateTime?)e.OldValue;
             DateTime? newValue = (DateTime?)e.NewValue;
             RoutedPropertyChangedEventArgs<DateTime?> args = new RoutedPropertyChangedEventArgs<DateTime?>(oldValue, newValue);
-            args.RoutedEvent = EventsTableCtrl.DesiredEndTimeChangedEvent;
+            args.RoutedEvent = EventsTableCtrl.DesiredTimeRangeEndChangedEvent;
             ctrl.RaiseEvent(args);
         }
 
-        public static readonly RoutedEvent DesiredEndTimeChangedEvent;
+        public static readonly RoutedEvent DesiredTimeRangeEndChangedEvent;
 
-        public event RoutedPropertyChangedEventHandler<DateTime?> DesiredEndTimeChanged
+        public event RoutedPropertyChangedEventHandler<DateTime?> DesiredTimeRangeEndChanged
         {
-            add => AddHandler(DesiredEndTimeChangedEvent, value);
-            remove => RemoveHandler(DesiredEndTimeChangedEvent, value);
+            add => AddHandler(DesiredTimeRangeEndChangedEvent, value);
+            remove => RemoveHandler(DesiredTimeRangeEndChangedEvent, value);
         }
         #endregion ————— DesiredEndTime
 
         #region ————— DesiredTimeSpan —————————————————————————————————————————————————————————————————————————————————
-        public static DependencyProperty DesiredTimeSpanProperty;
+        public static DependencyProperty DesiredTimeIntervalProperty;
 
-        public TimeSpan? DesiredTimeSpan
+        public TimeSpan? DesiredTimeInterval
         {
-            get => (TimeSpan?)GetValue(DesiredTimeSpanProperty);
-            set => SetValue(DesiredTimeSpanProperty, value);
+            get => (TimeSpan?)GetValue(DesiredTimeIntervalProperty);
+            set => SetValue(DesiredTimeIntervalProperty, value);
         }
 
         private static void OnDependencyPropChanged_DesiredTimeSpan(DependencyObject sender, DependencyPropertyChangedEventArgs e)
