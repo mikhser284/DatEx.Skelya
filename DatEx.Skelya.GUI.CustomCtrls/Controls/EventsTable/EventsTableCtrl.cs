@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Data;
 using System.Globalization;
+using System.Linq;
 using System.Text;
 using System.Windows;
 using System.Windows.Controls;
@@ -14,6 +15,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using DatEx.Skelya.DataModel;
 using DatEx.Skelya.GUI.CustomCtrls.Commands;
 using DatEx.Skelya.GUI.CustomCtrls.ViewModel;
 
@@ -63,26 +65,20 @@ namespace DatEx.Skelya.GUI.CustomCtrls.Controls
             EventsTimeSpanProperty = RegisterProperty<TimeSpan?>(nameof(EventsTimeSpan), default(TimeSpan?), OnDependencyPropChanged_EventsTimeSpan);
             EventsTimeSpanChangedEvent = RegisterEvent<TimeSpan?>(nameof(EventsTimeSpanChanged));
             //
-            DesiredTimeRangeStartProperty = RegisterProperty<DateTime?>(nameof(DesiredDesiredTimeRangeStart), default(DateTime?), OnDependencyPropChanged_DesiredTimeRangeStart);
-            DesiredTimeRangeStartChangedEvent = RegisterEvent<DateTime?>(nameof(DesiredTimeRangeStartChanged));
-            //
-            DesiredTimeRangeEndProperty = RegisterProperty<DateTime?>(nameof(DesiredTimeRangeEnd), default(DateTime?), OnDependencyPropChanged_DesiredTimeRangeEnd);
-            DesiredTimeRangeEndChangedEvent = RegisterEvent<DateTime?>(nameof(DesiredTimeRangeEndChanged));
-            //
-            DesiredTimeIntervalProperty = RegisterProperty<TimeSpan>(nameof(DesiredTimeInterval), default(TimeSpan), OnDependencyPropChanged_DesiredTimeSpan);
-            DesiredTimeSpanChangedEvent = RegisterEvent<TimeSpan?>(nameof(DesiredTimeSpanChanged));
-            //
             AppliedFilterProperty = RegisterProperty<VM_FilterInfo>(nameof(AppliedFilter), default(VM_FilterInfo), OnDependencyPropChanged_Filter);
             AppliedFilterChangedEvent = RegisterEvent<VM_FilterInfo>(nameof(AppliedFilterChanged));
             //
-            EventsLoadedProperty = RegisterProperty<ObservableCollection<VM_EventLogRecord>>(nameof(EventsLoaded), new ObservableCollection<VM_EventLogRecord>(), OnDependencyPropChanged_Filter);
+            EventsLoadedProperty = RegisterProperty<ObservableCollection<VM_EventLogRecord>>(nameof(EventsLoaded), new ObservableCollection<VM_EventLogRecord>(), OnDependencyPropChanged_EventsLoaded);
             EventsLoadedChangedEvent = RegisterEvent<ObservableCollection<VM_EventLogRecord>>(nameof(EventsLoadedChanged));
             //
-            EventsDisplayedProperty = RegisterProperty<ObservableCollection<VM_EventLogRecord>>(nameof(EventsDisplayed), new ObservableCollection<VM_EventLogRecord>(), OnDependencyPropChanged_Filter);
+            EventsDisplayedProperty = RegisterProperty<ObservableCollection<VM_EventLogRecord>>(nameof(EventsDisplayed), new ObservableCollection<VM_EventLogRecord>(), OnDependencyPropChanged_EventsDisplayed);
             EventsDisplayedChangedEvent = RegisterEvent<ObservableCollection<VM_EventLogRecord>>(nameof(EventsDisplayedChanged));
             //
-            SelectedEventProperty = RegisterProperty<VM_EventLogRecord>(nameof(SelectedEvent), default(VM_EventLogRecord), OnDependencyPropChanged_Filter);
+            SelectedEventProperty = RegisterProperty<VM_EventLogRecord>(nameof(SelectedEvent), default(VM_EventLogRecord), OnDependencyPropChanged_SelectedEvent);
             SelectedEventChangedEvent = RegisterEvent<VM_EventLogRecord>(nameof(SelectedEventChanged));
+            //
+            DesiredTimeRangeProperty = RegisterProperty<VM_TimeRange>(nameof(DesiredTimeRange), new VM_TimeRange(), OnDependencyPropChanged_DesiredTimeRange);
+            DesiredTimeRangeChangedEvent = RegisterEvent<VM_TimeRange>(nameof(DesiredTimeRangeChanged));
             //
             #endregion ————— Dependency property & routed events registration
         }
@@ -110,13 +106,21 @@ namespace DatEx.Skelya.GUI.CustomCtrls.Controls
 
         private void SetUpTemplateParts()
         {
-            Part_DataTable_dGrid.ToolTip = GetToolTipText(CtrlTemplateCommands.ResetValue);
-        }
+            Binding displayedItemsBinding = new Binding
+            {
+                Source = this,
+                Path = new PropertyPath(nameof(EventsDisplayed)),
+                Mode = BindingMode.OneWay
+            };
+            BindingOperations.SetBinding(Part_DataTable_dGrid, DataGrid.ItemsSourceProperty, displayedItemsBinding);
 
-        private String GetToolTipText(RoutedUICommand command)
-        {
-            KeyGesture keyGesture = command.InputGestures[0] as KeyGesture;
-            return keyGesture == null ? command.Text : $"{command.Text} [{keyGesture.GetDisplayStringForCulture(CultureInfo.CurrentCulture)}]";
+            Binding selectedItemBinding = new Binding
+            {
+                Source = Part_DataTable_dGrid,
+                Path = new PropertyPath(nameof(Part_DataTable_dGrid.SelectedItem)),
+                Mode = BindingMode.OneWay
+            };
+            BindingOperations.SetBinding(this, EventsTableCtrl.SelectedEventProperty, selectedItemBinding);
         }
     }
     #endregion ■■■■■ ControlParts
@@ -329,93 +333,6 @@ namespace DatEx.Skelya.GUI.CustomCtrls.Controls
         }
         #endregion ————— EventsTimeSpan
 
-        #region ————— DesiredStartTime ————————————————————————————————————————————————————————————————————————————————
-        public static DependencyProperty DesiredTimeRangeStartProperty;
-
-        public DateTime? DesiredDesiredTimeRangeStart
-        {
-            get => (DateTime?)GetValue(DesiredTimeRangeStartProperty);
-            set => SetValue(DesiredTimeRangeStartProperty, value);
-        }
-
-        private static void OnDependencyPropChanged_DesiredTimeRangeStart(DependencyObject sender, DependencyPropertyChangedEventArgs e)
-        {
-            EventsTableCtrl ctrl = sender as EventsTableCtrl;
-            if (ctrl == null) return;
-            DateTime? oldValue = (DateTime?)e.OldValue;
-            DateTime? newValue = (DateTime?)e.NewValue;
-            RoutedPropertyChangedEventArgs<DateTime?> args = new RoutedPropertyChangedEventArgs<DateTime?>(oldValue, newValue);
-            args.RoutedEvent = EventsTableCtrl.DesiredTimeRangeStartChangedEvent;
-            ctrl.RaiseEvent(args);
-        }
-
-        public static readonly RoutedEvent DesiredTimeRangeStartChangedEvent;
-
-        public event RoutedPropertyChangedEventHandler<DateTime?> DesiredTimeRangeStartChanged
-        {
-            add => AddHandler(DesiredTimeRangeStartChangedEvent, value);
-            remove => RemoveHandler(DesiredTimeRangeStartChangedEvent, value);
-        }
-        #endregion ————— DesiredStartTime
-
-        #region ————— DesiredEndTime ——————————————————————————————————————————————————————————————————————————————————
-        public static DependencyProperty DesiredTimeRangeEndProperty;
-
-        public DateTime? DesiredTimeRangeEnd
-        {
-            get => (DateTime?)GetValue(DesiredTimeRangeEndProperty);
-            set => SetValue(DesiredTimeRangeEndProperty, value);
-        }
-
-        private static void OnDependencyPropChanged_DesiredTimeRangeEnd(DependencyObject sender, DependencyPropertyChangedEventArgs e)
-        {
-            EventsTableCtrl ctrl = sender as EventsTableCtrl;
-            if (ctrl == null) return;
-            DateTime? oldValue = (DateTime?)e.OldValue;
-            DateTime? newValue = (DateTime?)e.NewValue;
-            RoutedPropertyChangedEventArgs<DateTime?> args = new RoutedPropertyChangedEventArgs<DateTime?>(oldValue, newValue);
-            args.RoutedEvent = EventsTableCtrl.DesiredTimeRangeEndChangedEvent;
-            ctrl.RaiseEvent(args);
-        }
-
-        public static readonly RoutedEvent DesiredTimeRangeEndChangedEvent;
-
-        public event RoutedPropertyChangedEventHandler<DateTime?> DesiredTimeRangeEndChanged
-        {
-            add => AddHandler(DesiredTimeRangeEndChangedEvent, value);
-            remove => RemoveHandler(DesiredTimeRangeEndChangedEvent, value);
-        }
-        #endregion ————— DesiredEndTime
-
-        #region ————— DesiredTimeSpan —————————————————————————————————————————————————————————————————————————————————
-        public static DependencyProperty DesiredTimeIntervalProperty;
-
-        public TimeSpan? DesiredTimeInterval
-        {
-            get => (TimeSpan?)GetValue(DesiredTimeIntervalProperty);
-            set => SetValue(DesiredTimeIntervalProperty, value);
-        }
-
-        private static void OnDependencyPropChanged_DesiredTimeSpan(DependencyObject sender, DependencyPropertyChangedEventArgs e)
-        {
-            EventsTableCtrl ctrl = sender as EventsTableCtrl;
-            if (ctrl == null) return;
-            TimeSpan? oldValue = (TimeSpan?)e.OldValue;
-            TimeSpan? newValue = (TimeSpan?)e.NewValue;
-            RoutedPropertyChangedEventArgs<TimeSpan?> args = new RoutedPropertyChangedEventArgs<TimeSpan?>(oldValue, newValue);
-            args.RoutedEvent = EventsTableCtrl.DesiredTimeSpanChangedEvent;
-            ctrl.RaiseEvent(args);
-        }
-
-        public static readonly RoutedEvent DesiredTimeSpanChangedEvent;
-
-        public event RoutedPropertyChangedEventHandler<DateTime?> DesiredTimeSpanChanged
-        {
-            add => AddHandler(DesiredTimeSpanChangedEvent, value);
-            remove => RemoveHandler(DesiredTimeSpanChangedEvent, value);
-        }
-        #endregion ————— DesiredTimeSpan
-
         #region ————— AppliedFilter ———————————————————————————————————————————————————————————————————————————————————
         public static DependencyProperty AppliedFilterProperty;
 
@@ -531,6 +448,35 @@ namespace DatEx.Skelya.GUI.CustomCtrls.Controls
             remove => RemoveHandler(SelectedEventChangedEvent, value);
         }
         #endregion ————— SelectedEvent
+
+        #region ————— DesiredTimeRange ————————————————————————————————————————————————————————————————————————————————
+        public static DependencyProperty DesiredTimeRangeProperty;
+
+        public VM_TimeRange DesiredTimeRange
+        {
+            get => (VM_TimeRange)GetValue(DesiredTimeRangeProperty);
+            set => SetValue(DesiredTimeRangeProperty, value);
+        }
+
+        private static void OnDependencyPropChanged_DesiredTimeRange(DependencyObject sender, DependencyPropertyChangedEventArgs e)
+        {
+            EventsTableCtrl ctrl = sender as EventsTableCtrl;
+            if(ctrl == null) return;
+            VM_TimeRange oldValue = (VM_TimeRange)e.OldValue;
+            VM_TimeRange newValue = (VM_TimeRange)e.NewValue;
+            RoutedPropertyChangedEventArgs<VM_TimeRange> args = new RoutedPropertyChangedEventArgs<VM_TimeRange>(oldValue, newValue);
+            args.RoutedEvent = EventsTableCtrl.DesiredTimeRangeChangedEvent;
+            ctrl.RaiseEvent(args);
+        }
+
+        public static readonly RoutedEvent DesiredTimeRangeChangedEvent;
+
+        public event RoutedPropertyChangedEventHandler<VM_TimeRange> DesiredTimeRangeChanged
+        {
+            add => AddHandler(DesiredTimeRangeChangedEvent, value);
+            remove => RemoveHandler(DesiredTimeRangeChangedEvent, value);
+        }
+        #endregion ————— DesiredTimeRange
     }
     #endregion ■■■■■ Properties & Events
 
@@ -580,4 +526,25 @@ namespace DatEx.Skelya.GUI.CustomCtrls.Controls
         #endregion ————— CommandName
     }
     #endregion ■■■■■ Commands
+
+
+
+    #region ■■■■■ Other ■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■
+    public partial class EventsTableCtrl
+    {
+        public void LoadData(IEnumerable<EventLogRecord> events)
+        {
+            ObservableCollection<VM_EventLogRecord> loadedEvents 
+                = new ObservableCollection<VM_EventLogRecord>(events.OrderByDescending(x => x.DateTime).Select(x => new VM_EventLogRecord(x)));
+            EventsLoaded.Clear();
+            EventsDisplayed.Clear();
+
+            foreach(var item in loadedEvents)
+            {
+                EventsLoaded.Add(item);
+                EventsDisplayed.Add(item);
+            }
+        }
+    }
+    #endregion ■■■■■ Other
 }

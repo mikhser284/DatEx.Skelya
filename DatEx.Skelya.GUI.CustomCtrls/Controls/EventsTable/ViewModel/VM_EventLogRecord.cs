@@ -31,21 +31,21 @@ namespace DatEx.Skelya.GUI.CustomCtrls.ViewModel
 
         public Boolean EventHasComments { get => Comments != null && Comments.Count > 0;  }
 
-        public DateTime EventTime { get; set; }
+        public DateTime EventTime { get; set; } //■
 
-        public string EventDescription { get; set; }
+        public string EventDescription { get; set; } //■
 
         public String EventTypeId { get; set; }
 
         public string EventTypeName { get; set; }
 
-        public String EventType { get; set; }
+        public String EventCriticality { get; set; } //■
 
         public List<Trigger> EventTypeTriggers { get; set; }
 
         public Int32? DataSectorId { get; set; }
 
-        public String DataSectorName { get; set; }
+        public String DataSectorName { get; set; } //■
 
         public String DeviceId { get; set; }
 
@@ -72,7 +72,7 @@ namespace DatEx.Skelya.GUI.CustomCtrls.ViewModel
             EventDescription = x.Description;
             EventTypeId = x.Event.Id;
             EventTypeName = x.Event.Name;
-            EventType = x.Event.Type;
+            EventCriticality = x.Event.Type;
             EventTypeTriggers = new List<Trigger>();
             x.Event.Triggers?.ForEach(e => EventTypeTriggers.Add(e));
 

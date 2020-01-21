@@ -22,7 +22,7 @@ namespace DatEx.Skelya.GUI
     public partial class MainWindow : Window
     {
         public static AppSettings AppConfig = null;
-        public static SkeliaClient Client = null;
+        public static SkelyaClient SkelyaClient = null;
         //
         private static AppMenuCtrl UiPart_AppMenu = null;
         private static EventsTableCtrl UiPart_EventsTable = null;
@@ -52,9 +52,10 @@ namespace DatEx.Skelya.GUI
         {
             AppConfig = AppSettings.Load();
             LoadApplicationParts();
-            Client = new SkeliaClient(AppConfig.HttpAddressOf.SkelyaServer);
-            SetAppPartsBindings_EventTable(UiPart_EventsFilter, UiPart_EventsTable);
-            SetAppPartsBindings_ApplicationMenu(UiPart_AppMenu, UiPart_EventsTable, UiPart_TimeRange);
+            SkelyaClient = new SkelyaClient(AppConfig.HttpAddressOf.SkelyaServer);
+            SetAppPartsBindings_EventTable(UiPart_EventsTable, UiPart_TimeRange, UiPart_EventsFilter);
+            SetAppPartsBindings_ApplicationMenu(UiPart_AppMenu, UiPart_EventsTable);
+            SetAppPartsBindings_EventDetails(UiPart_EventDetails, UiPart_EventsTable);
         }
 
         private void LoadApplicationParts()
@@ -71,22 +72,61 @@ namespace DatEx.Skelya.GUI
             //UiPart_Triggers = Part_Triggers;
         }
 
-        private void SetAppPartsBindings_EventTable(EventFilterCtrl eventsFilter, EventsTableCtrl eventsTable)
+        private void SetAppPartsBindings_EventTable(EventsTableCtrl eventsTable, TimeRangeCtrl timeRange, EventFilterCtrl eventsFilter)
         {
-            eventsFilter.AppliedFilterChanged += AppliedFilterChanged;
+            //eventsFilter.AppliedFilterChanged += AppliedFilterChanged;
+            ////
+            ////
+            ////
+            //void AppliedFilterChanged(object sender, RoutedPropertyChangedEventArgs<VM_FilterInfo> e)
+            //{
+            //    VM_FilterInfo appliedFilter = e.NewValue;
+            //    eventsTable.AppliedFilter = appliedFilter;
+            //    eventsTable.DesiredTimeRangeStart = appliedFilter.TimeFrom;
+            //    eventsTable.DesiredTimeRangeEnd = appliedFilter.TimeTill;
+            //}
+
             //
             //
-            //
-            void AppliedFilterChanged(object sender, RoutedPropertyChangedEventArgs<VM_FilterInfo> e)
+            Binding desiredTimeRangeBinding = new Binding
             {
-                VM_FilterInfo appliedFilter = e.NewValue;
-                eventsTable.AppliedFilter = appliedFilter;
-                eventsTable.DesiredDesiredTimeRangeStart = appliedFilter.TimeFrom;
-                eventsTable.DesiredTimeRangeEnd = appliedFilter.TimeTill;
-            }
+                Source = timeRange,
+                Path = new PropertyPath(nameof(timeRange.TimeRange)),
+                Mode = BindingMode.OneWay
+            };
+            BindingOperations.SetBinding(eventsTable, EventsTableCtrl.DesiredTimeRangeProperty, desiredTimeRangeBinding);
+            eventsTable.DesiredTimeRangeChanged += EventsTable_DesiredTimeRangeChanged;
         }
 
-        private void SetAppPartsBindings_ApplicationMenu(AppMenuCtrl mnu, EventsTableCtrl eventsTable, TimeRangeCtrl timeRange)
+        private void SetAppPartsBindings_EventDetails(EventDetailsCtrl eventDetails, EventsTableCtrl eventsTable)
+        {
+            Binding selectedEventRecordBinding = new Binding
+            {
+                Source = eventsTable,
+                Path = new PropertyPath(nameof(eventsTable.SelectedEvent)),
+                Mode = BindingMode.OneWay
+            };
+            BindingOperations.SetBinding(eventDetails, EventDetailsCtrl.EventRecordProperty, selectedEventRecordBinding);
+        }
+
+        private void EventsTable_DesiredTimeRangeChanged(Object sender, RoutedPropertyChangedEventArgs<VM_TimeRange> e)
+        {
+            if(sender is EventsTableCtrl eventsTable) UpdateEventsTable(eventsTable);
+        }
+
+        private void UpdateEventsTable(EventsTableCtrl eventsTable)
+        {
+            
+            if(eventsTable.DesiredTimeRange == null || eventsTable.DesiredTimeRange.Start == null || eventsTable.DesiredTimeRange.End == null) return;
+            DateTime startTime = (DateTime)eventsTable.DesiredTimeRange.Start;
+            DateTime endTime = (DateTime)eventsTable.DesiredTimeRange.End;
+            //
+            var queryRes = SkelyaClient.GetEventLogRecords(startTime, endTime);
+            var events = queryRes.Items;
+            eventsTable.LoadData(events);
+        }
+
+        private void SetAppPartsBindings_ApplicationMenu(AppMenuCtrl mnu, EventsTableCtrl eventsTable)
         {
             Binding updateModeBinding = new Binding
             {
@@ -151,8 +191,8 @@ namespace DatEx.Skelya.GUI
             //
             Binding desiredStartTimeBinding = new Binding
             {
-                Source = timeRange,
-                Path = new PropertyPath(nameof(timeRange.TimeRangeStart)),
+                Source = eventsTable,
+                Path = new PropertyPath($"{nameof(eventsTable.DesiredTimeRange)}.{nameof(eventsTable.DesiredTimeRange.Start)}"),
                 Converter = new ValConverter_DateTime_String(),
                 ConverterParameter = "yyyy.MM.dd-ddd",
                 ConverterCulture = new CultureInfo("ru-RU"),
@@ -163,8 +203,8 @@ namespace DatEx.Skelya.GUI
             ////
             Binding desiredEndTimeBinding = new Binding
             {
-                Source = timeRange,
-                Path = new PropertyPath(nameof(timeRange.TimeRangeEnd)),
+                Source = eventsTable,
+                Path = new PropertyPath($"{nameof(eventsTable.DesiredTimeRange)}.{nameof(eventsTable.DesiredTimeRange.End)}"),
                 Converter = new ValConverter_DateTime_String(),
                 ConverterParameter = "yyyy.MM.dd-ddd",
                 ConverterCulture = new CultureInfo("ru-RU"),
@@ -173,16 +213,16 @@ namespace DatEx.Skelya.GUI
             BindingOperations.SetBinding(mnu, AppMenuCtrl.DesiredEndTimeProperty, desiredEndTimeBinding);
             ////
             ////
-            Binding desiredTimeSpanBinding = new Binding
+            Binding desiredTimeLengthBinding = new Binding
             {
-                Source = timeRange,
-                Path = new PropertyPath(nameof(timeRange.TimeRangeInterval)),
+                Source = eventsTable,
+                Path = new PropertyPath($"{nameof(eventsTable.DesiredTimeRange)}.{nameof(eventsTable.DesiredTimeRange.Length)}"),
                 Converter = new ValConverter_TimeSpan_String(),
                 //ConverterParameter = "yyyy.MM.dd-ddd",
                 ConverterCulture = new CultureInfo("ru-RU"),
                 Mode = BindingMode.OneWay
             };
-            BindingOperations.SetBinding(mnu, AppMenuCtrl.DesiredTimeSpanProperty, desiredTimeSpanBinding);
+            BindingOperations.SetBinding(mnu, AppMenuCtrl.DesiredTimeSpanProperty, desiredTimeLengthBinding);
         }
 
 

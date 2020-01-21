@@ -34,6 +34,7 @@
                 <Setter Property="Padding" Value="0"/>
                 <Setter Property="Grid.Column" Value="1"/>
                 <Setter Property="MinHeight" Value="50"/>
+                <Setter Property="Width" Value="250"/>
                 <Setter Property="HorizontalAlignment" Value="Left"/>
                 <Setter Property="TextWrapping" Value="WrapWithOverflow"/>
             </Style>
@@ -71,35 +72,35 @@
                                         </Grid.RowDefinitions>
 
                                         <Label Grid.Row="0" Style="{StaticResource PropName}"  Content="Критичность"/>
-                                        <Label Grid.Row="0" Style="{StaticResource PropValue}" x:Name="Part_EventStatusLbl" FontWeight="Bold"/>
+                                        <Label Grid.Row="0" Style="{StaticResource PropValue}" x:Name="Part_EventStatus_lbl" FontWeight="Bold"/>
 
                                         <Label Grid.Row="1" Style="{StaticResource PropName}"  Content="Время"/>
-                                        <Label Grid.Row="1" Style="{StaticResource PropValue}" x:Name="Part_EventTimeLbl"/>
+                                        <Label Grid.Row="1" Style="{StaticResource PropValue}" x:Name="Part_EventTime_lbl"/>
 
                                         <Label Grid.Row="2" Style="{StaticResource PropName}"  Content="Место"/>
-                                        <Label Grid.Row="2" Style="{StaticResource PropValue}" x:Name="Part_EventPlaceLbl"/>
+                                        <Label Grid.Row="2" Style="{StaticResource PropValue}" x:Name="Part_EventPlace_lbl"/>
 
                                         <Label Grid.Row="3" Style="{StaticResource PropName}"  Content="Устройство"/>
-                                        <Label Grid.Row="3" Style="{StaticResource PropValue}" x:Name="Part_EventDeviceLbl"/>
+                                        <Label Grid.Row="3" Style="{StaticResource PropValue}" x:Name="Part_EventDevice_lbl"/>
 
                                         <Label Grid.Row="4" Style="{StaticResource PropName}"  Content="Описание"/>
-                                        <TextBlock Grid.Row="4" Style="{StaticResource PropMultilineValue}" x:Name="Part_EventDescriptionTxt"/>
+                                        <TextBlock Grid.Row="4" Style="{StaticResource PropMultilineValue}" x:Name="Part_EventDescription_tBlock"/>
                                     </Grid>
                                 </Expander>
 
                                 <Expander IsExpanded="True" Margin="3, 0">
                                     <Expander.Header>
-                                        <Label Name="Part_ShapshotLbl" Content="Изображение (✔/✖/?)" Style="{StaticResource PropsGroupTitle}"/>
+                                        <Label Name="Part_Shapshot_lbl" Content="Изображение (✔/✖/?)" Style="{StaticResource PropsGroupTitle}"/>
                                     </Expander.Header>
                                     <Border Grid.Column="1" Grid.Row="1" BorderThickness="1" BorderBrush="SteelBlue" Background="AliceBlue" Height="200" CornerRadius="3" Margin="30,3,3,3">
                                         <Grid>
-                                            <Label x:Name="Part_ImagePlaceholderLbl" Content="Изображение отсутствует" Foreground="SteelBlue" HorizontalAlignment="Center" VerticalAlignment="Center"/>
-                                            <Image x:Name="Part_EventSnapshotImg"  Stretch="Uniform" VerticalAlignment="Top" />
+                                            <Label x:Name="Part_ImagePlaceholder_lbl" Content="Изображение отсутствует" Foreground="SteelBlue" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                            <Image x:Name="Part_EventSnapshot_img"  Stretch="Uniform" VerticalAlignment="Top" />
                                         </Grid>
                                     </Border>
                                 </Expander>
 
-                                <Expander IsExpanded="False" Margin="3, 0">
+                                <Expander IsExpanded="True" Margin="3, 0">
                                     <Expander.Header>
                                         <Label Content="Дополнительно" Style="{StaticResource PropsGroupTitle}"/>
                                     </Expander.Header>
@@ -122,46 +123,46 @@
                                         </Grid.RowDefinitions>
 
                                         <Label Grid.Row="0" Style="{StaticResource PropName}"  Content="Id события"/>
-                                        <Label Grid.Row="0" Style="{StaticResource PropValue}" />
+                                        <Label Grid.Row="0" Style="{StaticResource PropValue}" x:Name="Part_EventId_lbl"/>
 
                                         <Label Grid.Row="1" Style="{StaticResource PropName}"  Content="Тип события"/>
-                                        <Label Grid.Row="1" Style="{StaticResource PropValue}" />
+                                        <Label Grid.Row="1" Style="{StaticResource PropValue}" x:Name="Part_EventType_lbl"/>
 
                                         <Separator Grid.Row="2" Style="{StaticResource PropSeparator}"/>
 
                                         <Label Grid.Row="3" Style="{StaticResource PropName}"  Content="Id устройства"/>
-                                        <Label Grid.Row="3" Style="{StaticResource PropValue}" />
+                                        <Label Grid.Row="3" Style="{StaticResource PropValue}" x:Name="Part_DeviceId_lbl"/>
 
                                         <Label Grid.Row="4" Style="{StaticResource PropName}"  Content="Тип устройства"/>
-                                        <Label Grid.Row="4" Style="{StaticResource PropValue}" />
+                                        <Label Grid.Row="4" Style="{StaticResource PropValue}" x:Name="Part_DeviceType_lbl"/>
 
                                         <Label Grid.Row="5" Style="{StaticResource PropName}"  Content="Класс устройства"/>
-                                        <Label Grid.Row="5" Style="{StaticResource PropValue}" />
+                                        <Label Grid.Row="5" Style="{StaticResource PropValue}" x:Name="Part_DeviceClass_lbl"/>
 
                                         <Separator Grid.Row="6" Style="{StaticResource PropSeparator}"/>
 
                                         <Label Grid.Row="7" Style="{StaticResource PropName}"  Content="Id изображения"/>
-                                        <Label Grid.Row="7" Style="{StaticResource PropValue}" />
+                                        <Label Grid.Row="7" Style="{StaticResource PropValue}" x:Name="Part_SnapshotId_lbl"/>
 
                                         <Label Grid.Row="8" Style="{StaticResource PropName}"  Content="Дата изображения"/>
-                                        <Label Grid.Row="8" Style="{StaticResource PropValue}" />
+                                        <Label Grid.Row="8" Style="{StaticResource PropValue}" x:Name="Part_SnapshotTime_lbl"/>
 
                                         <Label Grid.Row="9" Style="{StaticResource PropName}"  Content="Размеры изображения"/>
-                                        <Label Grid.Row="9" Style="{StaticResource PropValue}" />
+                                        <Label Grid.Row="9" Style="{StaticResource PropValue}" x:Name="Part_ShapshotSizes_lbl"/>
                                     </Grid>
                                 </Expander>
 
-                                <Expander IsExpanded="False" Margin="3, 0">
+                                <Expander IsExpanded="True" Margin="3, 0">
                                     <Expander.Header>
                                         <Label Content="Все устройства (0 шт.)" Style="{StaticResource PropsGroupTitle}"/>
                                     </Expander.Header>
 
-                                    <ListBox Margin="30,3,3,3" Height="100">
+                                    <ListBox x:Name="Part_AllDevices_lBox" Margin="30,3,3,3" Height="100">
 
                                     </ListBox>
                                 </Expander>
 
-                                <Expander IsExpanded="False" Margin="3, 0">
+                                <Expander IsExpanded="True" Margin="3, 0">
                                     <Expander.Header>
                                         <Label Content="Данные события" Style="{StaticResource PropsGroupTitle}"/>
                                     </Expander.Header>
@@ -215,118 +216,118 @@
                                         </Grid.RowDefinitions>
 
                                         <Label Grid.Row="0" Style="{StaticResource PropName}"  Content="Weight"/>
-                                        <Label Grid.Row="0" Style="{StaticResource PropValue}" />
+                                        <Label Grid.Row="0" Style="{StaticResource PropValue}" x:Name="Part_edWeight_lbl"/>
 
                                         <Label Grid.Row="1" Style="{StaticResource PropName}"  Content="PrevWeight"/>
-                                        <Label Grid.Row="1" Style="{StaticResource PropValue}" />
+                                        <Label Grid.Row="1" Style="{StaticResource PropValue}" x:Name="Part_edPrevWeight_lbl"/>
 
                                         <Label Grid.Row="2" Style="{StaticResource PropName}"  Content="Transaction"/>
-                                        <Label Grid.Row="2" Style="{StaticResource PropValue}" />
+                                        <Label Grid.Row="2" Style="{StaticResource PropValue}" x:Name="Part_edTransaction_lbl"/>
 
                                         <Label Grid.Row="3" Style="{StaticResource PropName}"  Content="PrevTransaction"/>
-                                        <Label Grid.Row="3" Style="{StaticResource PropValue}" />
+                                        <Label Grid.Row="3" Style="{StaticResource PropValue}" x:Name="Part_edPrevTransaction_lbl"/>
 
                                         <Label Grid.Row="4" Style="{StaticResource PropName}"  Content="TransactionDataCount"/>
-                                        <Label Grid.Row="4" Style="{StaticResource PropValue}" />
+                                        <Label Grid.Row="4" Style="{StaticResource PropValue}" x:Name="Part_edTransactionDataCount_lbl"/>
 
                                         <Label Grid.Row="5" Style="{StaticResource PropName}"  Content="Stable"/>
-                                        <Label Grid.Row="5" Style="{StaticResource PropValue}" />
+                                        <Label Grid.Row="5" Style="{StaticResource PropValue}" x:Name="Part_edStable_lbl"/>
 
                                         <Label Grid.Row="6" Style="{StaticResource PropName}"  Content="Duration"/>
-                                        <Label Grid.Row="6" Style="{StaticResource PropValue}" />
+                                        <Label Grid.Row="6" Style="{StaticResource PropValue}" x:Name="Part_edDuration_lbl"/>
 
                                         <Label Grid.Row="7" Style="{StaticResource PropName}"  Content="TransactionMaxWeight"/>
-                                        <Label Grid.Row="7" Style="{StaticResource PropValue}" />
+                                        <Label Grid.Row="7" Style="{StaticResource PropValue}" x:Name="Part_edTransactionMaxWeight_lbl"/>
 
                                         <Label Grid.Row="8" Style="{StaticResource PropName}"  Content="Perimetr"/>
-                                        <Label Grid.Row="8" Style="{StaticResource PropValue}" />
+                                        <Label Grid.Row="8" Style="{StaticResource PropValue}" x:Name="Part_edPerimetr_lbl"/>
 
                                         <Label Grid.Row="9" Style="{StaticResource PropName}"  Content="DriverInCar"/>
-                                        <Label Grid.Row="9" Style="{StaticResource PropValue}" />
+                                        <Label Grid.Row="9" Style="{StaticResource PropValue}" x:Name="Part_edDriverInCar_lbl"/>
 
                                         <Label Grid.Row="10" Style="{StaticResource PropName}"  Content="Status"/>
-                                        <Label Grid.Row="10" Style="{StaticResource PropValue}" />
+                                        <Label Grid.Row="10" Style="{StaticResource PropValue}" x:Name="Part_edStatus_lbl"/>
 
                                         <Label Grid.Row="11" Style="{StaticResource PropName}"  Content="Reader"/>
-                                        <Label Grid.Row="11" Style="{StaticResource PropValue}" />
+                                        <Label Grid.Row="11" Style="{StaticResource PropValue}" x:Name="Part_edReader_lbl"/>
 
                                         <Label Grid.Row="12" Style="{StaticResource PropName}"  Content="Truck1"/>
-                                        <Label Grid.Row="12" Style="{StaticResource PropValue}" />
+                                        <Label Grid.Row="12" Style="{StaticResource PropValue}" x:Name="Part_edTruck1_lbl"/>
 
                                         <Label Grid.Row="13" Style="{StaticResource PropName}"  Content="Truck2"/>
-                                        <Label Grid.Row="13" Style="{StaticResource PropValue}" />
+                                        <Label Grid.Row="13" Style="{StaticResource PropValue}" x:Name="Part_edTruck2_lbl"/>
 
                                         <Label Grid.Row="14" Style="{StaticResource PropName}"  Content="ItemName"/>
-                                        <Label Grid.Row="14" Style="{StaticResource PropValue}" />
+                                        <Label Grid.Row="14" Style="{StaticResource PropValue}" x:Name="Part_edItemName_lbl"/>
 
                                         <Label Grid.Row="15" Style="{StaticResource PropName}"  Content="OperationName"/>
-                                        <Label Grid.Row="15" Style="{StaticResource PropValue}" />
+                                        <Label Grid.Row="15" Style="{StaticResource PropValue}" x:Name="Part_edOperationName_lbl"/>
 
                                         <Label Grid.Row="16" Style="{StaticResource PropName}"  Content="OperationType"/>
-                                        <Label Grid.Row="16" Style="{StaticResource PropValue}" />
+                                        <Label Grid.Row="16" Style="{StaticResource PropValue}" x:Name="Part_edOparationType_lbl"/>
 
                                         <Label Grid.Row="17" Style="{StaticResource PropName}"  Content="On"/>
-                                        <Label Grid.Row="17" Style="{StaticResource PropValue}" />
+                                        <Label Grid.Row="17" Style="{StaticResource PropValue}" x:Name="Part_edOn_lbl"/>
 
                                         <Label Grid.Row="18" Style="{StaticResource PropName}"  Content="Waybill"/>
-                                        <Label Grid.Row="18" Style="{StaticResource PropValue}" />
+                                        <Label Grid.Row="18" Style="{StaticResource PropValue}" x:Name="Part_edWaybill_lbl"/>
 
                                         <Label Grid.Row="19" Style="{StaticResource PropName}"  Content="TransactionWaybill"/>
-                                        <Label Grid.Row="19" Style="{StaticResource PropValue}" />
+                                        <Label Grid.Row="19" Style="{StaticResource PropValue}" x:Name="Part_edTransactionWaybill_lbl"/>
 
                                         <Label Grid.Row="20" Style="{StaticResource PropName}"  Content="State"/>
-                                        <Label Grid.Row="20" Style="{StaticResource PropValue}" />
+                                        <Label Grid.Row="20" Style="{StaticResource PropValue}" x:Name="Part_edState_lbl"/>
 
                                         <Label Grid.Row="21" Style="{StaticResource PropName}"  Content="Weight1"/>
-                                        <Label Grid.Row="21" Style="{StaticResource PropValue}" />
+                                        <Label Grid.Row="21" Style="{StaticResource PropValue}" x:Name="Part_Weight1_lbl"/>
 
                                         <Label Grid.Row="22" Style="{StaticResource PropName}"  Content="Weight2"/>
-                                        <Label Grid.Row="22" Style="{StaticResource PropValue}" />
+                                        <Label Grid.Row="22" Style="{StaticResource PropValue}" x:Name="Part_edWeight2_lbl"/>
 
                                         <Label Grid.Row="23" Style="{StaticResource PropName}"  Content="WeightCenter"/>
-                                        <Label Grid.Row="23" Style="{StaticResource PropValue}" />
+                                        <Label Grid.Row="23" Style="{StaticResource PropValue}" x:Name="Part_edWeghtCenter_lbl"/>
 
                                         <Label Grid.Row="24" Style="{StaticResource PropName}"  Content="Command"/>
-                                        <Label Grid.Row="24" Style="{StaticResource PropValue}" />
+                                        <Label Grid.Row="24" Style="{StaticResource PropValue}" x:Name="Part_edCommand_lbl"/>
 
                                         <Label Grid.Row="25" Style="{StaticResource PropName}"  Content="User"/>
-                                        <Label Grid.Row="25" Style="{StaticResource PropValue}" />
+                                        <Label Grid.Row="25" Style="{StaticResource PropValue}" x:Name="Part_edUser_lbl"/>
 
                                         <Label Grid.Row="26" Style="{StaticResource PropName}"  Content="Id"/>
-                                        <Label Grid.Row="26" Style="{StaticResource PropValue}" />
+                                        <Label Grid.Row="26" Style="{StaticResource PropValue}" x:Name="Part_edId_lbl"/>
 
                                         <Label Grid.Row="27" Style="{StaticResource PropName}"  Content="EPC"/>
-                                        <Label Grid.Row="27" Style="{StaticResource PropValue}" />
+                                        <Label Grid.Row="27" Style="{StaticResource PropValue}" x:Name="Part_edEPC_lbl"/>
 
-                                        <Label Grid.Row="28" Style="{StaticResource PropName}"  Content="Accesslevel"/>
-                                        <Label Grid.Row="28" Style="{StaticResource PropValue}" />
+                                        <Label Grid.Row="28" Style="{StaticResource PropName}"  Content="AccessLevel"/>
+                                        <Label Grid.Row="28" Style="{StaticResource PropValue}" x:Name="Part_edAccessLevel_lbl"/>
 
-                                        <Label Grid.Row="29" Style="{StaticResource PropName}"  Content="AmbietTemperature"/>
-                                        <Label Grid.Row="29" Style="{StaticResource PropValue}" />
+                                        <Label Grid.Row="29" Style="{StaticResource PropName}"  Content="AmbientTemperature"/>
+                                        <Label Grid.Row="29" Style="{StaticResource PropValue}" x:Name="Part_edAmbientTemperature_lbl"/>
 
                                         <Label Grid.Row="30" Style="{StaticResource PropName}"  Content="AnalysisCounter"/>
-                                        <Label Grid.Row="30" Style="{StaticResource PropValue}" />
+                                        <Label Grid.Row="30" Style="{StaticResource PropValue}" x:Name="Part_edAnalysisCounter_lbl"/>
 
                                         <Label Grid.Row="31" Style="{StaticResource PropName}"  Content="Subsample_id"/>
-                                        <Label Grid.Row="31" Style="{StaticResource PropValue}" />
+                                        <Label Grid.Row="31" Style="{StaticResource PropValue}" x:Name="Part_edSubsampleId_lbl"/>
 
-                                        <Label Grid.Row="32" Style="{StaticResource PropName}"  Content="SubsampleNrOFSubSamples"/>
-                                        <Label Grid.Row="32" Style="{StaticResource PropValue}" />
+                                        <Label Grid.Row="32" Style="{StaticResource PropName}"  Content="SubsampleNrOfSubsamples"/>
+                                        <Label Grid.Row="32" Style="{StaticResource PropValue}" x:Name="Part_edSubsampleNrOfSubsamples_lbl"/>
 
                                         <Label Grid.Row="33" Style="{StaticResource PropName}"  Content="SampleHash"/>
-                                        <Label Grid.Row="33" Style="{StaticResource PropValue}" />
+                                        <Label Grid.Row="33" Style="{StaticResource PropValue}" x:Name="Part_edSampleHash_lbl"/>
 
                                         <Label Grid.Row="34" Style="{StaticResource PropName}"  Content="ProtDM"/>
-                                        <Label Grid.Row="34" Style="{StaticResource PropValue}" />
+                                        <Label Grid.Row="34" Style="{StaticResource PropValue}" x:Name="Part_edProtDM_lbl"/>
 
                                         <Label Grid.Row="35" Style="{StaticResource PropName}"  Content="Moisture"/>
-                                        <Label Grid.Row="35" Style="{StaticResource PropValue}" />
+                                        <Label Grid.Row="35" Style="{StaticResource PropValue}" x:Name="Part_edMoisture_lbl"/>
 
                                         <Label Grid.Row="36" Style="{StaticResource PropName}"  Content="OilDM"/>
-                                        <Label Grid.Row="36" Style="{StaticResource PropValue}" />
+                                        <Label Grid.Row="36" Style="{StaticResource PropValue}" x:Name="Part_edOilDM_lbl"/>
 
                                         <Label Grid.Row="37" Style="{StaticResource PropName}"  Content="StarchDM"/>
-                                        <Label Grid.Row="37" Style="{StaticResource PropValue}" />
+                                        <Label Grid.Row="37" Style="{StaticResource PropValue}" x:Name="Part_dmStarchDM_lbl"/>
                                     </Grid>
                                 </Expander>
 

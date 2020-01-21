@@ -9,12 +9,12 @@ namespace DatEx.Skelya.CUI
     class Program
     {
         public static AppSettings AppSettings = null;
-        public static SkeliaClient Client = null;
+        public static SkelyaClient Client = null;
 
         static void Main(string[] args)
         {
             AppSettings = AppSettings.Load();
-            Client = new SkeliaClient(AppSettings.HttpAddressOf.SkelyaServer);
+            Client = new SkelyaClient(AppSettings.HttpAddressOf.SkelyaServer);
 
             //ShowEventLogs(Client);
             //ShowDevices(Client);
@@ -23,12 +23,12 @@ namespace DatEx.Skelya.CUI
             //ShowDataSectors(Client);
         }
 
-        public static void UpdateUserInfo(SkeliaClient client)
+        public static void UpdateUserInfo(SkelyaClient client)
         {
 
         }
 
-        public static void ShowEventLogs(SkeliaClient client)
+        public static void ShowEventLogs(SkelyaClient client)
         {
             List<EventLogRecord> eventLogRecords = client.GetEventLogRecords(new DateTime(2019, 12, 21, 10, 09, 19), new DateTime(2019, 12, 21, 10, 09, 21)).Items;
 
@@ -38,18 +38,18 @@ namespace DatEx.Skelya.CUI
             }
         }
 
-        public static void ShowDevices(SkeliaClient client) 
+        public static void ShowDevices(SkelyaClient client) 
         {
             foreach(var dev in client.GetDevices().Items.Select(x => x.Device).OrderBy(x => x.DataSector.Id))
                 Console.WriteLine($"{dev}\n\n");
         }
 
-        public static void ShowDataSectors(SkeliaClient client)
+        public static void ShowDataSectors(SkelyaClient client)
         {
             client.GetDataSectors().Items.ForEach(x => Console.WriteLine(x));
         }
 
-        public static void ShowEventsAndTriggers(SkeliaClient client)
+        public static void ShowEventsAndTriggers(SkelyaClient client)
         {
             QueryResult<Trigger> triggers = client.GetTriggers();
             Dictionary<String, List<Trigger>> triggersDict = new Dictionary<String, List<Trigger>>();
@@ -72,7 +72,7 @@ namespace DatEx.Skelya.CUI
             }
         }
 
-        public static void ShowUsers(SkeliaClient client)
+        public static void ShowUsers(SkelyaClient client)
         {
             client.GetUsers().Items.ForEach(x => Console.WriteLine(x));
         }

@@ -25,9 +25,6 @@ namespace DatEx.Skelya.GUI.CustomCtrls.Controls
             static DependencyProperty RegisterProperty<T>(String propName, T defaultValue, Action<DependencyObject, DependencyPropertyChangedEventArgs> propChangedCallback)
                 => DependencyProperty.Register(propName, typeof(T), typeof(TimeRangeCtrl), new FrameworkPropertyMetadata(defaultValue, new PropertyChangedCallback(propChangedCallback)));
 
-            static DependencyProperty RegisterPropertyWithoutCallback<T>(String propName, T defaultValue)
-                => DependencyProperty.Register(propName, typeof(T), typeof(TimeRangeCtrl), new FrameworkPropertyMetadata(defaultValue));
-
             static RoutedEvent RegisterEvent<T>(String handlerName)
                 => EventManager.RegisterRoutedEvent(handlerName, RoutingStrategy.Bubble, typeof(RoutedPropertyChangedEventHandler<T>), typeof(TimeRangeCtrl));
             #endregion ————— Local methods
@@ -49,14 +46,8 @@ namespace DatEx.Skelya.GUI.CustomCtrls.Controls
             TimeIntervalUnitProperty = RegisterProperty<ETimeIntervalUnit>(nameof(TimeIntervalUnit), ETimeIntervalUnit.Days, OnDependencyPropChanged_TimeIntervalUnit);
             TimeIntervalUnitChangedEvent = RegisterEvent<ETimeIntervalUnit>(nameof(TimeIntervalUnitChanged));
             //
-            TimeRangeIntervalProperty = RegisterPropertyWithoutCallback<TimeSpan>(nameof(TimeRangeInterval), TimeSpan.FromDays(1));
-            //
-            TimeRangeStartProperty = RegisterPropertyWithoutCallback<DateTime?>(nameof(TimeRangeStart), default(DateTime?));
-            //
-            TimeRangeEndProperty = RegisterPropertyWithoutCallback<DateTime?>(nameof(TimeRangeEnd), default(DateTime?));
-            //
-            TimeRangeIsFixedProperty = RegisterPropertyWithoutCallback<Boolean>(nameof(TimeRangeIsFixed), false);
-            //
+            TimeRangeProperty = RegisterProperty<VM_TimeRange>(nameof(TimeRange), new VM_TimeRange(), OnDependencyPropChanged_TimeRange);
+            TimeRangeChangedEvent = RegisterEvent<VM_TimeRange>(nameof(TimeRangeChanged));
             #endregion ————— Dependency property & routed events registration
         }
     }
@@ -330,45 +321,34 @@ namespace DatEx.Skelya.GUI.CustomCtrls.Controls
         }
         #endregion ————— TimeSpanUnit
 
-        #region ————— TimeRangeStart ——————————————————————————————————————————————————————————————————————————————————
-        public static DependencyProperty TimeRangeStartProperty;
+        #region ————— TimeSpanUnit ————————————————————————————————————————————————————————————————————————————————————
+        public static DependencyProperty TimeRangeProperty;
 
-        public DateTime? TimeRangeStart
+        public VM_TimeRange TimeRange
         {
-            get => (DateTime?)GetValue(TimeRangeStartProperty);
-            private set => SetValue(TimeRangeStartProperty, value);
+            get => (VM_TimeRange)GetValue(TimeRangeProperty);
+            private set => SetValue(TimeRangeProperty, value);
         }
-        #endregion ————— TimeRangeStart
 
-        #region ————— TimeRangeEnd ————————————————————————————————————————————————————————————————————————————————————
-        public static DependencyProperty TimeRangeEndProperty;
-
-        public DateTime? TimeRangeEnd
+        private static void OnDependencyPropChanged_TimeRange(DependencyObject sender, DependencyPropertyChangedEventArgs e)
         {
-            get => (DateTime?)GetValue(TimeRangeEndProperty);
-            private set => SetValue(TimeRangeEndProperty, value);
+            TimeRangeCtrl ctrl = sender as TimeRangeCtrl;
+            if(ctrl == null) return;
+            VM_TimeRange oldValue = (VM_TimeRange)e.OldValue;
+            VM_TimeRange newValue = (VM_TimeRange)e.NewValue;
+            RoutedPropertyChangedEventArgs<VM_TimeRange> args = new RoutedPropertyChangedEventArgs<VM_TimeRange>(oldValue, newValue);
+            args.RoutedEvent = TimeRangeCtrl.TimeRangeChangedEvent;
+            ctrl.RaiseEvent(args);
         }
-        #endregion ————— TimeRangeEnd
 
-        #region ————— TimeRange ———————————————————————————————————————————————————————————————————————————————————————
-        public static DependencyProperty TimeRangeIntervalProperty;
+        public static readonly RoutedEvent TimeRangeChangedEvent;
 
-        public TimeSpan TimeRangeInterval
+        public event RoutedPropertyChangedEventHandler<VM_TimeRange> TimeRangeChanged
         {
-            get => (TimeSpan)GetValue(TimeRangeIntervalProperty);
-            private set => SetValue(TimeRangeIntervalProperty, value);
+            add => AddHandler(TimeRangeChangedEvent, value);
+            remove => RemoveHandler(TimeRangeChangedEvent, value);
         }
-        #endregion ————— TimeRange
-
-        #region ————— TimeRangeIsFixed ————————————————————————————————————————————————————————————————————————————————
-        public static DependencyProperty TimeRangeIsFixedProperty;
-
-        public Boolean TimeRangeIsFixed
-        {
-            get => (Boolean)GetValue(TimeRangeIsFixedProperty);
-            private set => SetValue(TimeRangeIsFixedProperty, value);
-        }
-        #endregion ————— TimeRangeIsFixed
+        #endregion ————— TimeSpanUnit
     }
     #endregion ■■■■■ Properties & Events
 
@@ -379,37 +359,40 @@ namespace DatEx.Skelya.GUI.CustomCtrls.Controls
     {
         public void UpdateTimeRange()
         {
-            ETimeIntervalMode mode = TimeSelectionMode;
-            switch (mode)
+            VM_TimeRange newValue = VM_TimeRange.UpdateFrom(TimeRange, null);
+            if(newValue != null)
             {
-                case ETimeIntervalMode.FromTimeTillTime:
+                ETimeIntervalMode mode = TimeSelectionMode;
+                switch(mode)
+                {
+                    case ETimeIntervalMode.FromTimeTillTime:
                     {
-                        TimeRangeStart = Time < TimeEnd ? Time : TimeEnd;
-                        TimeRangeEnd = TimeEnd > Time ? TimeEnd : Time;
-                        TimeRangeInterval = (TimeRangeStart - TimeRangeEnd) ?? new TimeSpan();
-                        TimeRangeIsFixed = Time != null && TimeEnd != null;
+                        newValue.Start = Time < TimeEnd ? Time : TimeEnd;
+                        newValue.End = TimeEnd > Time ? TimeEnd : Time;
+                        newValue.Length = (newValue.Start - newValue.End) ?? new TimeSpan();
+                        newValue.IsFixed = Time != null && TimeEnd != null;
                         break;
                     }
-                case ETimeIntervalMode.TimeMinusTimeInterval:
+                    case ETimeIntervalMode.TimeMinusTimeInterval:
                     {
-                        TimeRangeEnd = Time ?? DateTime.Now;
-                        TimeRangeInterval = GetTimeSpan();
-                        TimeRangeStart = TimeRangeEnd - TimeRangeInterval;
-                        TimeRangeIsFixed = Time != null && TimeInterval > 0;
+                        newValue.End = Time ?? DateTime.Now;
+                        newValue.Length = GetTimeSpan();
+                        newValue.Start = newValue.End - newValue.Length;
+                        newValue.IsFixed = Time != null && TimeInterval > 0;
                         break;
                     }
-                case ETimeIntervalMode.TimePlusTimeInterval:
+                    case ETimeIntervalMode.TimePlusTimeInterval:
                     {
-                        TimeRangeStart = Time;
-                        TimeRangeInterval = GetTimeSpan();
-                        TimeRangeEnd = TimeRangeStart + TimeRangeInterval;
-                        TimeRangeIsFixed = Time != null && TimeInterval > 0;
+                        newValue.Start = Time;
+                        newValue.Length = GetTimeSpan();
+                        newValue.End = newValue.Start + newValue.Length;
+                        newValue.IsFixed = Time != null && TimeInterval > 0;
                         break;
                     }
-                default: throw new InvalidOperationException($"Unexpected value of enum {typeof(ETimeIntervalMode).Name}");
+                    default: throw new InvalidOperationException($"Unexpected value of enum {typeof(ETimeIntervalMode).Name}");
+                }
+                TimeRange = newValue;
             }
-
-            
         }
 
         private TimeSpan GetTimeSpan()

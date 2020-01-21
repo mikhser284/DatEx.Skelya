@@ -10,11 +10,11 @@ using Newtonsoft.Json.Linq;
 
 namespace DatEx.Skelya
 {
-    public class SkeliaClient 
+    public class SkelyaClient 
     {
         private readonly HttpClient HttpClient;
 
-        public SkeliaClient(String baseAddress)
+        public SkelyaClient(String baseAddress)
         {
             HttpClient = GetConfiguredClient(new Uri(baseAddress));
         }
