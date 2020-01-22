@@ -24,7 +24,7 @@
                             <DataGrid.Columns>
                                 <DataGridCheckBoxColumn Header="💬" Binding="{Binding Path=EventHasComments, Mode=OneWay}"/>
                                 <DataGridTextColumn Header="📷" Binding="{Binding Path=EventSnapshotId}"/>
-                                <DataGridTextColumn Header="Критичность" Binding="{Binding Path=EventCriticality}"/>
+                                <DataGridTextColumn Header="🚩" Binding="{Binding Path=EventCriticality}"/>
                                 <DataGridTextColumn Header="Время события" Binding="{Binding Path=EventTime, StringFormat={}{0:yyyy.MM.dd-ddd   	HH:mm:ss}}"/>
                                 <DataGridTextColumn Header="Место" Binding="{Binding Path=DataSectorName}"/>
                                 <DataGridTextColumn Header="Устройство" Binding="{Binding Path=DeviceName}"/>

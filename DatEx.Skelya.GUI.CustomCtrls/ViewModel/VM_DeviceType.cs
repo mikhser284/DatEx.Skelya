@@ -9,18 +9,18 @@ namespace DatEx.Skelya.GUI.CustomCtrls.ViewModel
     {
         public Boolean? CheckMark { get; set; }
 
-        public int Id { get; set; }
+        public Int32 Id { get; set; }
 
-        public string Name { get; set; }
+        public String Name { get; set; }
 
-        public string Classifier { get; set; }
+        public String Classifier { get; set; }
 
-        public VM_DeviceType(DeviceType x)
+        public VM_DeviceType(DeviceType devType)
         {
             CheckMark = true;
-            Id = x.Id;
-            Name = x.Name;
-            Classifier = x.Classifier;
+            Id = devType.Id;
+            Name = devType.Name;
+            Classifier = devType.Classifier;
         }
         public override String ToString() => $"{Name} ({Classifier})";
     }

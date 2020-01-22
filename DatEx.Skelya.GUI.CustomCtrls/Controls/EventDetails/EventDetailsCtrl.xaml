@@ -6,6 +6,13 @@
 
     <Style TargetType="{x:Type ctrls:EventDetailsCtrl}">
         <Style.Resources>
+            <Style x:Key="SmallTextLabel" TargetType="{x:Type Label}">
+                <Setter Property="FontWeight" Value="Normal"/>
+                <Setter Property="FontSize" Value="10"/>
+                <Setter Property="Margin" Value="2"/>
+                <Setter Property="Padding" Value="0"/>
+            </Style>
+            
             <Style TargetType="Label" x:Key="PropsGroupTitle">
                 <Setter Property="Foreground" Value="SteelBlue"/>
                 <Setter Property="FontWeight" Value="Bold"/>
@@ -90,7 +97,7 @@
 
                                 <Expander IsExpanded="True" Margin="3, 0">
                                     <Expander.Header>
-                                        <Label Name="Part_Shapshot_lbl" Content="Изображение (✔/✖/?)" Style="{StaticResource PropsGroupTitle}"/>
+                                        <Label Name="Part_SnapshotHeader_lbl" Content="Изображение (✔/✖/?)" Style="{StaticResource PropsGroupTitle}"/>
                                     </Expander.Header>
                                     <Border Grid.Column="1" Grid.Row="1" BorderThickness="1" BorderBrush="SteelBlue" Background="AliceBlue" Height="200" CornerRadius="3" Margin="30,3,3,3">
                                         <Grid>
@@ -110,6 +117,8 @@
                                             <ColumnDefinition Width="*"/>
                                         </Grid.ColumnDefinitions>
                                         <Grid.RowDefinitions>
+                                            <RowDefinition Height="Auto"/>
+                                            <RowDefinition Height="Auto"/>
                                             <RowDefinition Height="Auto"/>
                                             <RowDefinition Height="Auto"/>
                                             <RowDefinition Height="Auto"/>
@@ -149,6 +158,12 @@
 
                                         <Label Grid.Row="9" Style="{StaticResource PropName}"  Content="Размеры изображения"/>
                                         <Label Grid.Row="9" Style="{StaticResource PropValue}" x:Name="Part_ShapshotSizes_lbl"/>
+
+                                        <Label Grid.Row="10" Style="{StaticResource PropName}"  Content="Mime тип изображения"/>
+                                        <Label Grid.Row="10" Style="{StaticResource PropValue}" x:Name="Part_SnapshotMimeType_lbl"/>
+
+                                        <Label Grid.Row="11" Style="{StaticResource PropName}"  Content="Название изображения"/>
+                                        <Label Grid.Row="11" Style="{StaticResource PropValue}" x:Name="Part_SnapshotName_lbl"/>
                                     </Grid>
                                 </Expander>
 
@@ -158,7 +173,24 @@
                                     </Expander.Header>
 
                                     <ListBox x:Name="Part_AllDevices_lBox" Margin="30,3,3,3" Height="100">
-
+                                        <ListBox.Resources>                                            
+                                            <DataTemplate DataType="{x:Type vm:VM_Device}">
+                                                <Grid Background="AliceBlue" Margin="3">
+                                                    <Grid.ColumnDefinitions>
+                                                        <ColumnDefinition Width="*"/>
+                                                    </Grid.ColumnDefinitions>
+                                                    <Grid.RowDefinitions>
+                                                        <RowDefinition Height="Auto" />
+                                                        <RowDefinition Height="Auto"/>
+                                                        <RowDefinition Height="Auto" MinHeight="5"/>
+                                                        <RowDefinition Height="Auto"/>
+                                                    </Grid.RowDefinitions>
+                                                    <Label Grid.Row="0" Style="{StaticResource SmallTextLabel}" Content="{Binding Path=DataSector.Name}"/>
+                                                    <Label Grid.Row="1" Style="{StaticResource SmallTextLabel}" Content="{Binding Path=Name}" FontWeight="Bold"/>
+                                                    <Label Grid.Row="3" Style="{StaticResource SmallTextLabel}" Content="{Binding Path=Id}"/>
+                                                </Grid>
+                                            </DataTemplate>
+                                        </ListBox.Resources>
                                     </ListBox>
                                 </Expander>
 
@@ -279,13 +311,13 @@
                                         <Label Grid.Row="20" Style="{StaticResource PropValue}" x:Name="Part_edState_lbl"/>
 
                                         <Label Grid.Row="21" Style="{StaticResource PropName}"  Content="Weight1"/>
-                                        <Label Grid.Row="21" Style="{StaticResource PropValue}" x:Name="Part_Weight1_lbl"/>
+                                        <Label Grid.Row="21" Style="{StaticResource PropValue}" x:Name="Part_edWeight1_lbl"/>
 
                                         <Label Grid.Row="22" Style="{StaticResource PropName}"  Content="Weight2"/>
                                         <Label Grid.Row="22" Style="{StaticResource PropValue}" x:Name="Part_edWeight2_lbl"/>
 
                                         <Label Grid.Row="23" Style="{StaticResource PropName}"  Content="WeightCenter"/>
-                                        <Label Grid.Row="23" Style="{StaticResource PropValue}" x:Name="Part_edWeghtCenter_lbl"/>
+                                        <Label Grid.Row="23" Style="{StaticResource PropValue}" x:Name="Part_edWeightCenter_lbl"/>
 
                                         <Label Grid.Row="24" Style="{StaticResource PropName}"  Content="Command"/>
                                         <Label Grid.Row="24" Style="{StaticResource PropValue}" x:Name="Part_edCommand_lbl"/>
@@ -327,7 +359,7 @@
                                         <Label Grid.Row="36" Style="{StaticResource PropValue}" x:Name="Part_edOilDM_lbl"/>
 
                                         <Label Grid.Row="37" Style="{StaticResource PropName}"  Content="StarchDM"/>
-                                        <Label Grid.Row="37" Style="{StaticResource PropValue}" x:Name="Part_dmStarchDM_lbl"/>
+                                        <Label Grid.Row="37" Style="{StaticResource PropValue}" x:Name="Part_edStarchDM_lbl"/>
                                     </Grid>
                                 </Expander>
 
