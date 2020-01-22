@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Text;
+using DatEx.Skelya.DataModel;
 
 namespace DatEx.Skelya.GUI.CustomCtrls.ViewModel
 {
@@ -36,21 +37,15 @@ namespace DatEx.Skelya.GUI.CustomCtrls.ViewModel
             set { _date = value; OnPropChanged(nameof(Date)); }
         }
 
+        public VM_Comment(Comment comment)
+        {
+            Id = comment.Id;
+            Description = comment.Description;
+            AuthorName = comment.AuthorName;
+            Date = comment.Date;
+        }
+
         public event PropertyChangedEventHandler PropertyChanged;
         private void OnPropChanged(string propName) => PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propName));
-
-        public static ObservableCollection<VM_Comment> GetTestCollection()
-        {
-            ObservableCollection<VM_Comment> testCollection = new ObservableCollection<VM_Comment>
-            {
-                new VM_Comment { Id = 1, Date = DateTime.Now, AuthorName = "Пупкин В.И.", Description = "Комментарий 01" },
-                new VM_Comment { Id = 2, Date = DateTime.Now, AuthorName = "Пупкин В.И.", Description = "Комментарий 02\nМногострочный комментарий \nМногострочный комментарий" },
-                new VM_Comment { Id = 3, Date = DateTime.Now, AuthorName = "Пупкин В.И.", Description = "Комментарий 03" },
-                new VM_Comment { Id = 4, Date = DateTime.Now, AuthorName = "Пупкин В.И.", Description = "Комментарий 04\nМногострочный комментарий" },
-                new VM_Comment { Id = 5, Date = DateTime.Now, AuthorName = "Пупкин В.И.", Description = "Комментарий 05" },
-            };
-
-            return testCollection;
-        }
-    }
+    }        
 }

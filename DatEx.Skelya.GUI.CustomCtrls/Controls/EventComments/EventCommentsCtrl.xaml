@@ -4,6 +4,9 @@
                     xmlns:commands="clr-namespace:DatEx.Skelya.GUI.CustomCtrls.Commands"
                     xmlns:vm="clr-namespace:DatEx.Skelya.GUI.CustomCtrls.ViewModel">
     <Style TargetType="{x:Type ctrls:EventCommentsCtrl}">
+        <Style.Resources>
+            <ctrls:ValConverter_String_AsInitials x:Key="ToInitialsConverter"/>
+        </Style.Resources>
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="{x:Type ctrls:EventCommentsCtrl}">
@@ -13,6 +16,7 @@
 
                         <Grid Grid.Column="0" Grid.Row="3" Background="#D6DBE9">
                             <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto"/>
                                 <ColumnDefinition Width="*"/>
                                 <ColumnDefinition Width="Auto"/>
                             </Grid.ColumnDefinitions>
@@ -20,10 +24,11 @@
                                 <RowDefinition Height="Auto"/>
                                 <RowDefinition Height="*"/>
                             </Grid.RowDefinitions>
-                            <TextBlock Grid.Column="0" Grid.Row="0" Text="Комментарии (5 шт.)" VerticalAlignment="Center" Margin="3, 0" FontWeight="Bold" FontSize="14"/>
-                            <Button Grid.Column="1" Grid.Row="0" Content="Добавить" Margin="3" Padding="5,0" HorizontalAlignment="Center"/>
+                            <TextBlock Grid.Column="0" Grid.Row="0" Text="Комментарии" VerticalAlignment="Center" Margin="3, 0" FontWeight="Bold" FontSize="14"/>
+                            <TextBlock x:Name="Part_CommentsCount_tBlock" Grid.Column="1" Grid.Row="0" Text="(*)" VerticalAlignment="Center" Margin="3, 0" FontWeight="Bold" FontSize="14"/>
+                            <Button Grid.Column="2" Grid.Row="0" Content="Добавить" Margin="3" Padding="5,0" HorizontalAlignment="Center"/>
 
-                            <ListView Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="1" x:Name="Part_CommentsList" VerticalAlignment="Stretch" MinHeight="100">
+                            <ListView Grid.Column="0" Grid.ColumnSpan="3" Grid.Row="1" x:Name="Part_CommentsList_lView" VerticalAlignment="Stretch" MinHeight="100">
                                 <ListView.Resources>
                                     <DataTemplate DataType="{x:Type vm:VM_Comment}">
                                         <Grid>
@@ -42,10 +47,10 @@
                                             <!--<Separator Grid.Column="0" Grid.Row="0" Grid.ColumnSpan="3" Background="SteelBlue" Height="2"/>-->
 
                                             <Border Grid.Column="0" Grid.Row="1" Grid.RowSpan="2" BorderThickness="1" CornerRadius="3" Margin="3" Height="30" Width="30" Background="SteelBlue" VerticalAlignment="Top" HorizontalAlignment="Left">
-                                                <Label Content="ПВ" FontFamily="Segoe UI" FontWeight="Bold" FontSize="13" Padding="0" Margin="0" VerticalAlignment="Center" HorizontalAlignment="Center" Foreground="AliceBlue"/>
+                                                <Label x:Name="Part_UserInitials_lbl" Content="{Binding AuthorName, Converter={StaticResource ToInitialsConverter}}" FontFamily="Segoe UI" FontWeight="Bold" FontSize="13" Padding="0" Margin="0" VerticalAlignment="Center" HorizontalAlignment="Center" Foreground="AliceBlue"/>
                                             </Border>
 
-                                            <TextBlock Grid.Column="1" Grid.Row="1" Text="{Binding Path=Date}" FontSize="10" Foreground="SteelBlue" Margin="3, 0"/>
+                                            <TextBlock Grid.Column="1" Grid.Row="1" Text="{Binding Path=Date, StringFormat={}{0:yyyy.MM.dd-ddd   	HH:mm:ss}, ConverterCulture=ru-RU}" FontSize="10" Foreground="SteelBlue" Margin="3, 0"/>
                                             <TextBlock Grid.Column="2" Grid.Row="1" Text="{Binding Path=AuthorName}" FontSize="10" Foreground="SteelBlue" FontWeight="Bold" Margin="3, 0"/>
 
                                             <TextBlock Grid.Column="1" Grid.ColumnSpan="2" Grid.Row="2" Text="{Binding Path=Description}" FontSize="10" TextWrapping="WrapWithOverflow" Margin="3, 0" VerticalAlignment="Top" HorizontalAlignment="Left"/>

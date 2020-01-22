@@ -56,6 +56,7 @@ namespace DatEx.Skelya.GUI
             SetAppPartsBindings_EventTable(UiPart_EventsTable, UiPart_TimeRange, UiPart_EventsFilter);
             SetAppPartsBindings_ApplicationMenu(UiPart_AppMenu, UiPart_EventsTable);
             SetAppPartsBindings_EventDetails(UiPart_EventDetails, UiPart_EventsTable);
+            SetAppPartsBindings_EventComments(UiPart_EventComments, UiPart_EventsTable);
         }
 
         private void LoadApplicationParts()
@@ -107,6 +108,17 @@ namespace DatEx.Skelya.GUI
                 Mode = BindingMode.OneWay
             };
             BindingOperations.SetBinding(eventDetails, EventDetailsCtrl.EventRecordProperty, selectedEventRecordBinding);
+        }
+
+        private void SetAppPartsBindings_EventComments(EventCommentsCtrl eventComments, EventsTableCtrl eventsTable)
+        {
+            Binding selectedEventRecordBinding = new Binding
+            {
+                Source = eventsTable,
+                Path = new PropertyPath(nameof(eventsTable.SelectedEvent)),
+                Mode = BindingMode.OneWay
+            };
+            BindingOperations.SetBinding(eventComments, EventCommentsCtrl.EventRecordProperty, selectedEventRecordBinding);
         }
 
         private void EventsTable_DesiredTimeRangeChanged(Object sender, RoutedPropertyChangedEventArgs<VM_TimeRange> e)

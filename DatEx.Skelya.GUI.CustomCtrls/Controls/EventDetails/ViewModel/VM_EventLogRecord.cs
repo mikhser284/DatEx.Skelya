@@ -84,7 +84,7 @@ namespace DatEx.Skelya.GUI.CustomCtrls.ViewModel
 
         public ObservableCollection<VM_Device> AllDevices { get; set; }
 
-        public ObservableCollection<Comment> Comments { get; set; }
+        public ObservableCollection<VM_Comment> Comments { get; set; }
 
         public VM_EventRecordData Data { get; set; }
 
@@ -112,8 +112,8 @@ namespace DatEx.Skelya.GUI.CustomCtrls.ViewModel
 
             AllDevices = new ObservableCollection<VM_Device>();
             x.Devices?.ForEach(e => AllDevices.Add(new VM_Device(e)));
-            Comments = new ObservableCollection<Comment>();
-            x.Comments?.ForEach(e => Comments.Add(e));
+            Comments = new ObservableCollection<VM_Comment>();
+            x.Comments?.ForEach(e => Comments.Add(new VM_Comment(e)));
             Data = x.Data is null ? null : new VM_EventRecordData(x.Data);
         }
 

@@ -9,4 +9,19 @@
     <ProjectReference Include="..\DatEx.Skelya\DatEx.Skelya.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Page Update="Controls\EventsTable\Resources\Snapshot.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Controls\EventsTable\Resources\Status_Danger.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Controls\EventsTable\Resources\Status_Info.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Controls\EventsTable\Resources\Status_Warnig.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+  </ItemGroup>
+
 </Project>
