@@ -16,6 +16,8 @@ using DatEx.Skelya.GUI.CustomCtrls.ViewModel;
 using DatEx.Skelya.GUI.CustomCtrls.Dialogs;
 using DatEx.Skelya.GUI.CustomCtrls.Windows;
 using System.Globalization;
+using System.Linq;
+using DatEx.Skelya.DataModel;
 
 namespace DatEx.Skelya.GUI
 {
@@ -132,9 +134,13 @@ namespace DatEx.Skelya.GUI
             DateTime startTime = (DateTime)eventsTable.DesiredTimeRange.Start;
             DateTime endTime = (DateTime)eventsTable.DesiredTimeRange.End;
             //
+            var queryResTrigerful = SkelyaClient.GetEventLogRecords(startTime, endTime, triggerful: true);
+            var triggeredEvents = queryResTrigerful.Items;
             var queryRes = SkelyaClient.GetEventLogRecords(startTime, endTime);
-            var events = queryRes.Items;
-            eventsTable.LoadData(events);
+            var notTriggeredEvents = queryRes.Items;
+            var res = triggeredEvents.UnionBy(notTriggeredEvents, x => x.Id).ToList();
+
+            eventsTable.LoadData(notTriggeredEvents);
         }
 
         private void SetAppPartsBindings_ApplicationMenu(AppMenuCtrl mnu, EventsTableCtrl eventsTable)
@@ -273,6 +279,127 @@ namespace DatEx.Skelya.GUI
         {
             AboutDlg aboutDlg = new AboutDlg();
             if (aboutDlg.ShowDialog() != true) return;
+        }
+    }
+
+
+    public static class Ext_Linq
+    {
+        /// <summary> Получить элементы множества A которые не входят в множество B </summary>
+        /// <typeparam name="TA"> Тип данных множества A </typeparam>
+        /// <typeparam name="TB"> Тип данных множества B </typeparam>
+        /// <param name="setA"> Множество A </param>
+        /// <param name="setB"> Множество B </param>
+        /// <param name="comparer"> Функция сравнения елементов </param>
+        public static IEnumerable<TA> Except<TA, TB>(this IEnumerable<TA> setA, IEnumerable<TB> setB, Func<TA, TB, bool> comparer)
+        {
+            return setA.Where(x => setB.Count(y => comparer(x, y)) == 0);
+        }
+
+        /// <summary> Получить элементы множества A которые входят в множество B </summary>
+        /// <typeparam name="TA"> Тип данных множества A </typeparam>
+        /// <typeparam name="TB"> Тип данных множества B </typeparam>
+        /// <param name="setA"> Множество A </param>
+        /// <param name="setB"> Множество B </param>
+        /// <param name="comparer"> Функция сравнения елементов </param>
+        public static IEnumerable<TA> Intersect<TA, TB>(this IEnumerable<TA> setA, IEnumerable<TB> setB, Func<TA, TB, bool> comparer)
+        {
+            return setA.Where(x => setB.Count(y => comparer(x, y)) == 1);
+        }
+
+        /// <summary> Получить объединение двух множеств по указанному свойству </summary>
+        /// <param name="setA"> Множество A </param>
+        /// <param name="setB"> Множество B </param>
+        /// <param name="keySelector"> Свойство по которому будет вестись выборка </param>
+        /// <returns></returns>
+        public static IEnumerable<TSource> UnionBy<TSource, TKey>(this IEnumerable<TSource> setA, IEnumerable<TSource> setB, Func<TSource, TKey> keySelector)
+        {
+            HashSet<TKey> seenKeys = new HashSet<TKey> ();
+            foreach(TSource element in setA)
+                if(seenKeys.Add(keySelector(element)))
+                    yield return element;
+            foreach(TSource element in setB)
+                if(seenKeys.Add(keySelector(element)))
+                    yield return element;
+        }
+
+        /// <summary> Получить элементы множества у которых значение указанного свойства уникально </summary>
+        /// <param name="source"> Исходное множество </param>
+        /// <param name="keySelector"> Свойство по которому будет вестись выборка </param>
+        public static IEnumerable<TSource> DistinctBy<TSource, TKey>(this IEnumerable<TSource> source, Func<TSource, TKey> keySelector)
+        {
+            HashSet<TKey> seenKeys = new HashSet<TKey> ();
+            foreach(TSource element in source)
+                if(element != null && seenKeys.Add(keySelector(element)))
+                    yield return element;
+        }
+
+        public static TSource MinBy<TSource, TKey>(this IEnumerable<TSource> source, Func<TSource, TKey> selector)
+        {
+            return source.MinBy(selector, null);
+        }
+
+        public static TSource MinBy<TSource, TKey>(this IEnumerable<TSource> source, Func<TSource, TKey> selector, IComparer<TKey> comparer)
+        {
+            if(source == null)
+                throw new ArgumentNullException("source");
+            if(selector == null)
+                throw new ArgumentNullException("selector");
+            comparer = comparer ?? Comparer<TKey>.Default;
+            using(var sourceIterator = source.GetEnumerator())
+            {
+                if(!sourceIterator.MoveNext())
+                {
+                    throw new InvalidOperationException("Sequence contains no elements");
+                }
+                var min = sourceIterator.Current;
+                var minKey = selector (min);
+                while(sourceIterator.MoveNext())
+                {
+                    var candidate = sourceIterator.Current;
+                    var candidateProjected = selector (candidate);
+                    if(comparer.Compare(candidateProjected, minKey) < 0)
+                    {
+                        min = candidate;
+                        minKey = candidateProjected;
+                    }
+                }
+                return min;
+            }
+        }
+
+        public static TSource MaxBy<TSource, TKey>(this IEnumerable<TSource> source, Func<TSource, TKey> selector)
+        {
+            return source.MaxBy(selector, null);
+        }
+
+        public static TSource MaxBy<TSource, TKey>(this IEnumerable<TSource> source, Func<TSource, TKey> selector, IComparer<TKey> comparer)
+        {
+            if(source == null)
+                throw new ArgumentNullException("source");
+            if(selector == null)
+                throw new ArgumentNullException("selector");
+            comparer = comparer ?? Comparer<TKey>.Default;
+            using(var sourceIterator = source.GetEnumerator())
+            {
+                if(!sourceIterator.MoveNext())
+                {
+                    throw new InvalidOperationException("Sequence contains no elements");
+                }
+                var max = sourceIterator.Current;
+                var maxKey = selector (max);
+                while(sourceIterator.MoveNext())
+                {
+                    var candidate = sourceIterator.Current;
+                    var candidateProjected = selector (candidate);
+                    if(comparer.Compare(candidateProjected, maxKey) > 0)
+                    {
+                        max = candidate;
+                        maxKey = candidateProjected;
+                    }
+                }
+                return max;
+            }
         }
     }
 }

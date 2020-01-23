@@ -17,13 +17,13 @@
                                   VerticalGridLinesBrush="#B8C6D8"
                                   HorizontalGridLinesBrush="#EFF4F7"
                                   AlternatingRowBackground="#F4F7F9"
-                                  SelectionMode="Single" SelectionUnit="FullRow"
+                                  SelectionMode="Extended" SelectionUnit="FullRow"
                                   CanUserResizeRows="False"
                                   CanUserAddRows="False"
                                   CanUserDeleteRows="False">
                             <DataGrid.Columns>
-                                <DataGridCheckBoxColumn Binding="{Binding Path=EventHasComments, Mode=OneWay}">
-                                    <DataGridCheckBoxColumn.Header>
+                                <DataGridTextColumn Binding="{Binding Path=Comments.Count, Mode=OneWay}">
+                                    <DataGridTextColumn.Header>
                                         <Rectangle Width="16" Height="16" HorizontalAlignment="Center">
                                             <Rectangle.Fill>
                                                 <DrawingBrush>
@@ -40,8 +40,8 @@
                                                 </DrawingBrush>
                                             </Rectangle.Fill>
                                         </Rectangle>
-                                    </DataGridCheckBoxColumn.Header>
-                                </DataGridCheckBoxColumn>
+                                    </DataGridTextColumn.Header>
+                                </DataGridTextColumn>
                                 <DataGridTextColumn Binding="{Binding Path=EventSnapshotId}">
                                     <DataGridTextColumn.Header>
                                         <Rectangle Width="16" Height="16" HorizontalAlignment="Center">
@@ -73,6 +73,25 @@
                                         </Rectangle>
                                     </DataGridTextColumn.Header>
                                 </DataGridTextColumn>
+                                <DataGridTextColumn Binding="{Binding Path=EventTypeTriggers.Count, Mode=OneWay}">
+                                    <DataGridTextColumn.Header>
+                                        <Rectangle Width="16" Height="16">
+                                            <Rectangle.Fill>
+                                                <DrawingBrush>
+                                                    <DrawingBrush.Drawing>
+                                                        <DrawingGroup>
+                                                            <DrawingGroup.Children>
+                                                                <GeometryDrawing Brush="#00FFFFFF" Geometry="F1M16,16L0,16 0,0 16,0z" />
+                                                                <GeometryDrawing Brush="#FFF6F6F6" Geometry="F1M6.3823,1.9995L3.0003,8.7635 3.0003,9.9995 5.3813,9.9995 3.3813,14.0005 5.9143,14.0005 12.5003,7.4135 12.5003,6.0005 9.4143,6.0005 12.0003,3.4145 12.0003,1.9995z" />
+                                                                <GeometryDrawing Brush="#FF414141" Geometry="F1M7,7L11,3 7,3 4,9 7.018,9 5,13 5.518,13 11.518,7z" />
+                                                            </DrawingGroup.Children>
+                                                        </DrawingGroup>
+                                                    </DrawingBrush.Drawing>
+                                                </DrawingBrush>
+                                            </Rectangle.Fill>
+                                        </Rectangle>
+                                    </DataGridTextColumn.Header>
+                                </DataGridTextColumn>
                                 <DataGridTextColumn Binding="{Binding Path=EventCriticality}">
                                     <DataGridTextColumn.Header>
                                         <Rectangle Width="16" Height="16">
@@ -94,7 +113,8 @@
                                         </Rectangle>
                                     </DataGridTextColumn.Header>
                                 </DataGridTextColumn>
-                                <DataGridTextColumn Header="Время события" Binding="{Binding Path=EventTime, StringFormat={}{0:yyyy.MM.dd-ddd   	HH:mm:ss}}"/>
+                                <DataGridTextColumn Header="Дата" Binding="{Binding Path=EventTime, StringFormat={}{0:yyyy.MM.dd ddd}, ConverterCulture=ru-RU}"/>
+                                <DataGridTextColumn Header="Время" Binding="{Binding Path=EventTime, StringFormat={}{0:HH:mm:ss}}"/>
                                 <DataGridTextColumn Header="Место" Binding="{Binding Path=DataSectorName}"/>
                                 <DataGridTextColumn Header="Устройство" Binding="{Binding Path=DeviceName}"/>
                                 <DataGridTextColumn Header="Описание события" Binding="{Binding Path=EventDescription}"/>

@@ -10,18 +10,18 @@
         Title="Production events monitor © Kusto Agro LLC"
         MinHeight="300" MinWidth="900"
         
-        Width="1920" Height="1080">
+        Width="1366" Height="768">
     <!--Width="1920" Height="1080"-->
     <!--Width="1366" Height="768"-->
     
     <Grid UseLayoutRounding="True" SnapsToDevicePixels="True">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="6"/>
-            <ColumnDefinition Width="Auto" MinWidth="350"/>
+            <ColumnDefinition Width="Auto" MinWidth="100"/>
             <ColumnDefinition MinWidth="6" MaxWidth="6"/>
             <ColumnDefinition Width="*" MinWidth="100"/>
             <ColumnDefinition MinWidth="6" MaxWidth="6"/>
-            <ColumnDefinition Width="Auto" MinWidth="350"/>
+            <ColumnDefinition Width="Auto" MinWidth="100"/>
             <ColumnDefinition Width="6"/>
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>

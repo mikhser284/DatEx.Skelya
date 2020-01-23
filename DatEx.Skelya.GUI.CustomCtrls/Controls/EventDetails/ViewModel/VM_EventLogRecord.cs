@@ -65,7 +65,7 @@ namespace DatEx.Skelya.GUI.CustomCtrls.ViewModel
 
         public String EventCriticality { get; set; } //■
 
-        public ObservableCollection<DataModel.Trigger> EventTypeTriggers { get; set; }
+        public ObservableCollection<VM_Trigger> EventTypeTriggers { get; set; } //■
 
         public Int32? DataSectorId { get; set; }
 
@@ -88,19 +88,19 @@ namespace DatEx.Skelya.GUI.CustomCtrls.ViewModel
 
         public VM_EventRecordData Data { get; set; }
 
-        public VM_EventLogRecord(EventLogRecord x)
+        public VM_EventLogRecord(EventLogRecord e)
         {
-            EventId = x.Id;
+            EventId = e.Id;
             EventHasSnapshot = null;
-            EventTime = x.DateTime;
-            EventDescription = x.Description;
-            EventTypeId = x.Event.Id;
-            EventTypeName = x.Event.Name;
-            EventCriticality = x.Event.Type;
-            EventTypeTriggers = new ObservableCollection<DataModel.Trigger>();
-            x.Event.Triggers?.ForEach(e => EventTypeTriggers.Add(e));
+            EventTime = e.DateTime;
+            EventDescription = e.Description;
+            EventTypeId = e.Event.Id;
+            EventTypeName = e.Event.Name;
+            EventCriticality = e.Event.Type;
+            EventTypeTriggers = new ObservableCollection<VM_Trigger>();
+            e.Event.Triggers?.ForEach(trigger => { trigger.EventId = e.Event.Id; EventTypeTriggers.Add(new VM_Trigger(trigger)); });
 
-            Device dev = x.Devices.FirstOrDefault();            
+            Device dev = e.Devices.FirstOrDefault();            
 
             DataSectorId = dev?.DataSector?.Id ?? null;
             DataSectorName = dev?.DataSector?.Name ?? null;
@@ -111,10 +111,10 @@ namespace DatEx.Skelya.GUI.CustomCtrls.ViewModel
             DeviceTypeClassifier = dev?.Type?.Classifier;
 
             AllDevices = new ObservableCollection<VM_Device>();
-            x.Devices?.ForEach(e => AllDevices.Add(new VM_Device(e)));
+            e.Devices?.ForEach(e => AllDevices.Add(new VM_Device(e)));
             Comments = new ObservableCollection<VM_Comment>();
-            x.Comments?.ForEach(e => Comments.Add(new VM_Comment(e)));
-            Data = x.Data is null ? null : new VM_EventRecordData(x.Data);
+            e.Comments?.ForEach(e => Comments.Add(new VM_Comment(e)));
+            Data = e.Data is null ? null : new VM_EventRecordData(e.Data);
         }
 
         public event PropertyChangedEventHandler PropertyChanged;

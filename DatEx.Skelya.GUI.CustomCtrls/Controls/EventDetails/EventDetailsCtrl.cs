@@ -22,8 +22,9 @@ namespace DatEx.Skelya.GUI.CustomCtrls.Controls
     [TemplatePart(Type = typeof(Label),     Name = nameof(Part_ImagePlaceholder_lbl))]
     [TemplatePart(Type = typeof(Image),     Name = nameof(Part_EventSnapshot_img))]
     [TemplatePart(Type = typeof(Label),     Name = nameof(Part_EventId_lbl))]
-    [TemplatePart(Type = typeof(Label),     Name = nameof(Part_EventType_lbl))]
-    [TemplatePart(Type = typeof(Label),     Name = nameof(Part_DeviceId_lbl))]
+    [TemplatePart(Type = typeof(TextBlock), Name = nameof(Part_EventTypeId_tBlock))]
+    [TemplatePart(Type = typeof(TextBlock), Name = nameof(Part_EventType_tBlock))]
+    [TemplatePart(Type = typeof(TextBlock), Name = nameof(Part_DeviceId_tBlock))]
     [TemplatePart(Type = typeof(Label),     Name = nameof(Part_DeviceType_lbl))]
     [TemplatePart(Type = typeof(Label),     Name = nameof(Part_DeviceClass_lbl))]
     [TemplatePart(Type = typeof(Label),     Name = nameof(Part_SnapshotId_lbl))]
@@ -32,6 +33,7 @@ namespace DatEx.Skelya.GUI.CustomCtrls.Controls
     [TemplatePart(Type = typeof(Label),     Name = nameof(Part_SnapshotMimeType_lbl))]
     [TemplatePart(Type = typeof(Label),     Name = nameof(Part_SnapshotName_lbl))]
     [TemplatePart(Type = typeof(ListBox),   Name = nameof(Part_AllDevices_lBox))]
+    [TemplatePart(Type = typeof(ListBox),   Name = nameof(Part_Triggers_lBox))]
     [TemplatePart(Type = typeof(Label),     Name = nameof(Part_edWeight_lbl))]
     [TemplatePart(Type = typeof(Label),     Name = nameof(Part_edPrevWeight_lbl))]
     [TemplatePart(Type = typeof(Label),     Name = nameof(Part_edTransaction_lbl))]
@@ -64,8 +66,8 @@ namespace DatEx.Skelya.GUI.CustomCtrls.Controls
     [TemplatePart(Type = typeof(Label),     Name = nameof(Part_edAmbientTemperature_lbl))]
     [TemplatePart(Type = typeof(Label),     Name = nameof(Part_edAnalysisCounter_lbl))]
     [TemplatePart(Type = typeof(Label),     Name = nameof(Part_edSubsampleId_lbl))]
-    [TemplatePart(Type = typeof(Label),     Name = nameof(Part_edSubsampleNrOfSubsamples_lbl))]
-    [TemplatePart(Type = typeof(Label),     Name = nameof(Part_edSampleHash_lbl))]
+    [TemplatePart(Type = typeof(TextBlock), Name = nameof(Part_edSubsampleNrOfSubsamples_tBlock))]
+    [TemplatePart(Type = typeof(TextBlock), Name = nameof(Part_edSampleHash_tBlock))]
     [TemplatePart(Type = typeof(Label),     Name = nameof(Part_edProtDM_lbl))]
     [TemplatePart(Type = typeof(Label),     Name = nameof(Part_edMoisture_lbl))]
     [TemplatePart(Type = typeof(Label),     Name = nameof(Part_edOilDM_lbl))]
@@ -116,8 +118,9 @@ namespace DatEx.Skelya.GUI.CustomCtrls.Controls
         private Label Part_ImagePlaceholder_lbl;
         private Image Part_EventSnapshot_img; //■
         private Label Part_EventId_lbl; //■
-        private Label Part_EventType_lbl;
-        private Label Part_DeviceId_lbl; //■
+        private TextBlock Part_EventTypeId_tBlock; //■
+        private TextBlock Part_EventType_tBlock;
+        private TextBlock Part_DeviceId_tBlock; //■
         private Label Part_DeviceType_lbl; //■
         private Label Part_DeviceClass_lbl; //■
         private Label Part_SnapshotId_lbl; //■
@@ -126,6 +129,7 @@ namespace DatEx.Skelya.GUI.CustomCtrls.Controls
         private Label Part_SnapshotMimeType_lbl; //■
         private Label Part_SnapshotName_lbl; //■
         private ListBox Part_AllDevices_lBox; //■
+        private ListBox Part_Triggers_lBox; //■
         private Label Part_edWeight_lbl; //■
         private Label Part_edPrevWeight_lbl; //■
         private Label Part_edTransaction_lbl; //■
@@ -158,8 +162,8 @@ namespace DatEx.Skelya.GUI.CustomCtrls.Controls
         private Label Part_edAmbientTemperature_lbl; //■
         private Label Part_edAnalysisCounter_lbl; //■
         private Label Part_edSubsampleId_lbl; //■
-        private Label Part_edSubsampleNrOfSubsamples_lbl; //■
-        private Label Part_edSampleHash_lbl; //■
+        private TextBlock Part_edSubsampleNrOfSubsamples_tBlock; //■
+        private TextBlock Part_edSampleHash_tBlock; //■
         private Label Part_edProtDM_lbl; //■
         private Label Part_edMoisture_lbl; //■
         private Label Part_edOilDM_lbl; //■
@@ -181,8 +185,9 @@ namespace DatEx.Skelya.GUI.CustomCtrls.Controls
             Part_ImagePlaceholder_lbl = FindTemplatePart<Label>(nameof(Part_ImagePlaceholder_lbl));
             Part_EventSnapshot_img = FindTemplatePart<Image>(nameof(Part_EventSnapshot_img));
             Part_EventId_lbl = FindTemplatePart<Label>(nameof(Part_EventId_lbl));
-            Part_EventType_lbl = FindTemplatePart<Label>(nameof(Part_EventType_lbl));
-            Part_DeviceId_lbl = FindTemplatePart<Label>(nameof(Part_DeviceId_lbl));
+            Part_EventTypeId_tBlock = FindTemplatePart<TextBlock>(nameof(Part_EventTypeId_tBlock));
+            Part_EventType_tBlock = FindTemplatePart<TextBlock>(nameof(Part_EventType_tBlock));
+            Part_DeviceId_tBlock = FindTemplatePart<TextBlock>(nameof(Part_DeviceId_tBlock));
             Part_DeviceType_lbl = FindTemplatePart<Label>(nameof(Part_DeviceType_lbl));
             Part_DeviceClass_lbl = FindTemplatePart<Label>(nameof(Part_DeviceClass_lbl));
             Part_SnapshotId_lbl = FindTemplatePart<Label>(nameof(Part_SnapshotId_lbl));
@@ -191,6 +196,7 @@ namespace DatEx.Skelya.GUI.CustomCtrls.Controls
             Part_SnapshotMimeType_lbl = FindTemplatePart<Label>(nameof(Part_SnapshotMimeType_lbl));
             Part_SnapshotName_lbl = FindTemplatePart<Label>(nameof(Part_SnapshotName_lbl));
             Part_AllDevices_lBox = FindTemplatePart<ListBox>(nameof(Part_AllDevices_lBox));
+            Part_Triggers_lBox = FindTemplatePart<ListBox>(nameof(Part_Triggers_lBox));
             Part_edWeight_lbl = FindTemplatePart<Label>(nameof(Part_edWeight_lbl));
             Part_edPrevWeight_lbl = FindTemplatePart<Label>(nameof(Part_edPrevWeight_lbl));
             Part_edTransaction_lbl = FindTemplatePart<Label>(nameof(Part_edTransaction_lbl));
@@ -223,8 +229,8 @@ namespace DatEx.Skelya.GUI.CustomCtrls.Controls
             Part_edAmbientTemperature_lbl = FindTemplatePart<Label>(nameof(Part_edAmbientTemperature_lbl));
             Part_edAnalysisCounter_lbl = FindTemplatePart<Label>(nameof(Part_edAnalysisCounter_lbl));
             Part_edSubsampleId_lbl = FindTemplatePart<Label>(nameof(Part_edSubsampleId_lbl));
-            Part_edSubsampleNrOfSubsamples_lbl = FindTemplatePart<Label>(nameof(Part_edSubsampleNrOfSubsamples_lbl));
-            Part_edSampleHash_lbl = FindTemplatePart<Label>(nameof(Part_edSampleHash_lbl));
+            Part_edSubsampleNrOfSubsamples_tBlock = FindTemplatePart<TextBlock>(nameof(Part_edSubsampleNrOfSubsamples_tBlock));
+            Part_edSampleHash_tBlock = FindTemplatePart<TextBlock>(nameof(Part_edSampleHash_tBlock));
             Part_edProtDM_lbl = FindTemplatePart<Label>(nameof(Part_edProtDM_lbl));
             Part_edMoisture_lbl = FindTemplatePart<Label>(nameof(Part_edMoisture_lbl));
             Part_edOilDM_lbl = FindTemplatePart<Label>(nameof(Part_edOilDM_lbl));
@@ -328,7 +334,17 @@ namespace DatEx.Skelya.GUI.CustomCtrls.Controls
                 Path = new PropertyPath($"{nameof(EventRecord)}.{nameof(EventRecord.EventTypeName)}"),
                 Mode = BindingMode.OneWay,
             };
-            BindingOperations.SetBinding(Part_EventType_lbl, Label.ContentProperty, eventTypeBinding);
+            BindingOperations.SetBinding(Part_EventType_tBlock, TextBlock.TextProperty, eventTypeBinding);
+            //
+            //
+            //
+            Binding eventTypeIdBinding = new Binding
+            {
+                Source = this,
+                Path = new PropertyPath($"{nameof(EventRecord)}.{nameof(EventRecord.EventTypeId)}"),
+                Mode = BindingMode.OneWay,
+            };
+            BindingOperations.SetBinding(Part_EventTypeId_tBlock, TextBlock.TextProperty, eventTypeIdBinding);
             //
             //
             //
@@ -338,7 +354,7 @@ namespace DatEx.Skelya.GUI.CustomCtrls.Controls
                 Path = new PropertyPath($"{nameof(EventRecord)}.{nameof(EventRecord.DeviceId)}"),
                 Mode = BindingMode.OneWay,
             };
-            BindingOperations.SetBinding(Part_DeviceId_lbl, Label.ContentProperty, deviceIdBinding);
+            BindingOperations.SetBinding(Part_DeviceId_tBlock, TextBlock.TextProperty, deviceIdBinding);
             //
             //
             //
@@ -420,6 +436,16 @@ namespace DatEx.Skelya.GUI.CustomCtrls.Controls
                 Mode = BindingMode.OneWay,
             };
             BindingOperations.SetBinding(Part_AllDevices_lBox, ListBox.ItemsSourceProperty, allDevicesBinding);
+            //
+            //
+            //
+            Binding triggersBinding = new Binding
+            {
+                Source = this,
+                Path = new PropertyPath($"{nameof(EventRecord)}.{nameof(EventRecord.EventTypeTriggers)}"),
+                Mode = BindingMode.OneWay,
+            };
+            BindingOperations.SetBinding(Part_Triggers_lBox, ListBox.ItemsSourceProperty, triggersBinding);
             //
             //
             //
@@ -751,7 +777,7 @@ namespace DatEx.Skelya.GUI.CustomCtrls.Controls
                 Path = new PropertyPath($"{nameof(EventRecord)}.{nameof(EventRecord.Data)}.{nameof(EventRecord.Data.SubsampleNrOFSubSamples)}"),
                 Mode = BindingMode.OneWay,
             };
-            BindingOperations.SetBinding(Part_edSubsampleNrOfSubsamples_lbl, Label.ContentProperty, edSubsampleNrOfSubsamblesBinding);
+            BindingOperations.SetBinding(Part_edSubsampleNrOfSubsamples_tBlock, TextBlock.TextProperty, edSubsampleNrOfSubsamblesBinding);
             //
             //
             //
@@ -761,7 +787,7 @@ namespace DatEx.Skelya.GUI.CustomCtrls.Controls
                 Path = new PropertyPath($"{nameof(EventRecord)}.{nameof(EventRecord.Data)}.{nameof(EventRecord.Data.SampleHash)}"),
                 Mode = BindingMode.OneWay,
             };
-            BindingOperations.SetBinding(Part_edSampleHash_lbl, Label.ContentProperty, edSampleHashBinding);
+            BindingOperations.SetBinding(Part_edSampleHash_tBlock, TextBlock.TextProperty, edSampleHashBinding);
             //
             //
             //

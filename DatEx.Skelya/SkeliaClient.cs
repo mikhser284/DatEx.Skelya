@@ -55,7 +55,11 @@ namespace DatEx.Skelya
 
         public QueryResult<IdentifiedDevice> GetDevices() => GetRequest<IdentifiedDevice>("devices");
 
-        public QueryResult<EventLogRecord> GetEventLogRecords(DateTime? startDate = null, DateTime? endDate = null, Int32? offset = null, Int32? limit = null, String orderDate = null)
+        public QueryResult<EventLogRecord> GetEventLogRecords
+            (DateTime? startDate = null, DateTime? endDate = null
+            , Int32? offset = null, Int32? limit = null
+            , String orderDate = null
+            , Boolean? triggerful = null)
         {
             List<String> parameters = new List<string>();
             parameters.AddHttpParameter("orderDate", "desc");
@@ -63,6 +67,7 @@ namespace DatEx.Skelya
             parameters.AddHttpParameter("end_date", endDate);
             parameters.AddHttpParameter("offset", offset);
             parameters.AddHttpParameter("limit", limit);
+            parameters.AddHttpParameter("triggerful", triggerful);
             //
             return GetRequest<EventLogRecord>("events/log".AsParametrizedHttpRequest(parameters)); 
         }
@@ -95,6 +100,12 @@ namespace DatEx.Skelya
         public static List<String> AddHttpParameter(this List<String> parametersList, String paramName, Int32? paramValue)
         {
             if (paramValue != null) parametersList.Add($"{paramName}={paramValue}");
+            return parametersList;
+        }
+
+        public static List<String> AddHttpParameter(this List<String> parametersList, String paramName, Boolean? paramValue)
+        {
+            if(paramValue != null) parametersList.Add($"{paramName}={(paramValue == false ? 0 : 1)}");
             return parametersList;
         }
 
