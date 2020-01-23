@@ -5,7 +5,7 @@ using System.Windows.Input;
 
 namespace DatEx.Skelya.GUI.CustomCtrls.Commands
 {
-    public class EventRemarksCommands
+    public static class EventRemarksCommands
     {
         private static RoutedUICommand NewCommand(String commandName, String uiText, params KeyGesture[] keyGestures)
             => new RoutedUICommand(uiText, commandName, typeof(EventRemarksCommands), new InputGestureCollection(keyGestures));

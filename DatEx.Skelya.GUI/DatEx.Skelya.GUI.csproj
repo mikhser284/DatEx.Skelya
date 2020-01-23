@@ -20,8 +20,4 @@
     <ProjectReference Include="..\DatEx.Skelya.GUI.CustomCtrls\DatEx.Skelya.GUI.CustomCtrls.csproj" />
     <ProjectReference Include="..\DatEx.Skelya\DatEx.Skelya.csproj" />
   </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="Temp\" />
-  </ItemGroup>
 </Project>

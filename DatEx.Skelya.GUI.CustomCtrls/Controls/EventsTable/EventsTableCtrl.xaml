@@ -75,16 +75,17 @@
                                 </DataGridTextColumn>
                                 <DataGridTextColumn Binding="{Binding Path=EventCriticality}">
                                     <DataGridTextColumn.Header>
-                                        <Rectangle Width="16" Height="16" HorizontalAlignment="Center">
+                                        <Rectangle Width="16" Height="16">
                                             <Rectangle.Fill>
                                                 <DrawingBrush>
                                                     <DrawingBrush.Drawing>
                                                         <DrawingGroup>
                                                             <DrawingGroup.Children>
-                                                                <!--<GeometryDrawing Brush="#FFF6F6F6" Geometry="F1M14,8C14,11.313 11.313,14 8,14 4.687,14 2,11.313 2,8 2,4.687 4.687,2 8,2 11.313,2 14,4.687 14,8" />-->
-                                                                <GeometryDrawing Brush="#FFE41300" Geometry="F1M9,9L7,9 7,4 9,4z M9,12L7,12 7,10 9,10z M8,3C5.239,3 3,5.239 3,8 3,10.762 5.239,13 8,13 10.762,13 13,10.762 13,8 13,5.239 10.762,3 8,3" />
-                                                                <GeometryDrawing Brush="#FFFFFFFF" Geometry="F1M9,9L7,9 7,4 9,4z" />
-                                                                <GeometryDrawing Brush="#FFFFFFFF" Geometry="F1M9,12L7,12 7,10 9,10z" />
+                                                                <GeometryDrawing Brush="#00FFFFFF" Geometry="F1M16,16L0,16 0,0 16,0z" />
+                                                                <GeometryDrawing Brush="#FFF6F6F6" Geometry="F1M10,2L10,5 6,5 6,6 2,6 2,14 14,14 14,2z" />
+                                                                <GeometryDrawing Brush="#FF414141" Geometry="F1M3,13L5,13 5,7 3,7z" />
+                                                                <GeometryDrawing Brush="#FF414141" Geometry="F1M7,13L9,13 9,6 7,6z" />
+                                                                <GeometryDrawing Brush="#FF414141" Geometry="F1M11,13L13,13 13,3 11,3z" />
                                                             </DrawingGroup.Children>
                                                         </DrawingGroup>
                                                     </DrawingBrush.Drawing>

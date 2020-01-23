@@ -7,8 +7,13 @@
         
         mc:Ignorable="d"
         Background="#293955"
-        Title="Production events monitor © Kusto Agro LLC" Height="900" Width="1500"
-        MinHeight="300" MinWidth="900">
+        Title="Production events monitor © Kusto Agro LLC"
+        MinHeight="300" MinWidth="900"
+        
+        Width="1920" Height="1080">
+    <!--Width="1920" Height="1080"-->
+    <!--Width="1366" Height="768"-->
+    
     <Grid UseLayoutRounding="True" SnapsToDevicePixels="True">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="6"/>

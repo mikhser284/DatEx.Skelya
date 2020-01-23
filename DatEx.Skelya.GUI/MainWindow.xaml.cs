@@ -44,7 +44,6 @@ namespace DatEx.Skelya.GUI
                 new CommandBinding(AppCommands.ShowEventSnapshotDialog, ShowEventSnapshotDialog_Executed, ShowEventSnapshotDialog_CanExecute),
                 new CommandBinding(AppCommands.ShowAppSettingsDialog, ShowAppSettingsDialog_Executed, ShowAppSettingsDialog_CanExecute),
                 new CommandBinding(AppCommands.ShowAppAboutDialog, ShowAppAboutDialog_Executed, ShowAppAboutDialog_CanExecute),
-                new CommandBinding(EventRemarksCommands.AddRemark, AddRemark_Executed, AddRemark_CanExecute),
             });
         }
 
@@ -274,20 +273,6 @@ namespace DatEx.Skelya.GUI
         {
             AboutDlg aboutDlg = new AboutDlg();
             if (aboutDlg.ShowDialog() != true) return;
-        }
-
-
-        private void AddRemark_CanExecute(object sender, CanExecuteRoutedEventArgs e)
-        {
-            e.CanExecute = true;
-        }
-
-        private void AddRemark_Executed(object sender, ExecutedRoutedEventArgs e)
-        {
-            AddRemarkDlg remarkDlg = new AddRemarkDlg();
-            remarkDlg.Owner = this;
-            remarkDlg.WindowStartupLocation = WindowStartupLocation.CenterOwner;
-            if (remarkDlg.ShowDialog() != true) return;
         }
     }
 }
