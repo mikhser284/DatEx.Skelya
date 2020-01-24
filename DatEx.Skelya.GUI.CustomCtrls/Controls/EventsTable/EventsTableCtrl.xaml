@@ -3,8 +3,16 @@
                     xmlns:ctrls="clr-namespace:DatEx.Skelya.GUI.CustomCtrls.Controls"
                     xmlns:commands="clr-namespace:DatEx.Skelya.GUI.CustomCtrls.Commands"
                     xmlns:vm="clr-namespace:DatEx.Skelya.GUI.CustomCtrls.ViewModel">
+    <ResourceDictionary.MergedDictionaries>
+        <ResourceDictionary Source="/DatEx.Skelya.GUI.CustomCtrls;component/Themes/Icons.xaml"/>
+    </ResourceDictionary.MergedDictionaries>
 
     <Style TargetType="{x:Type ctrls:EventsTableCtrl}">
+        <Style.Resources>
+            
+            <ctrls:ValConverter_EventStatus_Brush x:Key="AsEventStatusIcon"/>
+            <ctrls:ValConverter_TriggersCountToBrush x:Key="AsTriggerStatusIcon"/>
+        </Style.Resources>
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="{x:Type ctrls:EventsTableCtrl}">
@@ -22,95 +30,34 @@
                                   CanUserAddRows="False"
                                   CanUserDeleteRows="False">
                             <DataGrid.Columns>
-                                <DataGridTextColumn Binding="{Binding Path=Comments.Count, Mode=OneWay}">
-                                    <DataGridTextColumn.Header>
-                                        <Rectangle Width="16" Height="16" HorizontalAlignment="Center">
-                                            <Rectangle.Fill>
-                                                <DrawingBrush>
-                                                    <DrawingBrush.Drawing>
-                                                        <DrawingGroup>
-                                                            <DrawingGroup.Children>
-                                                                <GeometryDrawing Brush="#00FFFFFF" Geometry="F1M16,16L0,16 0,0 16,0z" />
-                                                                <GeometryDrawing Brush="#FFF6F6F6" Geometry="F1M7.5861,-0.000199999999999534L6.0001,1.5858 6.0001,5.9998 1.5861,5.9998 9.99999999997669E-05,7.5858 9.99999999997669E-05,12.4148 1.5861,13.9998 2.0001,13.9998 2.0001,15.9998 4.4141,15.9998 6.4141,13.9998 8.4141,13.9998 10.0001,12.4148 10.0001,9.9998 10.4141,9.9998 12.4141,7.9998 14.4141,7.9998 16.0001,6.4138 16.0001,1.5858 14.4141,-0.000199999999999534z M7.0001,1.9998L8.0001,0.9998 14.0001,0.9998 15.0001,1.9998 15.0001,5.9998 14.0001,6.9998 12.0001,6.9998 10.0001,8.9998 10.0001,7.5858 8.4141,5.9998 7.0001,5.9998z M1.0001,12.0008L1.0001,7.9998 2.0001,6.9998 8.0001,6.9998 9.0001,7.9998 9.0001,8.9998 9.0001,12.0008 8.0001,13.0008 6.0001,13.0008 3.9991,14.9998 3.0001,14.9998 3.0001,13.0008 2.0001,13.0008z" />
-                                                                <GeometryDrawing Brush="#FF424242" Geometry="F1M10,6L9,6 8.414,6 10,7.586 10,7z M8,8.414L7.586,8 2.414,8 2,8.414 2,11.586 2.414,12 3,12 4,12 4,13 4,13.586 5.293,12.293 5.586,12 6,12 7.586,12 8,11.586 8,10z M8,7L9,8 9,9 9,12 8,13 6,13 4,15 3,15 3,13 2,13 1,12 1,8 2,7z M15,2L15,6 14,7 12,7 10,9 10,7.586 11.293,6.293 11.586,6 12,6 13.586,6 14,5.586 14,2.414 13.586,2 8.414,2 8,2.414 8,5.586 8.414,6 7,6 7,2 8,1 14,1z" />
-                                                                <GeometryDrawing Brush="#FFF0EFF1" Geometry="F1M7.5859,8L2.4139,8 1.9999,8.414 1.9999,11.586 2.4139,12 2.9999,12 3.9999,12 3.9999,13 3.9999,13.586 5.2929,12.293 5.5859,12 5.9999,12 7.5859,12 7.9999,11.586 7.9999,10 7.9999,8.414z M11.2929,6.293L9.9999,7.586 9.9999,7 9.9999,6 8.9999,6 8.4139,6 7.9999,5.586 7.9999,2.414 8.4139,2 13.5859,2 13.9999,2.414 13.9999,5.586 13.5859,6 11.9999,6 11.5859,6z" />
-                                                            </DrawingGroup.Children>
-                                                        </DrawingGroup>
-                                                    </DrawingBrush.Drawing>
-                                                </DrawingBrush>
-                                            </Rectangle.Fill>
-                                        </Rectangle>
-                                    </DataGridTextColumn.Header>
-                                </DataGridTextColumn>
+                                <DataGridTemplateColumn>
+                                    <DataGridTemplateColumn.Header>
+                                        <Rectangle Width="16" Height="16" HorizontalAlignment="Center" Fill="{StaticResource headerImg_Criticality}"/>
+                                    </DataGridTemplateColumn.Header>
+                                    <DataGridTemplateColumn.CellTemplate>
+                                        <DataTemplate>
+                                            <Rectangle Width="16" Height="16" HorizontalAlignment="Center" Fill="{Binding Path=EventCriticality, Converter={StaticResource AsEventStatusIcon}}"/>
+                                        </DataTemplate>
+                                    </DataGridTemplateColumn.CellTemplate>
+                                </DataGridTemplateColumn>
+                                <DataGridTemplateColumn>
+                                    <DataGridTemplateColumn.Header>
+                                        <Rectangle Width="16" Height="16" HorizontalAlignment="Center" Fill="{StaticResource headerImg_Trigger}"/>
+                                    </DataGridTemplateColumn.Header>
+                                    <DataGridTemplateColumn.CellTemplate>
+                                        <DataTemplate>
+                                            <Rectangle Width="16" Height="16" HorizontalAlignment="Center" Fill="{Binding Path=EventTypeTriggers.Count, Converter={StaticResource AsTriggerStatusIcon}}"/>
+                                        </DataTemplate>
+                                    </DataGridTemplateColumn.CellTemplate>
+                                </DataGridTemplateColumn>
                                 <DataGridTextColumn Binding="{Binding Path=EventSnapshotId}">
                                     <DataGridTextColumn.Header>
-                                        <Rectangle Width="16" Height="16" HorizontalAlignment="Center">
-                                            <Rectangle.Fill>
-                                                <DrawingBrush>
-                                                    <DrawingBrush.Drawing>
-                                                        <DrawingGroup>
-                                                            <DrawingGroup.Children>
-                                                                <GeometryDrawing Brush="#FFF6F6F6" Geometry="F1M7.0002,-0.000199999999999534L6.0002,0.9998 6.0002,-0.000199999999999534 2.9992,-0.000199999999999534 2.9992,0.9998 2.0002,-0.000199999999999534 0.000200000000000422,1.9998 1.0002,3.0008 0.000200000000000422,3.0008 0.000200000000000422,5.9998 1.0002,5.9998 0.000200000000000422,6.9998 0.293200000000001,7.2938 0.000200000000000422,7.5858 0.000200000000000422,14.4138 1.5862,15.9998 14.4142,15.9998 16.0002,14.4138 16.0002,7.5858 14.4142,5.9998 12.4132,5.9998 10.4142,4.0008 9.0002,4.0008 9.0002,3.0008 8.0002,3.0008 9.0002,1.9998z" />
-                                                                <GeometryDrawing Brush="#FF414141" Geometry="F1M3.4893,2.7832L2.3793,1.6722 1.6713,2.3792 2.7823,3.4902C2.9553,3.1972,3.1973,2.9552,3.4893,2.7832" />
-                                                                <GeometryDrawing Brush="#FF414141" Geometry="F1M5,2.5703L5,1.0003 4,1.0003 4,2.5703C4.161,2.5293 4.326,2.5003 4.5,2.5003 4.674,2.5003 4.839,2.5293 5,2.5703" />
-                                                                <GeometryDrawing Brush="#FF414141" Geometry="F1M6.2178,3.4902L7.3288,2.3792 6.6208,1.6722 5.5108,2.7832C5.8028,2.9552,6.0448,3.1972,6.2178,3.4902" />
-                                                                <GeometryDrawing Brush="#FF414141" Geometry="F1M2.5,4.5C2.5,4.326,2.529,4.16,2.571,4L1,4 1,5 2.571,5C2.529,4.84,2.5,4.674,2.5,4.5" />
-                                                                <GeometryDrawing Brush="#FF414141" Geometry="F1M8,9C6.896,9 6,9.896 6,11 6,12.104 6.896,13 8,13 9.104,13 10,12.104 10,11 10,9.896 9.104,9 8,9" />
-                                                                <GeometryDrawing Brush="#FF414141" Geometry="F1M14,10L12,10 12,8 14,8z M8,14C6.344,14 5,12.656 5,11 5,9.344 6.344,8 8,8 9.656,8 11,9.344 11,11 11,12.656 9.656,14 8,14 M14,7L12,7 10,5 8,5 8,4 6.429,4C6.471,4.16 6.5,4.326 6.5,4.5 6.5,4.674 6.471,4.84 6.429,5L6,5 4,7 2.707,7 3.489,6.217C3.197,6.045,2.955,5.803,2.782,5.51L1.671,6.621 2.05,7 2,7 1,8 1,14 2,15 14,15 15,14 15,8z" />
-                                                                <GeometryDrawing Brush="#FFC27C19" Geometry="F1M1.6709,2.3789L2.7819,3.4899C2.9549,3.1969,3.1969,2.9549,3.4889,2.7829L2.3789,1.6719z" />
-                                                                <GeometryDrawing Brush="#FFC27C19" Geometry="F1M2.7822,5.5098L1.6712,6.6208 2.0502,6.9998 2.7062,6.9998 3.4892,6.2168C3.1972,6.0448,2.9552,5.8028,2.7822,5.5098" />
-                                                                <GeometryDrawing Brush="#FFC27C19" Geometry="F1M2.5,4.5C2.5,4.326,2.529,4.16,2.571,4L1,4 1,5 2.571,5C2.529,4.84,2.5,4.674,2.5,4.5" />
-                                                                <GeometryDrawing Brush="#FFC27C19" Geometry="F1M6.6211,1.6719L5.5111,2.7829C5.8031,2.9549,6.0451,3.1969,6.2181,3.4899L7.3291,2.3789z" />
-                                                                <GeometryDrawing Brush="#FFC27C19" Geometry="F1M6.4287,4C6.4707,4.16 6.4997,4.326 6.4997,4.5 6.4997,4.674 6.4707,4.84 6.4287,5L7.9997,5 7.9997,4z" />
-                                                                <GeometryDrawing Brush="#FFC27C19" Geometry="F1M4,2.5703C4.161,2.5293 4.326,2.5003 4.5,2.5003 4.674,2.5003 4.839,2.5293 5,2.5703L5,1.0003 4,1.0003z" />
-                                                                <GeometryDrawing Brush="#FFF0EFF1" Geometry="F1M8,13C6.896,13 6,12.104 6,11 6,9.896 6.896,9 8,9 9.104,9 10,9.896 10,11 10,12.104 9.104,13 8,13 M8,8C6.344,8 5,9.344 5,11 5,12.656 6.344,14 8,14 9.656,14 11,12.656 11,11 11,9.344 9.656,8 8,8" />
-                                                                <GeometryDrawing Brush="#FFF0EFF1" Geometry="F1M12,10L14,10 14,8 12,8z" />
-                                                            </DrawingGroup.Children>
-                                                        </DrawingGroup>
-                                                    </DrawingBrush.Drawing>
-                                                </DrawingBrush>
-                                            </Rectangle.Fill>
-                                        </Rectangle>
+                                        <Rectangle Width="16" Height="16" HorizontalAlignment="Center" Fill="{StaticResource headerImg_Snapshot}"/>
                                     </DataGridTextColumn.Header>
                                 </DataGridTextColumn>
-                                <DataGridTextColumn Binding="{Binding Path=EventTypeTriggers.Count, Mode=OneWay}">
+                                <DataGridTextColumn Binding="{Binding Path=Comments.Count, Mode=OneWay}">
                                     <DataGridTextColumn.Header>
-                                        <Rectangle Width="16" Height="16">
-                                            <Rectangle.Fill>
-                                                <DrawingBrush>
-                                                    <DrawingBrush.Drawing>
-                                                        <DrawingGroup>
-                                                            <DrawingGroup.Children>
-                                                                <GeometryDrawing Brush="#00FFFFFF" Geometry="F1M16,16L0,16 0,0 16,0z" />
-                                                                <GeometryDrawing Brush="#FFF6F6F6" Geometry="F1M6.3823,1.9995L3.0003,8.7635 3.0003,9.9995 5.3813,9.9995 3.3813,14.0005 5.9143,14.0005 12.5003,7.4135 12.5003,6.0005 9.4143,6.0005 12.0003,3.4145 12.0003,1.9995z" />
-                                                                <GeometryDrawing Brush="#FF414141" Geometry="F1M7,7L11,3 7,3 4,9 7.018,9 5,13 5.518,13 11.518,7z" />
-                                                            </DrawingGroup.Children>
-                                                        </DrawingGroup>
-                                                    </DrawingBrush.Drawing>
-                                                </DrawingBrush>
-                                            </Rectangle.Fill>
-                                        </Rectangle>
-                                    </DataGridTextColumn.Header>
-                                </DataGridTextColumn>
-                                <DataGridTextColumn Binding="{Binding Path=EventCriticality}">
-                                    <DataGridTextColumn.Header>
-                                        <Rectangle Width="16" Height="16">
-                                            <Rectangle.Fill>
-                                                <DrawingBrush>
-                                                    <DrawingBrush.Drawing>
-                                                        <DrawingGroup>
-                                                            <DrawingGroup.Children>
-                                                                <GeometryDrawing Brush="#00FFFFFF" Geometry="F1M16,16L0,16 0,0 16,0z" />
-                                                                <GeometryDrawing Brush="#FFF6F6F6" Geometry="F1M10,2L10,5 6,5 6,6 2,6 2,14 14,14 14,2z" />
-                                                                <GeometryDrawing Brush="#FF414141" Geometry="F1M3,13L5,13 5,7 3,7z" />
-                                                                <GeometryDrawing Brush="#FF414141" Geometry="F1M7,13L9,13 9,6 7,6z" />
-                                                                <GeometryDrawing Brush="#FF414141" Geometry="F1M11,13L13,13 13,3 11,3z" />
-                                                            </DrawingGroup.Children>
-                                                        </DrawingGroup>
-                                                    </DrawingBrush.Drawing>
-                                                </DrawingBrush>
-                                            </Rectangle.Fill>
-                                        </Rectangle>
+                                        <Rectangle Width="16" Height="16" HorizontalAlignment="Center" Fill="{StaticResource headerImg_Comments}"/>
                                     </DataGridTextColumn.Header>
                                 </DataGridTextColumn>
                                 <DataGridTextColumn Header="Дата" Binding="{Binding Path=EventTime, StringFormat={}{0:yyyy.MM.dd ddd}, ConverterCulture=ru-RU}"/>

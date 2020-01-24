@@ -127,7 +127,7 @@ namespace DatEx.Skelya.GUI.CustomCtrls.Controls
 
 
 
-    #region ■■■■■ Properties & Events ■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■
+    #region ■■■■■ Properties & Events ■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■
     public partial class EventsTableCtrl
     {
         #region ————— UpdateMode ——————————————————————————————————————————————————————————————————————————————————————
@@ -529,7 +529,7 @@ namespace DatEx.Skelya.GUI.CustomCtrls.Controls
 
 
 
-    #region ■■■■■ Other ■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■
+    #region ■■■■■ Other ■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■
     public partial class EventsTableCtrl
     {
         public void LoadData(IEnumerable<EventLogRecord> events)
