@@ -35,19 +35,47 @@ namespace DatEx.Skelya.GUI.CustomCtrls.Controls
 
     public class ValConverter_TriggersCountToBrush : IValueConverter
     {
-        private static Dictionary<String, String> Event_Brush = new Dictionary<string, string>
-        {
-            //{ "information", "headerImg_Criticality_Info" },
-            { "warning", "headerImg_Criticality_Warning" },
-            { "danger", "headerImg_Criticality_Danger" },
-        };
-
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
             if (value.GetType() != typeof(Int32)) return null;
             Int32 count = (Int32)value;
             if (count < 1) return null;
             return (DrawingBrush)Application.Current.TryFindResource("headerImg_Trigger_True");
+        }
+
+        public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
+        {
+            throw new NotSupportedException();
+        }
+
+    }
+
+    public class ValConverter_CommentsCountToBrush : IValueConverter
+    {
+        public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
+        {
+            if (value.GetType() != typeof(Int32)) return null;
+            Int32 count = (Int32)value;
+            if (count < 1) return null;
+            return (DrawingBrush)Application.Current.TryFindResource("SingleComment");
+        }
+
+        public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
+        {
+            throw new NotSupportedException();
+        }
+
+    }
+
+    public class ValConverter_EventContainsImageToBrush : IValueConverter
+    {
+        public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
+        {
+            string iconName;
+            if (value is null || value.GetType() != typeof(Boolean)) iconName = "Question";
+            else if ((Boolean)value == true) iconName = "headerImg_Snapshot";
+            else return null;
+            return (DrawingBrush)Application.Current.TryFindResource(iconName);
         }
 
         public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)

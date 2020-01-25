@@ -12,6 +12,9 @@
             
             <ctrls:ValConverter_EventStatus_Brush x:Key="AsEventStatusIcon"/>
             <ctrls:ValConverter_TriggersCountToBrush x:Key="AsTriggerStatusIcon"/>
+            <ctrls:ValConverter_CommentsCountToBrush x:Key="AsCommentIndicatorIcon"/>
+            <ctrls:ValConverter_EventContainsImageToBrush x:Key="AsHasSnapshotIndicatorIcon"/>
+
         </Style.Resources>
         <Setter Property="Template">
             <Setter.Value>
@@ -50,16 +53,29 @@
                                         </DataTemplate>
                                     </DataGridTemplateColumn.CellTemplate>
                                 </DataGridTemplateColumn>
-                                <DataGridTextColumn Binding="{Binding Path=EventSnapshotId}">
-                                    <DataGridTextColumn.Header>
+
+                                <DataGridTemplateColumn>
+                                    <DataGridTemplateColumn.Header>
                                         <Rectangle Width="16" Height="16" HorizontalAlignment="Center" Fill="{StaticResource headerImg_Snapshot}"/>
-                                    </DataGridTextColumn.Header>
-                                </DataGridTextColumn>
-                                <DataGridTextColumn Binding="{Binding Path=Comments.Count, Mode=OneWay}">
-                                    <DataGridTextColumn.Header>
+                                    </DataGridTemplateColumn.Header>
+                                    <DataGridTemplateColumn.CellTemplate>
+                                        <DataTemplate>
+                                            <Rectangle Width="16" Height="16" HorizontalAlignment="Center" Fill="{Binding Path=EventHasSnapshot, Converter={StaticResource AsHasSnapshotIndicatorIcon}}"/>
+                                        </DataTemplate>
+                                    </DataGridTemplateColumn.CellTemplate>
+                                </DataGridTemplateColumn>
+
+                                <DataGridTemplateColumn>
+                                    <DataGridTemplateColumn.Header>
                                         <Rectangle Width="16" Height="16" HorizontalAlignment="Center" Fill="{StaticResource headerImg_Comments}"/>
-                                    </DataGridTextColumn.Header>
-                                </DataGridTextColumn>
+                                    </DataGridTemplateColumn.Header>
+                                    <DataGridTemplateColumn.CellTemplate>
+                                        <DataTemplate>
+                                            <Rectangle Width="16" Height="16" HorizontalAlignment="Center" Fill="{Binding Path=Comments.Count, Converter={StaticResource AsCommentIndicatorIcon}}"/>
+                                        </DataTemplate>
+                                    </DataGridTemplateColumn.CellTemplate>
+                                </DataGridTemplateColumn>
+                                
                                 <DataGridTextColumn Header="Дата" Binding="{Binding Path=EventTime, StringFormat={}{0:yyyy.MM.dd ddd}, ConverterCulture=ru-RU}"/>
                                 <DataGridTextColumn Header="Время" Binding="{Binding Path=EventTime, StringFormat={}{0:HH:mm:ss}}"/>
                                 <DataGridTextColumn Header="Место" Binding="{Binding Path=DataSectorName}"/>
