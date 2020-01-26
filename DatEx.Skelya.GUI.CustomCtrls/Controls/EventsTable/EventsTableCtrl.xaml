@@ -22,20 +22,75 @@
                     <Border Background="{TemplateBinding Background}"
                             BorderBrush="{TemplateBinding BorderBrush}"
                             BorderThickness="{TemplateBinding BorderThickness}">
-
+                        
                         <DataGrid x:Name="Part_DataTable_dGrid" AutoGenerateColumns="False"
                                   GridLinesVisibility="Vertical"
                                   VerticalGridLinesBrush="#B8C6D8"
                                   HorizontalGridLinesBrush="#EFF4F7"
                                   AlternatingRowBackground="#F4F7F9"
-                                  SelectionMode="Extended" SelectionUnit="FullRow"
+                                  SelectionMode="Single" SelectionUnit="FullRow"
                                   CanUserResizeRows="False"
                                   CanUserAddRows="False"
-                                  CanUserDeleteRows="False">
+                                  CanUserDeleteRows="False"
+                                  FrozenColumnCount="6">
+                            <!--<DataGrid.GroupStyle>
+                                <GroupStyle>
+                                    <GroupStyle.ContainerStyle>
+                                        <Style TargetType="{x:Type GroupItem}">
+                                            <Setter Property="Margin" Value="2"/>
+                                            <Setter Property="Template">
+                                                <Setter.Value>
+                                                    <ControlTemplate TargetType="{x:Type GroupItem}">
+                                                        <Expander IsExpanded="False" Background="LightSteelBlue" BorderBrush="#FF002255" BorderThickness="1,1,1,5">
+                                                            <Expander.Header>
+                                                                <DockPanel>
+                                                                    <TextBlock FontWeight="Bold" Text="{Binding Path=ItemCount}" Width="50"/>
+                                                                    <TextBlock FontWeight="Bold" Text="{Binding Path=Name}" Margin="5,0,0,0"/>
+                                                                </DockPanel>
+                                                            </Expander.Header>
+                                                            <Expander.Content>
+                                                                <ItemsPresenter />
+                                                            </Expander.Content>
+                                                        </Expander>
+                                                    </ControlTemplate>
+                                                </Setter.Value>
+                                            </Setter>
+                                        </Style>
+                                    </GroupStyle.ContainerStyle>
+                                </GroupStyle>
+
+                                <GroupStyle>
+                                    <GroupStyle.HeaderTemplate>
+                                        <DataTemplate>
+                                            <DockPanel Background="LightBlue">
+                                                <TextBlock Text="{Binding Path=Name, Converter={StaticResource completeConverter}}" Foreground="Blue" Margin="30,0,0,0" Width="50"/>
+                                                <TextBlock Text="{Binding Path=ItemCount}" Foreground="Blue"/>
+                                            </DockPanel>
+                                        </DataTemplate>
+                                    </GroupStyle.HeaderTemplate>
+                                </GroupStyle>
+                            </DataGrid.GroupStyle>-->
+
+                            <DataGrid.Resources>
+                                <ContextMenu x:Key="DataGridColumnHeaderContextMenu">
+                                    <MenuItem Header="Меню пока еще не работает">
+                                        
+                                    </MenuItem>
+                                </ContextMenu>
+
+                                <Style TargetType="{x:Type DataGridColumnHeader}">
+                                    <Setter Property="ContextMenu" Value="{StaticResource DataGridColumnHeaderContextMenu}"/>
+                                </Style>
+                            </DataGrid.Resources>
+                            
                             <DataGrid.Columns>
-                                <DataGridTemplateColumn>
+
+                                <DataGridTextColumn Header="Дата" CanUserResize="False" CanUserReorder="False" Binding="{Binding Path=EventTime, StringFormat={}{0:yyyy.MM.dd ddd}, ConverterCulture=ru-RU}"/>
+                                <DataGridTextColumn Header="Время" CanUserResize="False" CanUserReorder="False" Binding="{Binding Path=EventTime, StringFormat={}{0:HH:mm:ss}}"/>
+
+                                <DataGridTemplateColumn SortMemberPath="EventCriticality" CanUserResize="False" CanUserReorder="False">
                                     <DataGridTemplateColumn.Header>
-                                        <Rectangle Width="16" Height="16" HorizontalAlignment="Center" Fill="{StaticResource headerImg_Criticality}"/>
+                                        <Rectangle Width="16" Height="16" HorizontalAlignment="Center" Fill="{StaticResource headerImg_Criticality}" ToolTip="Уровень критичности события"/>
                                     </DataGridTemplateColumn.Header>
                                     <DataGridTemplateColumn.CellTemplate>
                                         <DataTemplate>
@@ -43,9 +98,10 @@
                                         </DataTemplate>
                                     </DataGridTemplateColumn.CellTemplate>
                                 </DataGridTemplateColumn>
-                                <DataGridTemplateColumn>
+
+                                <DataGridTemplateColumn SortMemberPath="EventTypeTriggers.Count" CanUserResize="False" CanUserReorder="False">
                                     <DataGridTemplateColumn.Header>
-                                        <Rectangle Width="16" Height="16" HorizontalAlignment="Center" Fill="{StaticResource headerImg_Trigger}"/>
+                                        <Rectangle Width="16" Height="16" HorizontalAlignment="Center" Fill="{StaticResource headerImg_Trigger}" ToolTip="Было ли событие возбуждено по триггеру"/>
                                     </DataGridTemplateColumn.Header>
                                     <DataGridTemplateColumn.CellTemplate>
                                         <DataTemplate>
@@ -54,9 +110,9 @@
                                     </DataGridTemplateColumn.CellTemplate>
                                 </DataGridTemplateColumn>
 
-                                <DataGridTemplateColumn>
+                                <DataGridTemplateColumn SortMemberPath="EventHasSnapshot" CanUserResize="False" CanUserReorder="False">
                                     <DataGridTemplateColumn.Header>
-                                        <Rectangle Width="16" Height="16" HorizontalAlignment="Center" Fill="{StaticResource headerImg_Snapshot}"/>
+                                        <Rectangle Width="16" Height="16" HorizontalAlignment="Center" Fill="{StaticResource headerImg_Snapshot}" ToolTip="Имеет ли событие связанное изображение"/>
                                     </DataGridTemplateColumn.Header>
                                     <DataGridTemplateColumn.CellTemplate>
                                         <DataTemplate>
@@ -65,26 +121,75 @@
                                     </DataGridTemplateColumn.CellTemplate>
                                 </DataGridTemplateColumn>
 
-                                <DataGridTemplateColumn>
+                                <DataGridTemplateColumn SortMemberPath="Comments.Count" CanUserResize="False" CanUserReorder="False">
                                     <DataGridTemplateColumn.Header>
-                                        <Rectangle Width="16" Height="16" HorizontalAlignment="Center" Fill="{StaticResource headerImg_Comments}"/>
+                                        <Rectangle Width="16" Height="16" HorizontalAlignment="Center" Fill="{StaticResource headerImg_Comments}" ToolTip="Имеет ли событие связанные комментарии"/>
                                     </DataGridTemplateColumn.Header>
                                     <DataGridTemplateColumn.CellTemplate>
                                         <DataTemplate>
                                             <Rectangle Width="16" Height="16" HorizontalAlignment="Center" Fill="{Binding Path=Comments.Count, Converter={StaticResource AsCommentIndicatorIcon}}"/>
                                         </DataTemplate>
                                     </DataGridTemplateColumn.CellTemplate>
-                                </DataGridTemplateColumn>
-                                
-                                <DataGridTextColumn Header="Дата" Binding="{Binding Path=EventTime, StringFormat={}{0:yyyy.MM.dd ddd}, ConverterCulture=ru-RU}"/>
-                                <DataGridTextColumn Header="Время" Binding="{Binding Path=EventTime, StringFormat={}{0:HH:mm:ss}}"/>
+                                </DataGridTemplateColumn>                               
+
                                 <DataGridTextColumn Header="Место" Binding="{Binding Path=DataSectorName}"/>
                                 <DataGridTextColumn Header="Устройство" Binding="{Binding Path=DeviceName}"/>
-                                <DataGridTextColumn Header="Описание события" Binding="{Binding Path=EventDescription}"/>
-
                                 <DataGridTextColumn Header="Тип события" Binding="{Binding Path=EventTypeName}"/>
+                                <DataGridTextColumn Header="Описание события" Binding="{Binding Path=EventDescription}"/>
                                 <DataGridTextColumn Header="Id" Binding="{Binding Path=EventId}"/>
+
+                                
+                                <DataGridTextColumn Header="Тип устройства" Binding="{Binding Path=DeviceTypeName}" Visibility="Collapsed"/>
+                                <DataGridTextColumn Header=".Weight" Binding="{Binding Path=Data.Weight}" Visibility="Collapsed"/>
+                                <DataGridTextColumn Header=".PrevWeight" Binding="{Binding Path=Data.PrevWeight}" Visibility="Collapsed"/>
+                                <DataGridTextColumn Header=".PrevTransaction" Binding="{Binding Path=Data.PrevTransaction}" Visibility="Collapsed"/>
+                                <DataGridTextColumn Header=".Transaction" Binding="{Binding Path=Data.Transaction}" Visibility="Collapsed"/>
+                                <DataGridTextColumn Header=".TransactionDataCount" Binding="{Binding Path=Data.TransactionDataCount}" Visibility="Collapsed"/>
+                                <DataGridTextColumn Header=".Stable" Binding="{Binding Path=Data.Stable}" Visibility="Collapsed"/>
+                                <DataGridTextColumn Header=".Duration" Binding="{Binding Path=Data.Duration}" Visibility="Collapsed"/>
+                                <DataGridTextColumn Header=".TransactionMaxWeight" Binding="{Binding Path=Data.TransactionMaxWeight}" Visibility="Collapsed"/>
+                                <DataGridTextColumn Header=".Perimetr" Binding="{Binding Path=Data.Perimetr}" Visibility="Collapsed"/>
+                                <DataGridTextColumn Header=".DriverInCar" Binding="{Binding Path=Data.DriverInCar}" Visibility="Collapsed"/>
+                                <DataGridTextColumn Header=".Status" Binding="{Binding Path=Data.Status}" Visibility="Collapsed"/>
+                                <DataGridTextColumn Header=".Reader" Binding="{Binding Path=Data.Reader}" Visibility="Collapsed"/>
+                                <DataGridTextColumn Header=".Truck1" Binding="{Binding Path=Data.Truck1}" Visibility="Collapsed"/>
+                                <DataGridTextColumn Header=".Truck2" Binding="{Binding Path=Data.Truck2}" Visibility="Collapsed"/>
+                                <DataGridTextColumn Header=".ItemName" Binding="{Binding Path=Data.ItemName}" Visibility="Collapsed"/>
+                                <DataGridTextColumn Header=".OperationName" Binding="{Binding Path=Data.OperationName}" Visibility="Collapsed"/>
+                                <DataGridTextColumn Header=".OperationType" Binding="{Binding Path=Data.OperationType}" Visibility="Collapsed"/>
+                                <DataGridTextColumn Header=".On" Binding="{Binding Path=Data.On}" Visibility="Collapsed"/>
+                                <DataGridTextColumn Header=".Waybill" Binding="{Binding Path=Data.Waybill}" Visibility="Collapsed"/>
+                                <DataGridTextColumn Header=".TransactionWaybill" Binding="{Binding Path=Data.TransactionWaybill}" Visibility="Collapsed"/>
+                                <DataGridTextColumn Header=".State" Binding="{Binding Path=Data.State}" Visibility="Collapsed"/>
+                                <DataGridTextColumn Header=".Weight1" Binding="{Binding Path=Data.Weight1}" Visibility="Collapsed"/>
+                                <DataGridTextColumn Header=".Weight2" Binding="{Binding Path=Data.Weight2}" Visibility="Collapsed"/>
+                                <DataGridTextColumn Header=".WeightCenter" Binding="{Binding Path=Data.WeightCenter}" Visibility="Collapsed"/>
+                                <DataGridTextColumn Header=".Command" Binding="{Binding Path=Data.Command}" Visibility="Collapsed"/>
+                                <DataGridTextColumn Header=".User" Binding="{Binding Path=Data.User}" Visibility="Collapsed"/>
+                                <DataGridTextColumn Header=".Id" Binding="{Binding Path=Data.Id}" Visibility="Collapsed"/>
+                                <DataGridTextColumn Header=".EPC" Binding="{Binding Path=Data.EPC}" Visibility="Collapsed"/>
+                                <DataGridTextColumn Header=".Accesslevel" Binding="{Binding Path=Data.Accesslevel}" Visibility="Collapsed"/>
+                                <DataGridTextColumn Header=".AmbietTemperature" Binding="{Binding Path=Data.AmbietTemperature}" Visibility="Collapsed"/>
+                                <DataGridTextColumn Header=".AnalysisCounter" Binding="{Binding Path=Data.AnalysisCounter}" Visibility="Collapsed"/>
+                                <DataGridTextColumn Header=".Subsample_id" Binding="{Binding Path=Data.Subsample_id}" Visibility="Collapsed"/>
+                                <DataGridTextColumn Header=".SubsampleNrOFSubSamples" Binding="{Binding Path=Data.SubsampleNrOFSubSamples}" Visibility="Collapsed"/>
+                                <DataGridTextColumn Header=".SampleHash" Binding="{Binding Path=Data.SampleHash}" Visibility="Collapsed"/>
+                                <DataGridTextColumn Header=".ProtDM" Binding="{Binding Path=Data.ProtDM}" Visibility="Collapsed"/>
+                                <DataGridTextColumn Header=".Moisture" Binding="{Binding Path=Data.Moisture}" Visibility="Collapsed"/>
+                                <DataGridTextColumn Header=".OilDM" Binding="{Binding Path=Data.OilDM}" Visibility="Collapsed"/>
+                                <DataGridTextColumn Header=".StarchDM" Binding="{Binding Path=Data.StarchDM}" Visibility="Collapsed"/>
+
+
+
+                                <DataGridTextColumn Header="Класс устройства" Binding="{Binding Path=DeviceTypeClassifier}" Visibility="Collapsed"/>
+                                <DataGridTextColumn Header="Id устройства" Binding="{Binding Path=DeviceId}" Visibility="Collapsed"/>
+                                <DataGridTextColumn Header="Id типа устройства" Binding="{Binding Path=DeviceTypeId}" Visibility="Collapsed"/>
+                                <DataGridTextColumn Header="Id места" Binding="{Binding Path=DataSectorId}" Visibility="Collapsed"/>
+                                <DataGridTextColumn Header="Id типа события" Binding="{Binding Path=EventTypeId}" Visibility="Collapsed"/>
+
                             </DataGrid.Columns>
+                            
+                            
                         </DataGrid>
 
                     </Border>

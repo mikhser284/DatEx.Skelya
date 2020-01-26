@@ -10,32 +10,40 @@ namespace DatEx.Skelya.GUI.CustomCtrls.ViewModel
 {
     public class VM_EventLogRecord : INotifyPropertyChanged
     {
+        public int EventId { get; set; } //■
+
+        public DateTime EventTime { get; set; } //■
+
+        public String EventCriticality { get; set; } //■
+
+        public ObservableCollection<VM_Trigger> EventTypeTriggers { get; set; } //■
+
+
         private Boolean? _eventHasSnapshot;        
-        public Boolean? EventHasSnapshot
+        public Boolean? EventHasSnapshot //■
         {
             get => _eventHasSnapshot;
             set { _eventHasSnapshot = value; OnPropChanged(nameof(EventHasSnapshot)); }
-        }
+        }        
 
         private Int32? _snapshotId;
-        public Int32? SnapshotId //■
+        public Int32? SnapshotId
         {
             get => _snapshotId;
             set { _snapshotId = value; OnPropChanged(nameof(SnapshotId)); }
         }
 
         private VM_Snapshot _snapshot;
-        public VM_Snapshot Snapshot //■
+        public VM_Snapshot Snapshot
         {
             get => _snapshot;
             set { _snapshot = value; OnPropChanged(nameof(Snapshot)); }
         }
 
-        public int EventId { get; set; } //■
-
+        
         public Boolean EventHasComments { get => Comments != null && Comments.Count > 0;  }
 
-        public DateTime EventTime { get; set; } //■
+
 
         public string EventDescription { get; set; } //■
 
@@ -43,11 +51,8 @@ namespace DatEx.Skelya.GUI.CustomCtrls.ViewModel
 
         public string EventTypeName { get; set; } //■
 
-        public String EventCriticality { get; set; } //■
 
-        public ObservableCollection<VM_Trigger> EventTypeTriggers { get; set; } //■
-
-        public Int32? DataSectorId { get; set; }
+        public Int32? DataSectorId { get; set; } //■
 
         public String DataSectorName { get; set; } //■
 
@@ -68,6 +73,8 @@ namespace DatEx.Skelya.GUI.CustomCtrls.ViewModel
 
         public VM_EventRecordData Data { get; set; }
 
+
+
         public VM_EventLogRecord(EventLogRecord e)
         {
             EventId = e.Id;
@@ -77,7 +84,7 @@ namespace DatEx.Skelya.GUI.CustomCtrls.ViewModel
             EventTypeId = e.Event.Id;
             EventTypeName = e.Event.Name;
             EventCriticality = e.Event.Type;
-            EventTypeTriggers = new ObservableCollection<VM_Trigger>();
+            EventTypeTriggers = new ObservableCollection<VM_Trigger>();            
             e.Event.Triggers?.ForEach(trigger => { trigger.EventId = e.Event.Id; EventTypeTriggers.Add(new VM_Trigger(trigger)); });
 
             Device dev = e.Devices.FirstOrDefault();            

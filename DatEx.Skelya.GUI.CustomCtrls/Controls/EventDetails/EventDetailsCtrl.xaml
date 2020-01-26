@@ -49,11 +49,10 @@
             <Style x:Key="PropName_Base" TargetType="{x:Type TextBlock}" BasedOn="{StaticResource Prop_Base}">
                 <Setter Property="Grid.Column" Value="0"/>
                 <Setter Property="FontWeight" Value="Bold"/>
-                <!--<Setter Property="Foreground" Value="#CCCCCC"/>-->
             </Style>
 
             <Style x:Key="PropertyName" TargetType="{x:Type TextBlock}" BasedOn="{StaticResource PropName_Base}">
-                <Setter Property="Background" Value="LightSteelBlue"/>
+                <Setter Property="Foreground" Value="#CCCCCC"/>
             </Style>
 
             <Style x:Key="PropVal_Base" TargetType="{x:Type TextBlock}" BasedOn="{StaticResource Prop_Base}">
@@ -63,17 +62,14 @@
 
             <Style x:Key="PropVal_OneLine" TargetType="{x:Type TextBlock}" BasedOn="{StaticResource PropVal_Base}">
                 <Setter Property="MinHeight" Value="16"/>
-                <Setter Property="Background" Value="LightSalmon"/>
             </Style>
 
             <Style x:Key="PropVal_TwoLine" TargetType="{x:Type TextBlock}" BasedOn="{StaticResource PropVal_Base}">
                 <Setter Property="MinHeight" Value="32"/>
-                <Setter Property="Background" Value="LightGreen"/>
             </Style>
 
             <Style x:Key="PropVal_ThreLine" TargetType="{x:Type TextBlock}" BasedOn="{StaticResource PropVal_Base}">
                 <Setter Property="MinHeight" Value="48"/>
-                <Setter Property="Background" Value="LightPink"/>
             </Style>
             
             
@@ -110,19 +106,19 @@
                                             <RowDefinition Height="Auto"/>
                                         </Grid.RowDefinitions>
 
-                                        <Label Grid.Row="0" Style="{StaticResource PropName}"  Content="Критичность"/>
-                                        <Label Grid.Row="0" Style="{StaticResource PropValue}" x:Name="Part_EventStatus_lbl" FontWeight="Bold"/>
+                                        <TextBlock Grid.Row="0" Style="{StaticResource PropertyName}"  Text="Критичность"/>
+                                        <TextBlock Grid.Row="0" Style="{StaticResource PropVal_OneLine}" x:Name="Part_EventStatus_tBlock" FontWeight="Bold"/>
 
-                                        <Label Grid.Row="1" Style="{StaticResource PropName}"  Content="Время"/>
-                                        <Label Grid.Row="1" Style="{StaticResource PropValue}" x:Name="Part_EventTime_lbl"/>
+                                        <TextBlock Grid.Row="1" Style="{StaticResource PropertyName}"  Text="Время"/>
+                                        <TextBlock Grid.Row="1" Style="{StaticResource PropVal_OneLine}" x:Name="Part_EventTime_tBlock"/>
 
-                                        <Label Grid.Row="2" Style="{StaticResource PropName}"  Content="Место"/>
-                                        <Label Grid.Row="2" Style="{StaticResource PropValue}" x:Name="Part_EventPlace_lbl"/>
+                                        <TextBlock Grid.Row="2" Style="{StaticResource PropertyName}"  Text="Место"/>
+                                        <TextBlock Grid.Row="2" Style="{StaticResource PropVal_OneLine}" x:Name="Part_EventPlace_tBlock"/>
 
-                                        <Label Grid.Row="3" Style="{StaticResource PropName}"  Content="Устройство"/>
-                                        <Label Grid.Row="3" Style="{StaticResource PropValue}" x:Name="Part_EventDevice_lbl"/>
+                                        <TextBlock Grid.Row="3" Style="{StaticResource PropertyName}"  Text="Устройство"/>
+                                        <TextBlock Grid.Row="3" Style="{StaticResource PropVal_OneLine}" x:Name="Part_EventDevice_tBlock"/>
 
-                                        <Label Grid.Row="4" Style="{StaticResource PropName}"  Content="Описание"/>
+                                        <TextBlock Grid.Row="4" Style="{StaticResource PropertyName}"  Text="Описание"/>
                                         <TextBlock Grid.Row="4" Style="{StaticResource PropVal_ThreLine}" x:Name="Part_EventDescription_tBlock"
                                                    FontWeight="Bold"/>
                                     </Grid>
@@ -130,11 +126,11 @@
 
                                 <Expander IsExpanded="True" Margin="3, 0">
                                     <Expander.Header>
-                                        <Label Name="Part_SnapshotHeader_lbl" Content="Изображение (✔/✖/?)" Style="{StaticResource PropsGroupTitle}"/>
+                                        <Label Name="Part_SnapshotHeader_label" Content="Изображение (✔/✖/?)" Style="{StaticResource PropsGroupTitle}"/>
                                     </Expander.Header>
                                     <Border Grid.Column="1" Grid.Row="1" BorderThickness="1" BorderBrush="SteelBlue" Background="AliceBlue" Height="200" CornerRadius="3" Margin="30,3,3,3">
                                         <Grid>
-                                            <Label x:Name="Part_ImagePlaceholder_lbl" Content="Изображение отсутствует" Foreground="SteelBlue" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                            <Label x:Name="Part_ImagePlaceholder_label" Content="Изображение отсутствует" Foreground="SteelBlue" HorizontalAlignment="Center" VerticalAlignment="Center"/>
                                             <Image x:Name="Part_EventSnapshot_img"  Stretch="Uniform" VerticalAlignment="Top" />
                                         </Grid>
                                     </Border>
@@ -166,7 +162,7 @@
                                         </Grid.RowDefinitions>
 
                                         <TextBlock Grid.Row="0" Style="{StaticResource PropertyName}" Text="Id события"/>
-                                        <Label Grid.Row="0" Style="{StaticResource PropValue}" x:Name="Part_EventId_lbl"/>
+                                        <TextBlock Grid.Row="0" Style="{StaticResource PropVal_OneLine}" x:Name="Part_EventId_tBlock"/>
 
                                         <TextBlock Grid.Row="1" Style="{StaticResource PropertyName}" Text="Id типа события"/>
                                         <TextBlock Grid.Row="1" Style="{StaticResource PropVal_OneLine}" x:Name="Part_EventTypeId_tBlock"/>
@@ -179,28 +175,28 @@
                                         <TextBlock Grid.Row="4" Style="{StaticResource PropertyName}" Text="Id устройства"/>
                                         <TextBlock Grid.Row="4" Style="{StaticResource PropVal_OneLine}" x:Name="Part_DeviceId_tBlock"/>
 
-                                        <Label Grid.Row="5" Style="{StaticResource PropName}"  Content="Тип устройства"/>
-                                        <Label Grid.Row="5" Style="{StaticResource PropValue}" x:Name="Part_DeviceType_lbl"/>
+                                        <TextBlock Grid.Row="5" Style="{StaticResource PropertyName}"  Text="Тип устройства"/>
+                                        <TextBlock Grid.Row="5" Style="{StaticResource PropVal_OneLine}" x:Name="Part_DeviceType_tBlock"/>
 
-                                        <Label Grid.Row="6" Style="{StaticResource PropName}"  Content="Класс устройства"/>
-                                        <Label Grid.Row="6" Style="{StaticResource PropValue}" x:Name="Part_DeviceClass_lbl"/>
+                                        <TextBlock Grid.Row="6" Style="{StaticResource PropertyName}"  Text="Класс устройства"/>
+                                        <TextBlock Grid.Row="6" Style="{StaticResource PropVal_OneLine}" x:Name="Part_DeviceClass_tBlock"/>
 
                                         <Separator Grid.Row="7" Style="{StaticResource PropSeparator}"/>
 
-                                        <Label Grid.Row="8" Style="{StaticResource PropName}"  Content="Id изображения"/>
-                                        <Label Grid.Row="8" Style="{StaticResource PropValue}" x:Name="Part_SnapshotId_lbl"/>
+                                        <TextBlock Grid.Row="8" Style="{StaticResource PropertyName}"  Text="Id изображения"/>
+                                        <TextBlock Grid.Row="8" Style="{StaticResource PropVal_OneLine}" x:Name="Part_SnapshotId_tBlock"/>
 
-                                        <Label Grid.Row="9" Style="{StaticResource PropName}"  Content="Дата изображения"/>
-                                        <Label Grid.Row="9" Style="{StaticResource PropValue}" x:Name="Part_SnapshotTime_lbl"/>
+                                        <TextBlock Grid.Row="9" Style="{StaticResource PropertyName}"  Text="Дата изображения"/>
+                                        <TextBlock Grid.Row="9" Style="{StaticResource PropVal_OneLine}" x:Name="Part_SnapshotTime_tBlock"/>
 
-                                        <Label Grid.Row="10" Style="{StaticResource PropName}"  Content="Размеры изображения"/>
-                                        <Label Grid.Row="10" Style="{StaticResource PropValue}" x:Name="Part_ShapshotSizes_lbl"/>
+                                        <TextBlock Grid.Row="10" Style="{StaticResource PropertyName}"  Text="Размеры изображения"/>
+                                        <TextBlock Grid.Row="10" Style="{StaticResource PropVal_OneLine}" x:Name="Part_ShapshotSizes_tBlock"/>
 
-                                        <Label Grid.Row="11" Style="{StaticResource PropName}"  Content="Mime тип изображения"/>
-                                        <Label Grid.Row="11" Style="{StaticResource PropValue}" x:Name="Part_SnapshotMimeType_lbl"/>
+                                        <TextBlock Grid.Row="11" Style="{StaticResource PropertyName}"  Text="Mime тип изображения"/>
+                                        <TextBlock Grid.Row="11" Style="{StaticResource PropVal_OneLine}" x:Name="Part_SnapshotMimeType_tBlock"/>
 
-                                        <Label Grid.Row="12" Style="{StaticResource PropName}"  Content="Название изображения"/>
-                                        <Label Grid.Row="12" Style="{StaticResource PropValue}" x:Name="Part_SnapshotName_lbl"/>
+                                        <TextBlock Grid.Row="12" Style="{StaticResource PropertyName}"  Text="Название изображения"/>
+                                        <TextBlock Grid.Row="12" Style="{StaticResource PropVal_OneLine}" x:Name="Part_SnapshotName_tBlock"/>
                                     </Grid>
                                 </Expander>
 
@@ -321,119 +317,119 @@
                                             <RowDefinition Height="Auto"/>
                                         </Grid.RowDefinitions>
 
-                                        <Label Grid.Row="0" Style="{StaticResource PropName}"  Content="Weight"/>
-                                        <Label Grid.Row="0" Style="{StaticResource PropValue}" x:Name="Part_edWeight_lbl"/>
+                                        <TextBlock Grid.Row="0" Style="{StaticResource PropertyName}" Text="Weight"/>
+                                        <TextBlock Grid.Row="0" Style="{StaticResource PropVal_OneLine}" x:Name="Part_edWeight_tBlock"/>
 
-                                        <Label Grid.Row="1" Style="{StaticResource PropName}"  Content="PrevWeight"/>
-                                        <Label Grid.Row="1" Style="{StaticResource PropValue}" x:Name="Part_edPrevWeight_lbl"/>
+                                        <TextBlock Grid.Row="1" Style="{StaticResource PropertyName}" Text="PrevWeight"/>
+                                        <TextBlock Grid.Row="1" Style="{StaticResource PropVal_OneLine}" x:Name="Part_edPrevWeight_tBlock"/>
 
-                                        <Label Grid.Row="2" Style="{StaticResource PropName}"  Content="Transaction"/>
-                                        <Label Grid.Row="2" Style="{StaticResource PropValue}" x:Name="Part_edTransaction_lbl"/>
+                                        <TextBlock Grid.Row="2" Style="{StaticResource PropertyName}" Text="Transaction"/>
+                                        <TextBlock Grid.Row="2" Style="{StaticResource PropVal_OneLine}" x:Name="Part_edTransaction_tBlock"/>
 
-                                        <Label Grid.Row="3" Style="{StaticResource PropName}"  Content="PrevTransaction"/>
-                                        <Label Grid.Row="3" Style="{StaticResource PropValue}" x:Name="Part_edPrevTransaction_lbl"/>
+                                        <TextBlock Grid.Row="3" Style="{StaticResource PropertyName}" Text="PrevTransaction"/>
+                                        <TextBlock Grid.Row="3" Style="{StaticResource PropVal_OneLine}" x:Name="Part_edPrevTransaction_tBlock"/>
 
-                                        <Label Grid.Row="4" Style="{StaticResource PropName}"  Content="TransactionDataCount"/>
-                                        <Label Grid.Row="4" Style="{StaticResource PropValue}" x:Name="Part_edTransactionDataCount_lbl"/>
+                                        <TextBlock Grid.Row="4" Style="{StaticResource PropertyName}" Text="TransactionDataCount"/>
+                                        <TextBlock Grid.Row="4" Style="{StaticResource PropVal_OneLine}" x:Name="Part_edTransactionDataCount_tBlock"/>
 
-                                        <Label Grid.Row="5" Style="{StaticResource PropName}"  Content="Stable"/>
-                                        <Label Grid.Row="5" Style="{StaticResource PropValue}" x:Name="Part_edStable_lbl"/>
+                                        <TextBlock Grid.Row="5" Style="{StaticResource PropertyName}" Text="Stable"/>
+                                        <TextBlock Grid.Row="5" Style="{StaticResource PropVal_OneLine}" x:Name="Part_edStable_tBlock"/>
 
-                                        <Label Grid.Row="6" Style="{StaticResource PropName}"  Content="Duration"/>
-                                        <Label Grid.Row="6" Style="{StaticResource PropValue}" x:Name="Part_edDuration_lbl"/>
+                                        <TextBlock Grid.Row="6" Style="{StaticResource PropertyName}" Text="Duration"/>
+                                        <TextBlock Grid.Row="6" Style="{StaticResource PropVal_OneLine}" x:Name="Part_edDuration_tBlock"/>
 
-                                        <Label Grid.Row="7" Style="{StaticResource PropName}"  Content="TransactionMaxWeight"/>
-                                        <Label Grid.Row="7" Style="{StaticResource PropValue}" x:Name="Part_edTransactionMaxWeight_lbl"/>
+                                        <TextBlock Grid.Row="7" Style="{StaticResource PropertyName}" Text="TransactionMaxWeight"/>
+                                        <TextBlock Grid.Row="7" Style="{StaticResource PropVal_OneLine}" x:Name="Part_edTransactionMaxWeight_tBlock"/>
 
-                                        <Label Grid.Row="8" Style="{StaticResource PropName}"  Content="Perimetr"/>
-                                        <Label Grid.Row="8" Style="{StaticResource PropValue}" x:Name="Part_edPerimetr_lbl"/>
+                                        <TextBlock Grid.Row="8" Style="{StaticResource PropertyName}" Text="Perimetr"/>
+                                        <TextBlock Grid.Row="8" Style="{StaticResource PropVal_OneLine}" x:Name="Part_edPerimetr_tBlock"/>
 
-                                        <Label Grid.Row="9" Style="{StaticResource PropName}"  Content="DriverInCar"/>
-                                        <Label Grid.Row="9" Style="{StaticResource PropValue}" x:Name="Part_edDriverInCar_lbl"/>
+                                        <TextBlock Grid.Row="9" Style="{StaticResource PropertyName}" Text="DriverInCar"/>
+                                        <TextBlock Grid.Row="9" Style="{StaticResource PropVal_OneLine}" x:Name="Part_edDriverInCar_tBlock"/>
 
-                                        <Label Grid.Row="10" Style="{StaticResource PropName}"  Content="Status"/>
-                                        <Label Grid.Row="10" Style="{StaticResource PropValue}" x:Name="Part_edStatus_lbl"/>
+                                        <TextBlock Grid.Row="10" Style="{StaticResource PropertyName}" Text="Status"/>
+                                        <TextBlock Grid.Row="10" Style="{StaticResource PropVal_OneLine}" x:Name="Part_edStatus_tBlock"/>
 
-                                        <Label Grid.Row="11" Style="{StaticResource PropName}"  Content="Reader"/>
-                                        <Label Grid.Row="11" Style="{StaticResource PropValue}" x:Name="Part_edReader_lbl"/>
+                                        <TextBlock Grid.Row="11" Style="{StaticResource PropertyName}" Text="Reader"/>
+                                        <TextBlock Grid.Row="11" Style="{StaticResource PropVal_OneLine}" x:Name="Part_edReader_tBlock"/>
 
-                                        <Label Grid.Row="12" Style="{StaticResource PropName}"  Content="Truck1"/>
-                                        <Label Grid.Row="12" Style="{StaticResource PropValue}" x:Name="Part_edTruck1_lbl"/>
+                                        <TextBlock Grid.Row="12" Style="{StaticResource PropertyName}" Text="Truck1"/>
+                                        <TextBlock Grid.Row="12" Style="{StaticResource PropVal_OneLine}" x:Name="Part_edTruck1_tBlock"/>
 
-                                        <Label Grid.Row="13" Style="{StaticResource PropName}"  Content="Truck2"/>
-                                        <Label Grid.Row="13" Style="{StaticResource PropValue}" x:Name="Part_edTruck2_lbl"/>
+                                        <TextBlock Grid.Row="13" Style="{StaticResource PropertyName}" Text="Truck2"/>
+                                        <TextBlock Grid.Row="13" Style="{StaticResource PropVal_OneLine}" x:Name="Part_edTruck2_tBlock"/>
 
-                                        <Label Grid.Row="14" Style="{StaticResource PropName}"  Content="ItemName"/>
-                                        <Label Grid.Row="14" Style="{StaticResource PropValue}" x:Name="Part_edItemName_lbl"/>
+                                        <TextBlock Grid.Row="14" Style="{StaticResource PropertyName}" Text="ItemName"/>
+                                        <TextBlock Grid.Row="14" Style="{StaticResource PropVal_OneLine}" x:Name="Part_edItemName_tBlock"/>
 
-                                        <Label Grid.Row="15" Style="{StaticResource PropName}"  Content="OperationName"/>
-                                        <Label Grid.Row="15" Style="{StaticResource PropValue}" x:Name="Part_edOperationName_lbl"/>
+                                        <TextBlock Grid.Row="15" Style="{StaticResource PropertyName}" Text="OperationName"/>
+                                        <TextBlock Grid.Row="15" Style="{StaticResource PropVal_OneLine}" x:Name="Part_edOperationName_tBlock"/>
 
-                                        <Label Grid.Row="16" Style="{StaticResource PropName}"  Content="OperationType"/>
-                                        <Label Grid.Row="16" Style="{StaticResource PropValue}" x:Name="Part_edOparationType_lbl"/>
+                                        <TextBlock Grid.Row="16" Style="{StaticResource PropertyName}" Text="OperationType"/>
+                                        <TextBlock Grid.Row="16" Style="{StaticResource PropVal_OneLine}" x:Name="Part_edOparationType_tBlock"/>
 
-                                        <Label Grid.Row="17" Style="{StaticResource PropName}"  Content="On"/>
-                                        <Label Grid.Row="17" Style="{StaticResource PropValue}" x:Name="Part_edOn_lbl"/>
+                                        <TextBlock Grid.Row="17" Style="{StaticResource PropertyName}" Text="On"/>
+                                        <TextBlock Grid.Row="17" Style="{StaticResource PropVal_OneLine}" x:Name="Part_edOn_tBlock"/>
 
-                                        <Label Grid.Row="18" Style="{StaticResource PropName}"  Content="Waybill"/>
-                                        <Label Grid.Row="18" Style="{StaticResource PropValue}" x:Name="Part_edWaybill_lbl"/>
+                                        <TextBlock Grid.Row="18" Style="{StaticResource PropertyName}" Text="Waybill"/>
+                                        <TextBlock Grid.Row="18" Style="{StaticResource PropVal_OneLine}" x:Name="Part_edWaybill_tBlock"/>
 
-                                        <Label Grid.Row="19" Style="{StaticResource PropName}"  Content="TransactionWaybill"/>
-                                        <Label Grid.Row="19" Style="{StaticResource PropValue}" x:Name="Part_edTransactionWaybill_lbl"/>
+                                        <TextBlock Grid.Row="19" Style="{StaticResource PropertyName}" Text="TransactionWaybill"/>
+                                        <TextBlock Grid.Row="19" Style="{StaticResource PropVal_OneLine}" x:Name="Part_edTransactionWaybill_tBlock"/>
 
-                                        <Label Grid.Row="20" Style="{StaticResource PropName}"  Content="State"/>
-                                        <Label Grid.Row="20" Style="{StaticResource PropValue}" x:Name="Part_edState_lbl"/>
+                                        <TextBlock Grid.Row="20" Style="{StaticResource PropertyName}" Text="State"/>
+                                        <TextBlock Grid.Row="20" Style="{StaticResource PropVal_OneLine}" x:Name="Part_edState_tBlock"/>
 
-                                        <Label Grid.Row="21" Style="{StaticResource PropName}"  Content="Weight1"/>
-                                        <Label Grid.Row="21" Style="{StaticResource PropValue}" x:Name="Part_edWeight1_lbl"/>
+                                        <TextBlock Grid.Row="21" Style="{StaticResource PropertyName}" Text="Weight1"/>
+                                        <TextBlock Grid.Row="21" Style="{StaticResource PropVal_OneLine}" x:Name="Part_edWeight1_tBlock"/>
 
-                                        <Label Grid.Row="22" Style="{StaticResource PropName}"  Content="Weight2"/>
-                                        <Label Grid.Row="22" Style="{StaticResource PropValue}" x:Name="Part_edWeight2_lbl"/>
+                                        <TextBlock Grid.Row="22" Style="{StaticResource PropertyName}" Text="Weight2"/>
+                                        <TextBlock Grid.Row="22" Style="{StaticResource PropVal_OneLine}" x:Name="Part_edWeight2_tBlock"/>
 
-                                        <Label Grid.Row="23" Style="{StaticResource PropName}"  Content="WeightCenter"/>
-                                        <Label Grid.Row="23" Style="{StaticResource PropValue}" x:Name="Part_edWeightCenter_lbl"/>
+                                        <TextBlock Grid.Row="23" Style="{StaticResource PropertyName}" Text="WeightCenter"/>
+                                        <TextBlock Grid.Row="23" Style="{StaticResource PropVal_OneLine}" x:Name="Part_edWeightCenter_tBlock"/>
 
-                                        <Label Grid.Row="24" Style="{StaticResource PropName}"  Content="Command"/>
-                                        <Label Grid.Row="24" Style="{StaticResource PropValue}" x:Name="Part_edCommand_lbl"/>
+                                        <TextBlock Grid.Row="24" Style="{StaticResource PropertyName}" Text="Command"/>
+                                        <TextBlock Grid.Row="24" Style="{StaticResource PropVal_OneLine}" x:Name="Part_edCommand_tBlock"/>
 
-                                        <Label Grid.Row="25" Style="{StaticResource PropName}"  Content="User"/>
-                                        <Label Grid.Row="25" Style="{StaticResource PropValue}" x:Name="Part_edUser_lbl"/>
+                                        <TextBlock Grid.Row="25" Style="{StaticResource PropertyName}" Text="User"/>
+                                        <TextBlock Grid.Row="25" Style="{StaticResource PropVal_OneLine}" x:Name="Part_edUser_tBlock"/>
 
-                                        <Label Grid.Row="26" Style="{StaticResource PropName}"  Content="Id"/>
-                                        <Label Grid.Row="26" Style="{StaticResource PropValue}" x:Name="Part_edId_lbl"/>
+                                        <TextBlock Grid.Row="26" Style="{StaticResource PropertyName}" Text="Id"/>
+                                        <TextBlock Grid.Row="26" Style="{StaticResource PropVal_OneLine}" x:Name="Part_edId_tBlock"/>
 
-                                        <Label Grid.Row="27" Style="{StaticResource PropName}"  Content="EPC"/>
-                                        <Label Grid.Row="27" Style="{StaticResource PropValue}" x:Name="Part_edEPC_lbl"/>
+                                        <TextBlock Grid.Row="27" Style="{StaticResource PropertyName}" Text="EPC"/>
+                                        <TextBlock Grid.Row="27" Style="{StaticResource PropVal_OneLine}" x:Name="Part_edEPC_tBlock"/>
 
-                                        <Label Grid.Row="28" Style="{StaticResource PropName}"  Content="AccessLevel"/>
-                                        <Label Grid.Row="28" Style="{StaticResource PropValue}" x:Name="Part_edAccessLevel_lbl"/>
+                                        <TextBlock Grid.Row="28" Style="{StaticResource PropertyName}" Text="AccessLevel"/>
+                                        <TextBlock Grid.Row="28" Style="{StaticResource PropVal_OneLine}" x:Name="Part_edAccessLevel_tBlock"/>
 
-                                        <Label Grid.Row="29" Style="{StaticResource PropName}"  Content="AmbientTemperature"/>
-                                        <Label Grid.Row="29" Style="{StaticResource PropValue}" x:Name="Part_edAmbientTemperature_lbl"/>
+                                        <TextBlock Grid.Row="29" Style="{StaticResource PropertyName}" Text="AmbientTemperature"/>
+                                        <TextBlock Grid.Row="29" Style="{StaticResource PropVal_OneLine}" x:Name="Part_edAmbientTemperature_tBlock"/>
 
-                                        <Label Grid.Row="30" Style="{StaticResource PropName}"  Content="AnalysisCounter"/>
-                                        <Label Grid.Row="30" Style="{StaticResource PropValue}" x:Name="Part_edAnalysisCounter_lbl"/>
+                                        <TextBlock Grid.Row="30" Style="{StaticResource PropertyName}" Text="AnalysisCounter"/>
+                                        <TextBlock Grid.Row="30" Style="{StaticResource PropVal_OneLine}" x:Name="Part_edAnalysisCounter_tBlock"/>
 
-                                        <Label Grid.Row="31" Style="{StaticResource PropName}"  Content="Subsample_Id"/>
-                                        <Label Grid.Row="31" Style="{StaticResource PropValue}" x:Name="Part_edSubsampleId_lbl"/>
+                                        <TextBlock Grid.Row="31" Style="{StaticResource PropertyName}" Text="Subsample_Id"/>
+                                        <TextBlock Grid.Row="31" Style="{StaticResource PropVal_OneLine}" x:Name="Part_edSubsampleId_tBlock"/>
 
-                                        <Label Grid.Row="32" Style="{StaticResource PropName}"  Content="SubsampleNrOfSubsamples"/>
+                                        <TextBlock Grid.Row="32" Style="{StaticResource PropertyName}" Text="SubsampleNrOfSubsamples"/>
                                         <TextBlock Grid.Row="32" Style="{StaticResource PropVal_OneLine}" x:Name="Part_edSubsampleNrOfSubsamples_tBlock"/>
 
-                                        <Label Grid.Row="33" Style="{StaticResource PropName}"  Content="SampleHash"/>
+                                        <TextBlock Grid.Row="33" Style="{StaticResource PropertyName}" Text="SampleHash"/>
                                         <TextBlock Grid.Row="33" Style="{StaticResource PropVal_ThreLine}" x:Name="Part_edSampleHash_tBlock"/>
 
-                                        <Label Grid.Row="34" Style="{StaticResource PropName}"  Content="ProtDM"/>
-                                        <Label Grid.Row="34" Style="{StaticResource PropValue}" x:Name="Part_edProtDM_lbl"/>
+                                        <TextBlock Grid.Row="34" Style="{StaticResource PropertyName}" Text="ProtDM"/>
+                                        <TextBlock Grid.Row="34" Style="{StaticResource PropVal_OneLine}" x:Name="Part_edProtDM_tBlock"/>
 
-                                        <Label Grid.Row="35" Style="{StaticResource PropName}"  Content="Moisture"/>
-                                        <Label Grid.Row="35" Style="{StaticResource PropValue}" x:Name="Part_edMoisture_lbl"/>
+                                        <TextBlock Grid.Row="35" Style="{StaticResource PropertyName}" Text="Moisture"/>
+                                        <TextBlock Grid.Row="35" Style="{StaticResource PropVal_OneLine}" x:Name="Part_edMoisture_tBlock"/>
 
-                                        <Label Grid.Row="36" Style="{StaticResource PropName}"  Content="OilDM"/>
-                                        <Label Grid.Row="36" Style="{StaticResource PropValue}" x:Name="Part_edOilDM_lbl"/>
+                                        <TextBlock Grid.Row="36" Style="{StaticResource PropertyName}" Text="OilDM"/>
+                                        <TextBlock Grid.Row="36" Style="{StaticResource PropVal_OneLine}" x:Name="Part_edOilDM_tBlock"/>
 
-                                        <Label Grid.Row="37" Style="{StaticResource PropName}"  Content="StarchDM"/>
-                                        <Label Grid.Row="37" Style="{StaticResource PropValue}" x:Name="Part_edStarchDM_lbl"/>
+                                        <TextBlock Grid.Row="37" Style="{StaticResource PropertyName}" Text="StarchDM"/>
+                                        <TextBlock Grid.Row="37" Style="{StaticResource PropVal_OneLine}" x:Name="Part_edStarchDM_tBlock"/>
                                     </Grid>
                                 </Expander>
 

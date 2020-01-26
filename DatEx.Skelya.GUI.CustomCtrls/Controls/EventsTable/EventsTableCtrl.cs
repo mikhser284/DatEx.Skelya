@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.ComponentModel;
 using System.Data;
 using System.Globalization;
 using System.Linq;
@@ -121,6 +122,14 @@ namespace DatEx.Skelya.GUI.CustomCtrls.Controls
                 Mode = BindingMode.OneWay
             };
             BindingOperations.SetBinding(this, EventsTableCtrl.SelectedEventProperty, selectedItemBinding);
+
+            //Grouping by device
+            //ICollectionView devices = CollectionViewSource.GetDefaultView(Part_DataTable_dGrid.ItemsSource);
+            //if (devices != null && devices.CanGroup == true)
+            //{
+            //    devices.GroupDescriptions.Clear();
+            //    devices.GroupDescriptions.Add(new PropertyGroupDescription("DeviceName"));
+            //}
         }
     }
     #endregion ■■■■■ ControlParts
